@@ -2,10 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const articlesSlice = createSlice({
   name: "articles",
-  initialState: { allArticlesData: [] },
+  initialState: {
+    allArticlesData: [],
+  },
   reducers: {
     setArticlesData(state, action) {
+        
       state.allArticlesData = action.payload;
+      console.log(state.allArticlesData)
     },
   },
 });
