@@ -1,10 +1,15 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import router from './Router/index'
+
 function App() {
-  return <>Nav</>;
+
+ return (
+    <RouterProvider router={router} />
+    
+  );
+
 }
 
 export default App;
