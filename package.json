@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.5.0",
     "bootstrap": "^5.3.1",
@@ -18,12 +17,6 @@
     "react-bootstrap": "^2.8.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.15.0"
-=======
-    "axios": "^1.5.0",
-    "react": "^18.2.0",
-    "react-bootstrap": "^2.8.0",
-    "react-dom": "^18.2.0"
->>>>>>> 196995fb6f50d9dc5e5dd51568ce43d2bc303cba
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
