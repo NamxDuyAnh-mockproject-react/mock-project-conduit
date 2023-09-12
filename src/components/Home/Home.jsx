@@ -1,13 +1,14 @@
-import axios from "axios";
+
 import React from "react";
-import { useState, useEffect } from "react";
-import Card from "react-bootstrap/Card";
+import { useEffect } from "react";
+
 import { Col, Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllArticles } from "../../Store/actions/articles.action";
+import Tag from "../Tag/Tag";
 const Home = () => {
   const dispatch = useDispatch();
   const articles = useSelector((state) => state.articles.allArticlesData);
@@ -22,8 +23,8 @@ const Home = () => {
           <Col md={9}>
             {articles?.map((article) => {
               return (
-                <div key={article.slug} >
-                  <Row  className="article-preview">
+                <div key={article.slug}>
+                  <Row className="article-preview">
                     <Row>
                       <Col>
                         <img src={article.author.image} alt="" />
@@ -47,12 +48,7 @@ const Home = () => {
             })}
           </Col>
 
-          <Col md={3}>
-            <h3>Tags</h3>
-            {articles?.map((article) => {
-              return <Link key={article.slug} variant="secondary">{article.tagList}</Link>;
-            })}
-          </Col>
+          <Tag />
         </Row>
       </Container>
     </>
