@@ -27,11 +27,15 @@ const Home = () => {
                 <div key={article.slug} >
                   <Row  className="article-preview">
                     <Row>
-                      <Col>
-                        <img src={article.author.image} alt="" />
-                      </Col>
-                      <Col>{article.author.username}</Col>
-                      <Col>favorites</Col>
+                        <Col md={2}>
+                            <img className={styles.avatar} src={article.author.image} alt="avatar" />
+                        </Col>
+                        <Col md={8}>
+                            <Link>
+                                <span>{article.author.username}</span>
+                            </Link>
+                        </Col>
+                      <Col md={2}>favorites</Col>
                     </Row>
                     <Row>
                       <div className="">

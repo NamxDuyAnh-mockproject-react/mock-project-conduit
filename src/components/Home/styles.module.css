@@ -1,0 +1,9 @@
+.avatar{
+    width: 20%;
+    border-radius: 50%;
+}
+.header-article{
+    display: flex;
+    flex-direction: row;
+
+}
