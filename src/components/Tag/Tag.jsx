@@ -12,11 +12,11 @@ function Tag(props) {
     dispatch(fetchAllTag());
   }, [dispatch]);
   return (
-    <Col md={3}>
+    <Col md={2}>
       <h3>Tags</h3>
       {tags?.map((tag) => {
         return (
-          <Link key={tag} variant="secondary">
+          <Link key={tag} to={tag} variant="secondary">
             {tag}
           </Link>
         );

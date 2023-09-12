@@ -1,7 +1,7 @@
-import axios from "axios";
+
 import React from "react";
-import { useState, useEffect } from "react";
-import Card from "react-bootstrap/Card";
+import { useEffect } from "react";
+
 import { Col, Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
