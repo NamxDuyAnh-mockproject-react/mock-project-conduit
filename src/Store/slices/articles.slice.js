@@ -3,14 +3,14 @@ import { createSlice } from "@reduxjs/toolkit";
 const articlesSlice = createSlice({
   name: "articles",
   initialState: {
-    allArticlesData: [],
+    allArticlesData: []
   },
   reducers: {
     setArticlesData(state, action) {
         
       state.allArticlesData = action.payload;
-      console.log(state.allArticlesData)
-    },
+      
+    }
   },
 });
 

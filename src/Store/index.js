@@ -2,11 +2,12 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import articlesReducer from "./slices/articles.slice";
 import createSagaMiddleware from "redux-saga";
 import { rootSaga } from "./sagas/root.saga";
-
+import tagReducer from "./slices/tag.slice"
 const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
   articles: articlesReducer,
+  tag: tagReducer
 });
 
 // Tạo store
