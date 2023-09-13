@@ -11,9 +11,20 @@ class ArticlesService {
       };
     }
   };
-  createArticles = async ({config}) => {
+  createArticles = async ({ config }) => {
     try {
-      const res = await conduitAxios.post("/articles",config);
+      const res = await conduitAxios.post("/articles", config);
+      return res.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
+  fetchDetailArticles = async ({ slug }) => {
+    try {
+      const res = await conduitAxios.get(`/articles/${slug}`);
+
       return res.data;
     } catch (error) {
       return {
