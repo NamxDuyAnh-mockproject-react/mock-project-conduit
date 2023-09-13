@@ -14,8 +14,11 @@ export function* createArticleSaga(action) {
   yield call(articlesService.createArticles, action.payload);
 }
 
-export function* fetchDetailArticlesSaga() {
-  const article = yield call(articlesService.fetchDetailArticles);
+export function* fetchDetailArticlesSaga(action) {
+  const article = yield call(
+    articlesService.fetchDetailArticles,
+    action.payload
+  );
   yield put(setDetailArticle(article));
 }
 

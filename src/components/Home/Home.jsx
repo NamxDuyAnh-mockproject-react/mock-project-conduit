@@ -4,7 +4,10 @@ import { Col, Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import styles from "./styles.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllArticles } from "../../Store/actions/articles.action";
+import {
+  fetchAllArticles,
+  fetchDetailArticles,
+} from "../../Store/actions/articles.action";
 import Tag from "../Tag/Tag";
 const Home = () => {
   const dispatch = useDispatch();
@@ -13,6 +16,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(fetchAllArticles());
   }, [dispatch]);
+
   return (
     <>
       <Container>
@@ -21,25 +25,27 @@ const Home = () => {
             {articles?.map((article) => {
               return (
                 <div key={article.slug}>
-                  <Row className="article-preview">
-                    <Row>
-                      <Col>
-                        <img src={article.author.image} alt="" />
-                      </Col>
+                  <Link to={`../articles/${article.slug}`}>
+                    <Row className="article-preview">
+                      <Row>
+                        <Col>
+                          <img src={article.author.image} alt="" />
+                        </Col>
 
-                      <Col>{article.author.username}</Col>
+                        <Col>{article.author.username}</Col>
 
-                      <Col>favorites</Col>
+                        <Col>favorites</Col>
+                      </Row>
+
+                      <Row>
+                        <div className="">
+                          <h3>{article.title}</h3>
+
+                          <p>{article.description}</p>
+                        </div>
+                      </Row>
                     </Row>
-
-                    <Row>
-                      <div className="">
-                        <h3>{article.title}</h3>
-
-                        <p>{article.description}</p>
-                      </div>
-                    </Row>
-                  </Row>
+                  </Link>
                 </div>
               );
             })}
