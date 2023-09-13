@@ -12,7 +12,8 @@ const Login = () => {
     const { loading, error } = useSelector((state) => state.auth);
 
     const handleLogin = () => {
-        dispatch(login(email, password));
+        dispatch(login({email, password}));
+        
     };
     return (
         <>

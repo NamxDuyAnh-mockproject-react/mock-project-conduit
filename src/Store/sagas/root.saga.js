@@ -1,6 +1,7 @@
-
-import { loginSaga, watchLogin } from "../sagas/auth.sage";
-import { login } from "../actions/auth.action";
+import { fetchUser } from "../actions/auth.action";
+import { checkLoginSaga } from "../sagas/auth.sage";
+import { createUser } from "../actions/auth.action";
+import { registerUserSaga } from "../sagas/register.saga";
 import {
   fetchArticlesSaga,
   createArticleSaga,
@@ -19,9 +20,9 @@ export function* rootSaga() {
   yield all([
     takeEvery(fetchAllArticles, fetchArticlesSaga),
     takeEvery(createArticles, createArticleSaga),
-    takeEvery(loginSaga, watchLogin),
-    takeEvery(login),
     takeEvery(fetchAllTag, fetchTagSaga),
     takeEvery(fetchDetailArticles, fetchDetailArticlesSaga),
+    takeEvery(fetchUser, checkLoginSaga),
+    takeEvery(createUser, registerUserSaga)
   ]);
 }

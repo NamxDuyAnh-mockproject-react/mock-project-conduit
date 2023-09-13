@@ -1,21 +1,13 @@
-import { call, put, takeLatest } from "redux-saga/effects";
-import authService from "../services/auth.service";
-import { loginStart, loginSuccess, loginFailure } from "../redux/authSlice";
+import { call, put } from "redux-saga/effects";
+import { login, loginSuccess, loginFail } from "../slices/auth.slice"
+import authService from "../../http/services/auth.service"
 
-function* loginSaga(action) {
-  try {
-    yield put(loginStart());
-    const user = yield call(
-      authService.login,
-      action.payload.email,
-      action.payload.password
-    );
-    yield put(loginSuccess(user));
-  } catch (error) {
-    yield put(loginFailure(error.message));
+export function* checkLoginSaga() {
+  const data = yield call(authService.login);
+
+  if (data.error) {
+    yield put(loginFail(data))
+  } else {
+    yield put(loginSuccess(data))
   }
-}
-
-export function* watchLogin() {
-  yield takeLatest("auth/login", loginSaga);
 }
