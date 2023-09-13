@@ -1,12 +1,6 @@
-import { loginStart, loginSuccess, loginFailure } from "../slices/auth.slice";
-import authService from "../../http/services/auth.service";
+import { createAction } from "@reduxjs/toolkit";
 
-export const login = (email, password) => async (dispatch) => {
-  try {
-    dispatch(loginStart());
-    const user = await authService.login(email, password);
-    dispatch(loginSuccess(user));
-  } catch (error) {
-    dispatch(loginFailure(error.message));
-  }
-};
+export const createUser = createAction("CREATE_USER");
+export const fetchUser = createAction("FETCH_USER");
+
+export const login = createAction("LOGIN");

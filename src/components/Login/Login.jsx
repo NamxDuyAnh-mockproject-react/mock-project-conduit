@@ -4,16 +4,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Container } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
-import { login } from '../../Store/actions/auth.action';
+
+// import { login } from '../../Store/actions/auth.action';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const dispatch = useDispatch();
     const { loading, error } = useSelector((state) => state.auth);
+     const dispatch = useDispatch();
 
-    const handleLogin = () => {
-        dispatch(login(email, password));
-    };
+    // const handleLogin = () => {
+    //     dispatch(login(email, password));
+    // };
+
+    const handleLoginClick = () => {
+        dispatch(authAction.login({
+            username:'',
+            password: '',
+        }))
+    }
+
     return (
         <>
             <Container>
@@ -33,7 +42,7 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}/>
                     </Form.Group>
 
-                    <Button variant="primary" onClick={handleLogin} disabled={loading}>
+                    <Button variant="primary" onClick={handleLoginClick}  disabled={loading}>
                         {loading ? 'Logging in...' : 'Login'}
                     </Button>
                 </Form>
