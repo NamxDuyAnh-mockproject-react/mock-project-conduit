@@ -4,11 +4,12 @@ import { store } from './Store';
 import router from './Router/index'
 import { Provider } from 'react-redux';
 function App() {
-
- return (
-  <Provider store={store}>
-    <RouterProvider router={router} />
+  return (
+    <Provider store={store}>
+      <RouterProvider router={router} />
     </Provider>
+    
+
   );
 
 }
