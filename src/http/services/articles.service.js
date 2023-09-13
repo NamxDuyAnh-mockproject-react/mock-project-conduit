@@ -23,7 +23,8 @@ class ArticlesService {
   };
   fetchDetailArticles = async ({ slug }) => {
     try {
-      const res = await conduitAxios.post(`/articles/${slug}`);
+      const res = await conduitAxios.get(`/articles/${slug}`);
+
       return res.data;
     } catch (error) {
       return {
