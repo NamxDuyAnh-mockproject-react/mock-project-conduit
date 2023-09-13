@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+import { fetchUser } from "../actions/auth.action";
+import { checkLoginSaga } from "../sagas/auth.sage";
+import { createUser } from "../actions/auth.action";
+import { registerUserSaga } from "../sagas/register.saga";
+>>>>>>> main
 import {
   fetchArticlesSaga,
   createArticleSaga,
@@ -11,11 +18,20 @@ import {
 } from "../actions/articles.action";
 import { fetchTagSaga } from "./tag.saga";
 import { fetchAllTag } from "../actions/tag.actions";
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 export function* rootSaga() {
   yield all([
     takeEvery(fetchAllArticles, fetchArticlesSaga),
     takeEvery(createArticles, createArticleSaga),
     takeEvery(fetchAllTag, fetchTagSaga),
     takeEvery(fetchDetailArticles, fetchDetailArticlesSaga),
+<<<<<<< HEAD
+=======
+    takeEvery(fetchUser, checkLoginSaga),
+    takeEvery(createUser, registerUserSaga)
+>>>>>>> main
   ]);
 }

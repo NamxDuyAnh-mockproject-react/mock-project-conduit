@@ -5,7 +5,7 @@ import { Container } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 
-// import { login } from '../../Store/actions/auth.action';
+import { login } from '../../Store/actions/auth.action';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -16,13 +16,12 @@ const Login = () => {
     //     dispatch(login(email, password));
     // };
 
-    const handleLoginClick = () => {
-        dispatch(authAction.login({
-            username:'',
-            password: '',
-        }))
-    }
 
+
+    const handleLogin = () => {
+        dispatch(login({email, password}));
+        
+    };
     return (
         <>
             <Container>
@@ -42,7 +41,7 @@ const Login = () => {
                         onChange={(e) => setPassword(e.target.value)}/>
                     </Form.Group>
 
-                    <Button variant="primary" onClick={handleLoginClick}  disabled={loading}>
+                    <Button variant="primary" onClick={handleLogin}  disabled={loading}>
                         {loading ? 'Logging in...' : 'Login'}
                     </Button>
                 </Form>
