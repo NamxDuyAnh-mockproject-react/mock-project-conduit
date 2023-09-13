@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect } from "react";
 import { Col, Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -53,10 +52,13 @@ const Home = () => {
           </Col>
 
           <Tag />
+
         </Row>
       </Container>
     </>
   );
 };
 
+
 export default Home;
+
