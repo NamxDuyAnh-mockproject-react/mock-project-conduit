@@ -4,6 +4,7 @@ import Login from "../components/Login/Login";
 import Header from "../components/Header/Header";
 import Register from "../components/Register/Register";
 import TagDetail from "../components/Tag/TagDetail";
+import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: "home",
         element: <Home />,
+      },
+      {
+        path: "articles/:slug",
+        element: <ArticleDetail />,
       },
       {
         path: "login",
