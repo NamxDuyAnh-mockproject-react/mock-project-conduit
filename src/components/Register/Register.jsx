@@ -3,12 +3,12 @@ import { Container } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { userRegistered } from '../../Store/slices/register.slice';
+//import { useNavigate } from 'react-router-dom';
+import {createUser} from '../../Store/actions/auth.action'
 
 const Register = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const[formData, setFormData] = useState({});
 
     const handleChange = (e) =>{
@@ -18,8 +18,9 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(userRegistered(formData));
-        navigate('/home');
+        dispatch(createUser(formData));
+        
+        // navigate('/home');
     }
 
     return (

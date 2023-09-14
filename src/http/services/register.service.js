@@ -1,12 +1,19 @@
 import { conduitAxios } from "../axios-instance";
 
-export const fetchRegisterUser = async (userData) => {
+class RegisterUser {
+  fetchRegisterUser = async (userData) => {
     try {
-        const response = await conduitAxios.post('users', {
-            user: userData,
-        });
-        return response.data
+      const response = await conduitAxios.post("users", {
+        user: userData,
+      });
+      console.log(response);
+      return response.data;
     } catch (error) {
-        return { error: error.mesage }
+      return {
+        error: error,
+      };
     }
+  };
 }
+
+export default new RegisterUser();
