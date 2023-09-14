@@ -9,6 +9,7 @@ import {
   fetchDetailArticles,
 } from "../../Store/actions/articles.action";
 import Tag from "../Tag/Tag";
+import { Link } from "react-router-dom";
 const Home = () => {
   const dispatch = useDispatch();
   const articles = useSelector((state) => state.articles.allArticlesData);

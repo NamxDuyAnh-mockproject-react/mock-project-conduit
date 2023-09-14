@@ -3,14 +3,14 @@ import { userRegistered, registeredFailed } from "../slices/register.slice";
 import { fetchRegisterUser } from "../../http/services/register.service";
 
 export function* registerUserSaga(action) {
-    try {
-        const response = yield call(fetchRegisterUser, action.payload);
-        const token = response.data.token;
+  try {
+    const response = yield call(fetchRegisterUser, action.payload);
 
-        yield put(userRegistered(response.data.user))
+    const token = response.user.token;
+    localStorage.setItem("token", JSON.stringify(token));
 
-        localStorage.setItem('token', token);
-    } catch (error) {
-        yield put(registeredFailed(error.message));
-    }
+    yield put(userRegistered(response.data.user));
+  } catch (error) {
+    yield put(registeredFailed(error.message));
+  }
 }
