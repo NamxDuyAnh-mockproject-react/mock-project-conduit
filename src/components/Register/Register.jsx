@@ -5,7 +5,7 @@ import {Button} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { userRegistered } from '../../Store/slices/register.slice';
-
+import { createUser } from '../../Store/actions/auth.action';
 const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -18,8 +18,8 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(userRegistered(formData));
-        navigate('/home');
+        dispatch(createUser(formData));
+        
     }
 
     return (
