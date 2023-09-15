@@ -1,6 +1,6 @@
 import { call, put } from "redux-saga/effects";
 
-import { setArticlesData, setDetailArticle } from "../slices/articles.slice";
+import { setArticlesData, setDetailArticle,setCommentsData } from "../slices/articles.slice";
 import articlesService from "../../http/services/articles.service";
 
 export function* fetchArticlesSaga() {
@@ -20,3 +20,11 @@ export function* fetchDetailArticlesSaga(action) {
   );
   yield put(setDetailArticle(article));
 }
+
+
+export function* fetchCommentsSaga(action) {
+  const response = yield call(articlesService.fetchAllComment,action.payload);
+  
+  yield put(setCommentsData(response.comments));
+}
+

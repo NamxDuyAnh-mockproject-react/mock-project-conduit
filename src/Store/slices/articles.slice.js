@@ -5,17 +5,25 @@ const articlesSlice = createSlice({
   initialState: {
     allArticlesData: [],
     detailArticle: {},
+    allCommentsData:[]
   },
   reducers: {
     setArticlesData(state, action) {
       state.allArticlesData = action.payload;
     },
     setDetailArticle(state, action) {
-      console.log(action.payload);
+      
       state.detailArticle = action.payload;
     },
+    setCommentsData(state,action){
+   
+      state.allCommentsData = action.payload;
+    }
   },
 });
 
-export const { setArticlesData, setDetailArticle } = articlesSlice.actions;
+
+
+export const { setArticlesData, setDetailArticle,setCommentsData } = articlesSlice.actions;
+
 export default articlesSlice.reducer;
