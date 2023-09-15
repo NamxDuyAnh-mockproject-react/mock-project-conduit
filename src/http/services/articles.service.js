@@ -32,6 +32,7 @@ class ArticlesService {
       };
     }
   };
+
   fetchAllComment = async ({ slug }) => {
     try {
       console.log(slug);

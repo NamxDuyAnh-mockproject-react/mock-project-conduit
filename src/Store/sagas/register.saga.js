@@ -7,9 +7,10 @@ export function* registerUserSaga(action) {
     const response = yield call(authService.fetchRegisterUser, action.payload);
 
     const token = response.user.token;
+
     localStorage.setItem("token", JSON.stringify(token));
 
-    yield put(userRegistered(response.data.user));
+    yield put(userRegistered(response.user));
   } catch (error) {
     yield put(registeredFailed(error.message));
   }

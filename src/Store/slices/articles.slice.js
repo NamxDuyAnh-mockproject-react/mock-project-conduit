@@ -22,4 +22,5 @@ const articlesSlice = createSlice({
 
 export const { setArticlesData, setDetailArticle, setCommentsData } =
   articlesSlice.actions;
+
 export default articlesSlice.reducer;

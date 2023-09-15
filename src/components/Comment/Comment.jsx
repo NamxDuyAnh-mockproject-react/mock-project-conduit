@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
-import { Col } from "react-bootstrap";
+import { Col, FormGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchAllComments } from "../../Store/actions/articles.action";
 import { Link } from "react-router-dom";
+import { Form } from "react-bootstrap";
+import Row from "react-bootstrap/Row";
 function Comment(props) {
   const slug = useParams();
   const dispatch = useDispatch();
@@ -22,7 +24,13 @@ function Comment(props) {
           article.
         </div>
       ) : (
-        <div></div>
+        <Row>
+          <Col xs={8} md={6} className="mx-auto">
+            <Form>
+              <Form.Control as="textarea" aria-label="With textarea" />
+            </Form>
+          </Col>
+        </Row>
       )}
     </div>
   );
