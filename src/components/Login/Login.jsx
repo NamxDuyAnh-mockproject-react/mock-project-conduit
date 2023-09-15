@@ -1,24 +1,30 @@
-import React from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Container } from "react-bootstrap";
-import { Form } from "react-bootstrap";
-import { Button } from "react-bootstrap";
-import { login } from "../../Store/actions/auth.action";
+
+import React from 'react';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Container } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
+
+import { fetchUser } from '../../Store/actions/auth.action';
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.auth);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const { loading, error } = useSelector((state) => state.auth);
+     const dispatch = useDispatch();
+
+
+
+
 
   const handleLogin = () => {
-    dispatch(login({ email, password }));
+    dispatch(fetchUser({ email, password }));
   };
   return (
     <>
       <Container>
         <h1>Sign In</h1>
-        {error && <p>{error}</p>}
+        {error && <p>{JSON.stringify(error.response.data.errors)}</p>}
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -40,13 +46,14 @@ const Login = () => {
             />
           </Form.Group>
 
-          <Button variant="primary" onClick={handleLogin} disabled={loading}>
-            {loading ? "Logging in..." : "Login"}
-          </Button>
-        </Form>
-      </Container>
-    </>
-  );
+                    <Button variant="primary" onClick={handleLogin}  disabled={loading}>
+                        {loading ? 'Logging in...' : 'Login'}
+                    </Button>
+                </Form>
+            </Container>
+        </>
+    );
+
 };
 
 export default Login;

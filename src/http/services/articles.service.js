@@ -21,7 +21,6 @@ class ArticlesService {
       };
     }
   };
-
   fetchDetailArticles = async ({ slug }) => {
     try {
       const res = await conduitAxios.get(`/articles/${slug}`);
@@ -33,6 +32,7 @@ class ArticlesService {
       };
     }
   };
+
   fetchAllComment = async ({ slug }) => {
     try {
       console.log(slug)
@@ -45,5 +45,6 @@ class ArticlesService {
       };
     }
   };
+
 }
 export default new ArticlesService();
