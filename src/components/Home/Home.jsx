@@ -2,14 +2,13 @@ import React from "react";
 import { useEffect } from "react";
 import { Col, Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
-import styles from "./styles.module.css";
+//import styles from "./styles.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import {
   fetchAllArticles,
-  fetchDetailArticles,
 } from "../../Store/actions/articles.action";
 import Tag from "../Tag/Tag";
+import { Link } from "react-router-dom";
 const Home = () => {
   const dispatch = useDispatch();
   const articles = useSelector((state) => state.articles.allArticlesData);

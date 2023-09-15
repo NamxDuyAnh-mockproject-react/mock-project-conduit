@@ -32,5 +32,17 @@ class ArticlesService {
       };
     }
   };
+  fetchAllComment = async ({ slug }) => {
+    try {
+      console.log(slug);
+      const res = await conduitAxios.get(`/articles/${slug}/comments`);
+
+      return res.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
 }
 export default new ArticlesService();
