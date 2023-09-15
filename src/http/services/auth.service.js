@@ -2,11 +2,12 @@ import { conduitAxios } from "../axios-instance";
 
 class authService {
   login = async ({ email, password }) => {
+    console.log(email)
     try {
       const response = await conduitAxios.post("users/login", {
         user: { email, password },
       });
-    
+    console.log(response)
       return response.data;
     } catch (error) {
       console.log(error);

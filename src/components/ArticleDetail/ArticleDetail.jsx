@@ -21,42 +21,46 @@ function ArticleDetail(props) {
           <Row className="bg-dark text-light">
             <Col xs={9} className="mx-auto p-5">
               <h2 className="text-uppercase fs-1 fw-bold">{article?.title}</h2>
-              <Row className="align-item-center d-flex">
-                <Col xs={2}>
+              <Row>
+                <Col className="d-flex py-5" xs={12}>
                   <Row>
-                    <Col className="my-auto" xs={3}>
-                      <img
-                        src={article?.author.image}
-                        style={{ maxHeight: "50px" }}
-                        alt=""
-                      />
+                    <Col xs={4}>
+                      <Row className="d-flex gap-3">
+                        <Col xs={2} className="my-auto ">
+                          <img
+                            src={article?.author.image}
+                            style={{ maxHeight: "50px" }}
+                            alt=""
+                          />
+                        </Col>
+                        <Col className=" my-auto">
+                          <Link className="p-0 m-0">
+                            {article?.author.username}
+                          </Link>
+                          <p className="p-0 m-0">
+                            {article?.createdAt
+                              ? new Date(article?.createdAt).toLocaleDateString(
+                                  "en-US",
+                                  {
+                                    month: "long",
+                                    day: "numeric",
+                                    year: "numeric",
+                                  }
+                                )
+                              : ""}
+                          </p>
+                        </Col>
+                      </Row>
                     </Col>
-                    <Col xs={9} className="p-3 my-auto">
-                      <Link className="p-0 m-0">
-                        {article?.author.username}
-                      </Link>
-                      <p className="p-0 m-0">
-                        {article?.createdAt
-                          ? new Date(article?.createdAt).toLocaleDateString(
-                              "en-US",
-                              {
-                                month: "long",
-                                day: "numeric",
-                                year: "numeric",
-                              }
-                            )
-                          : ""}
-                      </p>
+                    <Col className="  my-auto px-0 d-flex gap-3">
+                      <button className="btn btn-outline-secondary">
+                        ➕ Follow {article?.author.username}
+                      </button>
+                      <button className="btn btn-outline-primary">
+                        💙 Favorited article ({article?.favoritesCount})
+                      </button>
                     </Col>
                   </Row>
-                </Col>
-                <Col xs={10} className="my-auto px-0 d-flex gap-3">
-                  <button className="btn btn-outline-secondary">
-                    ➕ Follow {article?.author.username}
-                  </button>
-                  <button className="btn btn-outline-primary">
-                    💙 Favorited article ({article?.favoritesCount})
-                  </button>
                 </Col>
               </Row>
             </Col>
@@ -78,21 +82,18 @@ function ArticleDetail(props) {
             </Col>
           </Row>
           <Row>
-            <Col
-              className=" p-5 border-top d-flex justify-content-center"
-              xs={12}
-            >
-              <Row className=" d-flex justify-content-center">
-                <Col xs={4}>
-                  <Row>
-                    <Col className="my-auto " xs={4}>
+            <Col className="d-flex p-5 justify-content-center mx-auto" xs={8}>
+              <Row>
+                <Col xs={12} md={4}>
+                  <Row className="d-flex gap-3">
+                    <Col xs={2} className="my-auto ">
                       <img
                         src={article?.author.image}
                         style={{ maxHeight: "50px" }}
                         alt=""
                       />
                     </Col>
-                    <Col xs={8} className="p-3 my-auto">
+                    <Col className=" my-auto">
                       <Link className="p-0 m-0">
                         {article?.author.username}
                       </Link>
@@ -111,7 +112,7 @@ function ArticleDetail(props) {
                     </Col>
                   </Row>
                 </Col>
-                <Col className=" mx-auto my-auto px-0 d-flex gap-3">
+                <Col className="  my-auto px-0 d-flex gap-3">
                   <button className="btn btn-outline-secondary">
                     ➕ Follow {article?.author.username}
                   </button>

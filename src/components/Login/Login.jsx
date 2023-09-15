@@ -6,27 +6,25 @@ import { Container } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 
-import { login } from '../../Store/actions/auth.action';
+import { fetchUser } from '../../Store/actions/auth.action';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { loading, error } = useSelector((state) => state.auth);
      const dispatch = useDispatch();
 
-    // const handleLogin = () => {
-    //     dispatch(login(email, password));
-    // };
+
 
 
 
   const handleLogin = () => {
-    dispatch(login({ email, password }));
+    dispatch(fetchUser({ email, password }));
   };
   return (
     <>
       <Container>
         <h1>Sign In</h1>
-        {error && <p>{error}</p>}
+        {error && <p>{JSON.stringify(error.response.data.errors)}</p>}
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
