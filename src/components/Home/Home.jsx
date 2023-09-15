@@ -4,6 +4,7 @@ import { Col, Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import styles from "./styles.module.css";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import {
   fetchAllArticles,
   fetchDetailArticles,
@@ -62,4 +63,3 @@ const Home = () => {
 
 
 export default Home;
-

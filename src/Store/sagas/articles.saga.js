@@ -10,7 +10,6 @@ export function* fetchArticlesSaga() {
 }
 
 export function* createArticleSaga(action) {
-
   yield call(articlesService.createArticles, action.payload);
 }
 
@@ -22,8 +21,10 @@ export function* fetchDetailArticlesSaga(action) {
   yield put(setDetailArticle(article));
 }
 
+
 export function* fetchCommentsSaga(action) {
   const response = yield call(articlesService.fetchAllComment,action.payload);
   
   yield put(setCommentsData(response.comments));
 }
+

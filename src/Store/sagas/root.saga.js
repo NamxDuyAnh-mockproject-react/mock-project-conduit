@@ -24,8 +24,11 @@ export function* rootSaga() {
     takeEvery(createArticles, createArticleSaga),
     takeEvery(fetchAllTag, fetchTagSaga),
     takeEvery(fetchDetailArticles, fetchDetailArticlesSaga),
-    takeEvery(login, checkLoginSaga),
+
+    takeEvery(fetchUser, checkLoginSaga),
     takeEvery(createUser, registerUserSaga),
+
     takeEvery(fetchAllComments,fetchCommentsSaga)
+
   ]);
 }
