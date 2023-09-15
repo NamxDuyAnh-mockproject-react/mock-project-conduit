@@ -20,7 +20,6 @@ class authService {
       const response = await conduitAxios.post("users", {
         user: userData,
       });
-      console.log(response);
       return response.data;
     } catch (error) {
       return {
