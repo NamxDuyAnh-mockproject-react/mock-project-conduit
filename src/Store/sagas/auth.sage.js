@@ -6,11 +6,13 @@ export function* checkLoginSaga(action) {
   console.log(action);
   try {
     const data = yield call(authService.login, action.payload);
-    
+
     if (data.error) {
       yield put(loginFail(data.error));
     } else {
-      yield put(loginSuccess(data));
+      const token = data.user.token;
+      localStorage.setItem("token", JSON.stringify(token));
+      yield put(loginSuccess(data.user));
     }
   } catch (error) {
     yield put(loginFail(error.message));
