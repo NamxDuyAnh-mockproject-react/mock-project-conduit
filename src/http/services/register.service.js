@@ -5,6 +5,8 @@ export const fetchRegisterUser = async (userData) => {
         const response = await conduitAxios.post('users', {
             user: userData,
         });
+        
+    
         return response.data
     } catch (error) {
         return { error: error.mesage }

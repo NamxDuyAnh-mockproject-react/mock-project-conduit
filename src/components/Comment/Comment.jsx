@@ -1,0 +1,31 @@
+import React, { useEffect } from "react";
+import { Col } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchAllComments } from "../../Store/actions/articles.action";
+import { Link } from "react-router-dom";
+function Comment(props) {
+  const slug = useParams();
+  const dispatch = useDispatch();
+  const comments = useSelector((state) => state.articles.allCommentsData);
+  const user = useSelector((state) => state.auth.user);
+  useEffect(() => {
+    console.log(slug);
+    dispatch(fetchAllComments(slug));
+  }, []);
+  return (
+    <div>
+      {!user ? (
+        <div className="text-center">
+          <Link to={"../../login"}>Sign in</Link> or{" "}
+          <Link to={"../../register"}>sign up</Link> to add comments on this
+          article.
+        </div>
+      ) : (
+        <div></div>
+      )}
+    </div>
+  );
+}
+
+export default Comment;
