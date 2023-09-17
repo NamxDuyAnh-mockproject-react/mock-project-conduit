@@ -1,21 +1,31 @@
 
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
-
 import { fetchUser } from '../../Store/actions/auth.action';
+import { loginSuccess } from '../../Store/slices/auth.slice';
+
+
+
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { loading, error } = useSelector((state) => state.auth);
-     const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const handleLogin = () => {
-    dispatch(fetchUser({ email, password }));
-  };
+    useEffect(() => {
+      const token = JSON.parse(localStorage.getItem("token"));
+      if (token) {
+        dispatch(loginSuccess({ user: { token } })); // Cập nhật trạng thái đăng nhập từ local storage
+      }
+    }, [dispatch]);
+
+     const handleLogin = () => {
+      dispatch(fetchUser({ email, password }));
+    };
   return (
     <>
       <Container>
@@ -41,15 +51,13 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
-
-                    <Button variant="primary" onClick={handleLogin}  disabled={loading}>
-                        {loading ? 'Logging in...' : 'Login'}
-                    </Button>
-                </Form>
-            </Container>
-        </>
-    );
-
+              <Button variant="primary" onClick={handleLogin}  disabled={loading}>
+                  {loading ? 'Logging in...' : 'Login'}
+              </Button>
+        </Form>
+      </Container>
+    </>
+  );
 };
 
 export default Login;

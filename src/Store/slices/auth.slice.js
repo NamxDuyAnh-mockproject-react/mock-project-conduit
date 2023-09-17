@@ -15,13 +15,26 @@ const authSlice = createSlice({
     },
     loginSuccess: (state, action) => {
       state.loading = false;
-      console.log(state.user)
+      console.log(state.user);
       state.user = action.payload;
     },
     loginFail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginSuccess, (state, action) => {
+        state.user = action.payload.user; // Cập nhật trạng thái đăng nhập của người dùng
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(loginFail, (state, action) => {
+        state.user = null;
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 

@@ -10,8 +10,6 @@ export function* checkLoginSaga(action) {
     if (data.error) {
       yield put(loginFail(data.error));
     } else {
-      const token = data.user.token;
-      localStorage.setItem("token", JSON.stringify(token));
       yield put(loginSuccess(data.user));
     }
   } catch (error) {
