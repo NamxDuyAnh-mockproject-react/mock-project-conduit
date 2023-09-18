@@ -9,7 +9,6 @@ const sagaMiddleware = createSagaMiddleware();
 
 const rootReducer = combineReducers({
   articles: articlesReducer,
-
   auth: authReducer,
   register:registerReducer,
   tag: tagReducer,

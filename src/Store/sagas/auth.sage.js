@@ -6,7 +6,6 @@ export function* checkLoginSaga(action) {
   console.log(action);
   try {
     const data = yield call(authService.login, action.payload);
-
     if (data.error) {
       yield put(loginFail(data.error));
     } else {

@@ -8,6 +8,7 @@ class authService {
         user: { email, password },
       });
 
+
       // Check if there was an error in the response data.
       if (response.data.error) {
         // If there is an error, return an object with an error property.
@@ -22,6 +23,7 @@ class authService {
         // Return an object with the user's data.
         return { user: response.data.user };
       }
+
     } catch (error) {
       // If an error occurs during the login process, return an object with the error.
       return {
