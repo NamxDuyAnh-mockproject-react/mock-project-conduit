@@ -9,6 +9,7 @@ import Comment from "../Comment/Comment";
 function ArticleDetail(props) {
   const slug = useParams();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
   const { article } = useSelector((state) => state.articles.detailArticle);
   useEffect(() => {
     dispatch(fetchDetailArticles(slug));
@@ -124,7 +125,15 @@ function ArticleDetail(props) {
             </Col>
           </Row>
         </Col>
-        <Comment />
+        {user ? (
+          <div className="text-center">
+            <Link to={"../../login"}>Sign in</Link> or{" "}
+            <Link to={"../../register"}>sign up</Link> to add comments on this
+            article.
+          </div>
+        ) : (
+          <Comment />
+        )}
       </Container>
     </div>
   );

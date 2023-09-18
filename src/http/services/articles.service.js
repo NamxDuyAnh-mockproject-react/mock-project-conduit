@@ -1,4 +1,4 @@
-import { conduitAxios } from "../axios-instance";
+import { conduitAxios ,conduitAxiosCredentials} from "../axios-instance";
 
 class ArticlesService {
   fetchAllArticles = async () => {
@@ -32,11 +32,46 @@ class ArticlesService {
       };
     }
   };
-
+  addNewComment = async ({ slug, input }) => {
+    try {
+      const config = {
+        comment: {
+          body: input,
+        },
+      };
+      
+      const res = await conduitAxiosCredentials.post(
+        `/articles/${slug.slug}/comments`,
+        config
+      );
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   fetchAllComment = async ({ slug }) => {
     try {
-      console.log(slug);
-      const res = await conduitAxios.get(`/articles/${slug}/comments`);
+      let token;
+      if (
+        typeof localStorage !== "undefined" &&
+        localStorage.getItem("token")
+      ) {
+        try {
+          token = JSON.parse(localStorage.getItem("token"));
+        } catch (error) {
+          console.log(error);
+        }
+      }
+
+      const config = {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      };
+
+      const res = await conduitAxios.get(`/articles/${slug}/comments`, config);
+      console.log(res.data);
 
       return res.data;
     } catch (error) {
