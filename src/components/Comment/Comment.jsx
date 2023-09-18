@@ -5,7 +5,9 @@ import { useParams } from "react-router-dom";
 import { fetchAllComments } from "../../Store/actions/articles.action";
 import { Link } from "react-router-dom";
 import { Form } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
+import TagFacesIcon from '@mui/icons-material/TagFaces';
 function Comment(props) {
   const slug = useParams();
   const dispatch = useDispatch();
@@ -17,7 +19,7 @@ function Comment(props) {
   }, []);
   return (
     <div>
-      {!user ? (
+      {user ? (
         <div className="text-center">
           <Link to={"../../login"}>Sign in</Link> or{" "}
           <Link to={"../../register"}>sign up</Link> to add comments on this
@@ -27,7 +29,21 @@ function Comment(props) {
         <Row>
           <Col xs={8} md={6} className="mx-auto">
             <Form>
-              <Form.Control as="textarea" aria-label="With textarea" />
+              <Col>
+                {" "}
+                <Form.Control as="textarea" aria-label="With textarea" />
+              </Col>
+              <Col xs={12}>
+                {" "}
+                <Row className="p-3 d-flex align-item-center">
+                  <Col><TagFacesIcon/></Col>
+                  <Col className="d-flex justify-content-end">
+                    <Button className="text-end" type="submit">
+                      submit
+                    </Button>
+                  </Col>
+                </Row>
+              </Col>
             </Form>
           </Col>
         </Row>

@@ -3,7 +3,6 @@ import { loginSuccess, loginFail } from "../slices/auth.slice";
 import authService from "../../http/services/auth.service";
 
 export function* checkLoginSaga(action) {
-  console.log(action);
   try {
     const data = yield call(authService.login, action.payload);
     if (data.error) {
