@@ -12,6 +12,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     userRegistered: (state, action) => {
+
       state.user = action.payload;
       state.loading = false;
       state.error = null;

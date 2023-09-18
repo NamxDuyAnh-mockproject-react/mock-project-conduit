@@ -35,7 +35,7 @@ class ArticlesService {
 
   fetchAllComment = async ({ slug }) => {
     try {
-      console.log(slug)
+      console.log(slug);
       const res = await conduitAxios.get(`/articles/${slug}/comments`);
 
       return res.data;
@@ -45,6 +45,5 @@ class ArticlesService {
       };
     }
   };
-
 }
 export default new ArticlesService();
