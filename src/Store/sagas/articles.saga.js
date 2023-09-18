@@ -30,3 +30,7 @@ export function* fetchCommentsSaga(action) {
 
   yield put(setCommentsData(response.comments));
 }
+
+export function* addCommentsSaga(action) {
+  yield call(articlesService.addNewComment, action.payload);
+}
