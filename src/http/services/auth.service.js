@@ -7,7 +7,6 @@ class authService {
         user: { email, password },
       });
       if (response.data.error) {
-        console.log(response)
         return { error: response.data.error };
       } else {
         const token = response.data.user.token;
