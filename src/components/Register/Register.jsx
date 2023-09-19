@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {createUser} from '../../Store/actions/auth.action'
 
 const Register = () => {
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const[formData, setFormData] = useState({});
 
     const handleChange = (e) =>{
@@ -19,9 +19,21 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(createUser(formData));
-        
-        // navigate('/home');
     }
+
+    useEffect(() => {
+        const token = JSON.parse(localStorage.getItem("token"));
+        if (token) {
+          dispatch(loginSuccess({ user: { token } })); // Cập nhật trạng thái đăng nhập từ local storage
+        }
+      }, [dispatch]);
+    
+      useEffect(() => {
+        // Kiểm tra xem loginSuccess đã được kích hoạt sau khi đăng nhập thành công
+        if (user) {
+          navigate("/home");
+        }
+      }, [user, navigate]);
 
     return (
         <>
