@@ -30,15 +30,42 @@ const Home = () => {
               return (
                 <div key={article.slug}>
                   <Link to={`../articles/${article.slug}`}>
-                    <Row className="article-preview">
+                    <Row className="article-preview border-bottom p-5">
                       <Row>
-                        <Col>
-                          <img src={article.author.image} alt="" />
-                        </Col>
-
-                        <Col>{article.author.username}</Col>
-
-                        <Col>favorites</Col>
+                        <Row>
+                          <Col xs={12} md={4}>
+                            <Row className="d-flex gap-3">
+                              <Col xs={2} className="my-auto ">
+                                <img
+                                  src={article?.author.image}
+                                  style={{ maxHeight: "50px" }}
+                                  alt=""
+                                />
+                              </Col>
+                              <Col className=" my-auto">
+                                <Link className="p-0 m-0">
+                                  {article?.author.username}
+                                </Link>
+                                <p className="p-0 m-0">
+                                  {article?.createdAt
+                                    ? new Date(
+                                        article?.createdAt
+                                      ).toLocaleDateString("en-US", {
+                                        month: "long",
+                                        day: "numeric",
+                                        year: "numeric",
+                                      })
+                                    : ""}
+                                </p>
+                              </Col>
+                            </Row>
+                          </Col>
+                          <Col className="  my-auto px-0 d-flex gap-3">
+                            <button className="btn btn-outline-primary">
+                              💙{article?.favoritesCount}
+                            </button>
+                          </Col>
+                        </Row>
                       </Row>
 
                       <Row>
