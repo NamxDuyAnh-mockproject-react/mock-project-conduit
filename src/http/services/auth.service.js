@@ -1,4 +1,4 @@
-import { conduitAxios } from "../axios-instance";
+import { conduitAxios, conduitAxiosCredentials } from "../axios-instance";
 
 class authService {
   login = async ({ email, password }) => {
@@ -7,6 +7,7 @@ class authService {
         user: { email, password },
       });
       if (response.data.error) {
+        console.log(response);
         return { error: response.data.error };
       } else {
         const token = response.data.user.token;
@@ -29,6 +30,16 @@ class authService {
       const token = response.data.user.token;
       localStorage.setItem("token", JSON.stringify(token));
 
+      return response.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
+  getCurrentUser = async () => {
+    try {
+      const response = await conduitAxiosCredentials.get("user");
       return response.data;
     } catch (error) {
       return {
