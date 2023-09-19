@@ -4,7 +4,11 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { loginSuccess, loginFail } from "../../Store/slices/auth.slice";
+import {
+  loginSuccess,
+  loginFail,
+} from "../../Store/slices/auth.slice";
+import { getCurrentUser } from "../../Store/actions/auth.action";
 import { useEffect, useState } from "react";
 const Header = () => {
   const dispatch = useDispatch();
@@ -12,7 +16,7 @@ const Header = () => {
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
     if (token) {
-      dispatch(loginSuccess({ user: { token } }));
+      dispatch(getCurrentUser());
     }
   }, [dispatch]);
   const user = useSelector((state) => state.auth.user);
@@ -32,7 +36,7 @@ const Header = () => {
                   <Link to="/settings">Settings</Link>
                 </li>
                 <li>
-                  <Link to={`#`}>username</Link>
+                  <Link to={`#`}>{user.username}</Link>
                 </li>
               </>
             ) : (
