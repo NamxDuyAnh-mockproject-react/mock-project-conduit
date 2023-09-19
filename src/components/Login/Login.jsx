@@ -33,23 +33,23 @@ const Login = () => {
     }, [user, navigate]);
   
 
-    //  const handleLogin = () => {
-    //   dispatch(fetchUser({ email, password }))
+     const handleLogin = () => {
+      dispatch(fetchUser({ email, password }))
 
-    // };
-    const handleLogin = async () => {
-      try {
-        const response = await dispatch(fetchUser({ email, password }));
-  
-        if (response.error) {
-          dispatch(loginFail(response.error));
-        } else {
-          dispatch(loginSuccess(response.user));
-        }
-      } catch (error) {
-        dispatch(loginFail(error.message));
-      }
     };
+    // const handleLogin = async () => {
+    //   try {
+    //     const response = await dispatch(fetchUser({ email, password }));
+  
+    //     if (response.error) {
+    //       dispatch(loginFail(response.error));
+    //     } else {
+    //       dispatch(loginSuccess(response.user));
+    //     }
+    //   } catch (error) {
+    //     dispatch(loginFail(error.message));
+    //   }
+    // };
   return (
     <>
       <Container>
