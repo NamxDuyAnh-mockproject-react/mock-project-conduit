@@ -23,7 +23,7 @@ const Header = () => {
                             <Link to="/settings">Settings</Link>
                         </li>
                         <li>
-                            <Link to={`#`}>username</Link>
+                            <Link to={`#`}>{user.username}</Link>
                         </li>
                         </>
                     ):(

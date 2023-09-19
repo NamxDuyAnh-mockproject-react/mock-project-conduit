@@ -14,6 +14,7 @@ export function* fetchArticlesSaga() {
 }
 
 export function* createArticleSaga(action) {
+  console.log(action);
   yield call(articlesService.createArticles, action.payload);
 }
 
