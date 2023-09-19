@@ -4,7 +4,7 @@ import authService from "../../http/services/auth.service";
 
 export function* checkLoginSaga(action) {
   try {
-    const data = yield call(authService.login, action.payload);
+    const data = yield call(authService.login, action.payload||{});
     if (data.error) {
       yield put(loginFail(data.error));
     } else {

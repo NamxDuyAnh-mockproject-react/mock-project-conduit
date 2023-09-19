@@ -18,16 +18,15 @@ function Comment(props) {
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.articles.allCommentsData);
   const [input, setInput] = useState("");
-  const [render,setRender]=useState(false)
+
   const handdleAddComment = (e) => {
     e.preventDefault();
     dispatch(addComments({ slug, input }));
     setInput("");
-    setRender((prevState) => !prevState);
   };
   useEffect(() => {
     dispatch(fetchAllComments(slug));
-  }, [render]);
+  }, []);
   return (
     <div>
       (
