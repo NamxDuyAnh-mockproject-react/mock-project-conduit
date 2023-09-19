@@ -5,3 +5,4 @@ export const fetchUser = createAction("FETCH_USER");
 export const login = createAction("LOGIN");
 export const loginSuccess = createAction("LOGIN_SUCCESS"); // Thêm action LOGIN_SUCCESS
 export const loginFail = createAction("LOGIN_FAIL"); // Thêm action LOGIN_FAIL
+export const getCurrentUser = createAction("GET_CURRENT_USER");

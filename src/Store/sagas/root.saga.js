@@ -1,5 +1,5 @@
-import { fetchUser } from "../actions/auth.action";
-import { checkLoginSaga } from "../sagas/auth.sage";
+import { fetchUser, getCurrentUser } from "../actions/auth.action";
+import { checkCurrentUser, checkLoginSaga } from "../sagas/auth.sage";
 import { createUser } from "../actions/auth.action";
 import { registerUserSaga } from "../sagas/register.saga";
 import {
@@ -29,5 +29,6 @@ export function* rootSaga() {
     takeEvery(createUser, registerUserSaga),
     takeEvery(fetchAllComments, fetchCommentsSaga),
     takeEvery(addComments, addCommentsSaga),
+    takeEvery(getCurrentUser,checkCurrentUser)
   ]);
 }
