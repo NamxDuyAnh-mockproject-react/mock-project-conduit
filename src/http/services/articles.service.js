@@ -1,4 +1,4 @@
-import { conduitAxios ,conduitAxiosCredentials} from "../axios-instance";
+import { conduitAxios, conduitAxiosCredentials } from "../axios-instance";
 
 class ArticlesService {
   fetchAllArticles = async () => {
@@ -11,9 +11,11 @@ class ArticlesService {
       };
     }
   };
-  createArticles = async ({ config }) => {
+  createArticles = async ({ articles }) => {
     try {
-      const res = await conduitAxios.post("/articles", config);
+      const config = { article: articles };
+
+      const res = await conduitAxiosCredentials.post("/articles", config);
       return res.data;
     } catch (error) {
       return {
@@ -39,7 +41,7 @@ class ArticlesService {
           body: input,
         },
       };
-      
+
       const res = await conduitAxiosCredentials.post(
         `/articles/${slug.slug}/comments`,
         config

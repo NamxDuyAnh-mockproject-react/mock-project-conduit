@@ -5,6 +5,7 @@ import { Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDetailArticles } from "../../Store/actions/articles.action";
+import { loginSuccess, loginFail } from "../../Store/slices/auth.slice";
 import Comment from "../Comment/Comment";
 function ArticleDetail(props) {
   const slug = useParams();
@@ -14,7 +15,12 @@ function ArticleDetail(props) {
   useEffect(() => {
     dispatch(fetchDetailArticles(slug));
   }, []);
-
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("token"));
+    if (token) {
+      dispatch(loginSuccess({ user: { token } })); // Cập nhật trạng thái đăng nhập từ local storage
+    }
+  }, [dispatch]);
   return (
     <div>
       <Container fluid>
@@ -125,7 +131,7 @@ function ArticleDetail(props) {
             </Col>
           </Row>
         </Col>
-        {user ? (
+        {!user ? (
           <div className="text-center">
             <Link to={"../../login"}>Sign in</Link> or{" "}
             <Link to={"../../register"}>sign up</Link> to add comments on this
