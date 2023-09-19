@@ -2,14 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {createUser} from '../../Store/actions/auth.action'
-
+import {createUser} from '../../Store/actions/auth.action';
+import { userRegistered } from '../../Store/slices/register.slice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Register = () => {
+    const { loading, error, user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const[formData, setFormData] = useState({});
+
+    
+    useEffect(() => {
+        const token = JSON.parse(localStorage.getItem("token"));
+        if (token) {
+            dispatch(userRegistered({ user: { token } }));
+        }
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (user) {
+          navigate("/home");
+        }
+      }, [user, navigate]);
+
+      useEffect(() => {
+        if (error) {
+          toast.error("Register failed! Email or username is duplicate.");
+        }
+      }, [error]);
 
     const handleChange = (e) =>{
         const{name, value} = e.target;
@@ -19,21 +42,9 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(createUser(formData));
+        
+        // navigate('/home');
     }
-
-    useEffect(() => {
-        const token = JSON.parse(localStorage.getItem("token"));
-        if (token) {
-          dispatch(loginSuccess({ user: { token } })); // Cập nhật trạng thái đăng nhập từ local storage
-        }
-      }, [dispatch]);
-    
-      useEffect(() => {
-        // Kiểm tra xem loginSuccess đã được kích hoạt sau khi đăng nhập thành công
-        if (user) {
-          navigate("/home");
-        }
-      }, [user, navigate]);
 
     return (
         <>
@@ -58,11 +69,12 @@ const Register = () => {
                         onChange={handleChange}/>
                     </Form.Group>
 
-                    <Button variant="primary" type='submit' >
-                        Register
+                    <Button variant="primary" type='submit' disabled={loading}>
+                    {loading ? "Register..." : "Register"}
                     </Button>
                 </Form>
             </Container>
+            <ToastContainer />
         </>
     );
 };

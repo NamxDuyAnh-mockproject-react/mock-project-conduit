@@ -41,7 +41,6 @@ const Login = () => {
 
   const handleLogin = () => {
     dispatch(fetchUser({ email, password }));
-    console.log("Loading:", loading);
   };
 
   
