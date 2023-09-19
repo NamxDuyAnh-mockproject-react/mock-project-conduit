@@ -5,8 +5,10 @@ import { Container } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { fetchUser } from "../../Store/actions/auth.action";
-import { loginSuccess, loginFail } from "../../Store/slices/auth.slice";
+import { loginSuccess } from "../../Store/slices/auth.slice";
 import { useNavigate } from "react-router";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -29,15 +31,25 @@ const Login = () => {
     }
   }, [user, navigate]);
 
+  useEffect(() => {
+    // Kiểm tra xem có lỗi nào xảy ra sau khi gọi API đăng nhập
+    if (error) {
+      toast.error("Login failed! Email or password is incorrect.");
+    }
+  }, [error]);
+
 
   const handleLogin = () => {
     dispatch(fetchUser({ email, password }));
+    console.log("Loading:", loading);
   };
+
+  
   return (
     <>
       <Container>
         <h1>Sign In</h1>
-        {error && <p>{JSON.stringify(error.response.data.errors)}</p>}
+        {/* {error && <p>{JSON.stringify(error.response.data.errors)}</p>} */}
         <Form>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -63,6 +75,7 @@ const Login = () => {
           </Button>
         </Form>
       </Container>
+      <ToastContainer />
     </>
   );
 };

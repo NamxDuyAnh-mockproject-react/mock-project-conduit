@@ -6,10 +6,10 @@ import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loginSuccess,
-  loginFail,
 } from "../../Store/slices/auth.slice";
 import { getCurrentUser } from "../../Store/actions/auth.action";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
+
 const Header = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
