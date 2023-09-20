@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, TextField, TextareaAutosize, Button, Card, CardContent, Grid, Divider } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateUser } from '../../Store/actions/auth.action';
+import { logout, updateUser } from '../../Store/actions/auth.action';
 import { useNavigate } from 'react-router-dom';
 function SettingsPage() {
     const { user } = useSelector((state) => state.auth);
@@ -30,6 +30,7 @@ function SettingsPage() {
 
     const handleLogout = () => {
         localStorage.removeItem('token')
+        dispatch(logout())
         navigate('/home')
     }
 

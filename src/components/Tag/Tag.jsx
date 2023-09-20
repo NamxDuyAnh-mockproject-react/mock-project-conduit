@@ -14,7 +14,7 @@ function Tag(props) {
     dispatch(fetchAllTag());
   }, [dispatch]);
   return (
-    <Col md={2}>
+    <Col md={3} className="mt-4">
       <h5>Tags</h5>
       <div className={styles.tagWrapper} >
         {tags?.map((tag) => {

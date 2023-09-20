@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
-
+import styles from "./styles.module.css"
 
 
 
@@ -18,24 +18,24 @@ const Header = () => {
       <Navbar bg="light" data-bs-theme="light">
         <Container className="">
           <Navbar.Brand href="/">Conduit</Navbar.Brand>
-          <Nav className="me-auto">
+          <Nav className={styles.navLink}>
             <Link to="/home">Home</Link>
             {isLoggedIn ? (
               <>
                 <li>
-                  <Link to="/new-article">New Article</Link>
+                  <NavLink to="/new-article">New Article</NavLink>
                 </li>
                 <li>
-                  <Link to="/settings">Settings</Link>
+                  <NavLink to="/settings">Settings</NavLink>
                 </li>
                 <li>
-                  <Link to={`#`}>{user.username}</Link>
+                  <NavLink to={`#`}>{user.username}</NavLink>
                 </li>
               </>
             ) : (
               <>
-                <Link to="/login">Sign in</Link>
-                <Link to="/register">Sign up</Link>
+                <NavLink to="/login">Sign in</NavLink>
+                <NavLink to="/register">Sign up</NavLink>
               </>
             )}
           </Nav>

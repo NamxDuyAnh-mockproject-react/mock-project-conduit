@@ -31,17 +31,17 @@ const Home = () => {
   return (
     <Container>
       <Row>
-        <Col md={9}>
-          <Nav variant="tabs" defaultActiveKey="/home">
-            <Nav.Item>
-              <Nav.Link href="/link-1">Your Feed</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="/home">Global Feed</Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Col>
-        <Col md={9}>
+        <Row className={styles.layout}>
+          <Col md={9} className="mt-3">
+            <Nav variant="tabs" defaultActiveKey="/home">
+              <Nav.Item>
+                <Nav.Link href="/link-1">Your Feed</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="/home">Global Feed</Nav.Link>
+              </Nav.Item>
+            </Nav>
+          <Col md={12}>
           {articles.map((article) => (
             <div key={article.slug}>
                 <Row className="article-preview border-bottom p-4">
@@ -75,13 +75,12 @@ const Home = () => {
                         </Row>
                       </Col>
                       <Col className={styles.favorites}>
-                        <button className="btn btn-outline-primary">
+                        <button className="btn btn-outline-success">
                           💙{article?.favoritesCount}
                         </button>
                       </Col>
                     </Row>
                   </Row>
-
                 <Link to={`../articles/${article.slug}`} className={styles.text}>
                   <Row>
                     <div className="">
@@ -93,42 +92,42 @@ const Home = () => {
               </Row>
             </div>
           ))}
-
-          
-            <Col md={9}>
-              <ul className="pagination">
-                <li
-                  className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                >
-                  <button className="page-link">Previous</button>
-                </li>
-                {/* Render page numbers */}
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <li
-                    key={index + 1}
-                    className={`page-item ${
-                      currentPage === index + 1 ? "active" : ""
-                    }`}
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    <button className="page-link">{index + 1}</button>
-                  </li>
-                ))}
-                <li
-                  className={`page-item ${
-                    currentPage === totalPages ? "disabled" : ""
-                  }`}
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                >
-                  <button className="page-link">Next</button>
-                </li>
-              </ul>
-            </Col>
-          
+          </Col>
+          </Col>
+          <Tag />
+        </Row>
+        
+        <Col md={9}>
+          <ul className="pagination">
+            <li
+              className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              <button className="page-link">Previous</button>
+            </li>
+            {/* Render page numbers */}
+            {Array.from({ length: totalPages }, (_, index) => (
+              <li
+                key={index + 1}
+                className={`page-item ${
+                  currentPage === index + 1 ? "active" : ""
+                }`}
+                onClick={() => setCurrentPage(index + 1)}
+              >
+                <button className="page-link">{index + 1}</button>
+              </li>
+            ))}
+            <li
+              className={`page-item ${
+                currentPage === totalPages ? "disabled" : ""
+              }`}
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              <button className="page-link">Next</button>
+            </li>
+          </ul>
         </Col>
-
-        <Tag />
+        
       </Row>
     </Container>
   );
