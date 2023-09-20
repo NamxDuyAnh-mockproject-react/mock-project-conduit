@@ -16,7 +16,7 @@ const Home = () => {
 
   useEffect(() => {
     const offset = (currentPage - 1) * articlesPerPage;
-    dispatch(fetchAllArticles({offset}));
+    dispatch(fetchAllArticles({offset,articlesPerPage}));
   }, [dispatch, currentPage, articlesPerPage]);
 
   if (!articles) {
