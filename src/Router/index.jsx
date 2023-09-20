@@ -6,7 +6,7 @@ import Register from "../components/Register/Register";
 import TagDetail from "../components/Tag/TagDetail";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
 import CreateArticle from "../components/CreateArticle/CreateArticle";
-
+import Settings from "../components/Settings/Settings"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -35,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "new-article",
         element: <CreateArticle />,
+      },
+      {
+        path: "settings",
+        element: <Settings />,
       },
     ],
   },
