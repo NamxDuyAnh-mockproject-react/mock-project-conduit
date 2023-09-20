@@ -14,13 +14,6 @@ const Register = () => {
     const navigate = useNavigate();
     const[formData, setFormData] = useState({});
 
-    
-    useEffect(() => {
-        const token = JSON.parse(localStorage.getItem("token"));
-        if (token) {
-            dispatch(loginSuccess({ user: { token } }));
-        }
-    }, [dispatch]);
 
     useEffect(() => {
         if (user) {

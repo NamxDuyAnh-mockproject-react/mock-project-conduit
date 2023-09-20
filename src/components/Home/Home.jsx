@@ -11,12 +11,8 @@ import { loginSuccess, loginFail } from "../../Store/slices/auth.slice";
 const Home = () => {
   const dispatch = useDispatch();
   const articles = useSelector((state) => state.articles.allArticlesData);
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    if (token) {
-      dispatch(loginSuccess({ user: { token } })); // Cập nhật trạng thái đăng nhập từ local storage
-    }
-  }, [dispatch]);
+  const user = useSelector((state) => state.auth.user);
+  console.log(user);
   useEffect(() => {
     dispatch(fetchAllArticles());
   }, [dispatch]);
