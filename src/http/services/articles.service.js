@@ -1,10 +1,13 @@
 import { conduitAxios, conduitAxiosCredentials } from "../axios-instance";
 
 class ArticlesService {
-  fetchAllArticles = async () => {
+  fetchAllArticles = async ({ offset, articlesPerPage }) => {
     try {
-      const res = await conduitAxios.get("/articles");
-      return res.data.articles;
+      const res = await conduitAxios.get(
+        `/articles?offset=${offset}&limit=${articlesPerPage}`
+      );
+      console.log(res);
+      return res.data;
     } catch (error) {
       return {
         error: error,
