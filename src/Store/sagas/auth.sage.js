@@ -5,9 +5,7 @@ import authService from "../../http/services/auth.service";
 export function* checkLoginSaga(action) {
   try {
     yield put(login());
-
     const data = yield call(authService.login, action.payload);
-
     if (data.error) {
       yield put(loginFail(data.error));
     } else {
@@ -20,7 +18,7 @@ export function* checkLoginSaga(action) {
 export function* checkCurrentUser() {
   try {
     const data = yield call(authService.getCurrentUser);
-   console.log(data)
+    console.log(data);
     if (data.error) {
       yield put(loginFail(data.error));
     } else {
@@ -29,4 +27,22 @@ export function* checkCurrentUser() {
   } catch (error) {
     yield put(loginFail(error.message));
   }
+}
+export function* registerUserSaga(action) {
+  try {
+    yield put(login());
+
+    const response = yield call(authService.fetchRegisterUser, action.payload);
+    if (response.error) {
+      yield put(loginFail(response.error));
+    } else {
+      yield put(loginSuccess(response.user));
+    }
+  } catch (error) {
+    yield put(loginFail(error.message));
+  }
+}
+export function* updateUserSaga(action) {
+  console.log(action);
+  yield call(authService.updateUser, action.payload);
 }

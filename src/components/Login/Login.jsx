@@ -21,19 +21,12 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  
   const [formData, setFormData] = useState({});
   const { loading, error, user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    if (token) {
-      dispatch(loginSuccess({ user: { token } })); // Cập nhật trạng thái đăng nhập từ local storage
-    }
-  }, [dispatch]);
 
   useEffect(() => {
     // Kiểm tra xem loginSuccess đã được kích hoạt sau khi đăng nhập thành công
@@ -62,7 +55,6 @@ const Login = () => {
   const defaultTheme = createTheme();
   return (
     <>
-      
       <ThemeProvider theme={defaultTheme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />

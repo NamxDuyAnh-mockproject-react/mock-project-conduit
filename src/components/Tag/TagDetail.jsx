@@ -34,17 +34,19 @@ function TagDetail(props) {
           {data?.map((item, index) => {
             if (index < 2) {
               return (
-                <Col md={6}>
-                  <Row>
-                    <img src={item.author.image} alt="" />
-                  </Row>
-                  <Row>
-                    <h2>{item.title}</h2>
-                  </Row>
-                  <Row>
-                    <p>{item.description}</p>
-                  </Row>
-                </Col>
+                <>
+                  <Col md={6}>
+                    <Row>
+                      <img src={item.author.image} alt="" />
+                    </Row>
+                    <Row>
+                      <h2>{item.title}</h2>
+                    </Row>
+                    <Row>
+                      <p>{item.description}</p>
+                    </Row>
+                  </Col>
+                </>
               );
             } else
               return (

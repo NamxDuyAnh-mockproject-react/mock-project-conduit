@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {createUser} from '../../Store/actions/auth.action';
-import { userRegistered } from '../../Store/slices/register.slice';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Button from '@mui/material/Button';
@@ -16,18 +16,11 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const Register = () => {
-    const { loading, error, user } = useSelector((state) => state.register);
+    const { loading, error, user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const[formData, setFormData] = useState({});
     const defaultTheme = createTheme();
-    
-    useEffect(() => {
-        const token = JSON.parse(localStorage.getItem("token"));
-        if (token) {
-            dispatch(userRegistered({ user: { token } }));
-        }
-    }, [dispatch]);
 
     useEffect(() => {
         if (user) {
@@ -53,33 +46,6 @@ const Register = () => {
 
     return (
         <>
-            {/* <Container>
-                <h1>Sign Up</h1>
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Username:</Form.Label>
-                    <Form.Control type="text" placeholder="Enter username"  name='username'
-                        onChange={handleChange}/>
-                        <TextField id="outlined-basic" label="Username" variant="outlined"  onChange={handleChange}/>
-                    </Form.Group>
-                    <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email"  name='email' 
-                        onChange={handleChange}/>
-                    </Form.Group>
-
-                    <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" 
-                        name='password'
-                        onChange={handleChange}/>
-                    </Form.Group>
-
-                    <Button variant="primary" type='submit' disabled={loading}>
-                    {loading ? "Register..." : "Register"}
-                    </Button>
-                </Form>
-            </Container> */}
             <ThemeProvider theme={defaultTheme}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />

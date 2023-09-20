@@ -37,9 +37,21 @@ class authService {
       };
     }
   };
+
   getCurrentUser = async () => {
     try {
       const response = await conduitAxiosCredentials.get("user");
+      return response.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
+
+  updateUser = async () => {
+    try {
+      const response = await conduitAxiosCredentials.post("user");
       return response.data;
     } catch (error) {
       return {
