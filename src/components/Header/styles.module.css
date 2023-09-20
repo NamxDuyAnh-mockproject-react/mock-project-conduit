@@ -1,7 +1,16 @@
-isActive{
+.active{
     font-weight: 600;
 }
-.navLink li{
+
+.linkItem{
     text-decoration: none;
-    
+    margin: 0 10px;
+    color: #1e1e1e;
 }
+
+img{
+    max-height: 25px;
+    border-radius: 50%;
+    margin-right: 3px;
+}
+span{margin-right: 3px;}
