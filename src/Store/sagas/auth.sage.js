@@ -1,10 +1,15 @@
 import { call, put } from "redux-saga/effects";
-import { loginSuccess, loginFail } from "../slices/auth.slice";
+import { loginSuccess, loginFail, login } from "../slices/auth.slice";
 import authService from "../../http/services/auth.service";
 
 export function* checkLoginSaga(action) {
   try {
-    const data = yield call(authService.login, action.payload||{});
+
+    yield put(login());
+
+    const data = yield call(authService.login, action.payload);
+
+
     if (data.error) {
       yield put(loginFail(data.error));
     } else {
