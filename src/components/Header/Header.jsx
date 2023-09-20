@@ -13,13 +13,9 @@ import { useEffect} from "react";
 const Header = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    if (token) {
-      dispatch(getCurrentUser());
-    }
-  }, [dispatch]);
+ 
   const user = useSelector((state) => state.auth.user);
+  
   return (
     <>
       <Navbar bg="light" data-bs-theme="light">

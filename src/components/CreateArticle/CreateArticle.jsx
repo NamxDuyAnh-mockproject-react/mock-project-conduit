@@ -16,12 +16,7 @@ function CreateArticle(props) {
     tagList: [],
   });
   const [tag, setTag] = useState("");
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    if (token) {
-      dispatch(loginSuccess({ user: { token } }));
-    }
-  }, [dispatch]);
+
   const handleInput = (e) => {
     const { name, value } = e.target;
     setInput((prev) => {

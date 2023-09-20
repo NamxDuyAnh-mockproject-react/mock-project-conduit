@@ -28,12 +28,12 @@ export function* fetchDetailArticlesSaga(action) {
 
 export function* fetchCommentsSaga(action) {
   const response = yield call(articlesService.fetchAllComment, action.payload);
-
+  
   yield put(setCommentsData(response.comments));
  
 }
 
 export function* addCommentsSaga(action) {
   yield call(articlesService.addNewComment, action.payload);
-  yield put(fetchAllComments(action.payload));
+  yield put(fetchAllComments(action.payload.slug));
 }

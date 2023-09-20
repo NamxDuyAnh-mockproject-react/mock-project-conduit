@@ -11,16 +11,12 @@ function ArticleDetail(props) {
   const slug = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+  console.log(user);
   const { article } = useSelector((state) => state.articles.detailArticle);
   useEffect(() => {
     dispatch(fetchDetailArticles(slug));
   }, []);
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    if (token) {
-      dispatch(loginSuccess({ user: { token } })); // Cập nhật trạng thái đăng nhập từ local storage
-    }
-  }, [dispatch]);
+
   return (
     <div>
       <Container fluid>

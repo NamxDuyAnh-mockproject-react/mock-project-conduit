@@ -17,12 +17,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    if (token) {
-      dispatch(loginSuccess({ user: { token } })); // Cập nhật trạng thái đăng nhập từ local storage
-    }
-  }, [dispatch]);
 
   useEffect(() => {
     // Kiểm tra xem loginSuccess đã được kích hoạt sau khi đăng nhập thành công
