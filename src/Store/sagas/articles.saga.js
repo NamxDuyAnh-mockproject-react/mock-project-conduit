@@ -7,8 +7,9 @@ import {
 } from "../slices/articles.slice";
 import articlesService from "../../http/services/articles.service";
 
-export function* fetchArticlesSaga() {
-  const articles = yield call(articlesService.fetchAllArticles);
+export function* fetchArticlesSaga(action) {
+  console.log(action);
+  const articles = yield call(articlesService.fetchAllArticles,action.payload);
 
   yield put(setArticlesData(articles));
 }
