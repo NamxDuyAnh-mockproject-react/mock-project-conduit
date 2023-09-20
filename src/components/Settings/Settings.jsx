@@ -29,8 +29,8 @@ function SettingsPage() {
     }
 
     const handleLogout = () => {
-        localStorage.removeItem('token')
-        dispatch(logout())
+        localStorage.removeItem('token');
+        dispatch(logout());
         navigate('/home')
     }
 
