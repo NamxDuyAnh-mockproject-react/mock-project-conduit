@@ -3,6 +3,7 @@ import { Col, Container, Nav, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllArticles } from "../../Store/actions/articles.action";
+import styles from "./styles.module.css"
 import Tag from "../Tag/Tag";
 
 const Home = () => {
@@ -43,27 +44,26 @@ const Home = () => {
         <Col md={9}>
           {articles.map((article) => (
             <div key={article.slug}>
-              <Link to={`../articles/${article.slug}`}>
-                <Row className="article-preview border-bottom p-5">
-                  <Row>
-                    <Row>
+                <Row className="article-preview border-bottom p-4">
+                  <Row className={styles.headerArticle}>
+                    <Row >
                       <Col xs={12} md={4}>
-                        <Row className="d-flex gap-3">
+                        <Row className="d-flex gap-2">
                           <Col xs={2} className="my-auto">
                             <img
                               src={article?.author.image}
-                              style={{ maxHeight: "50px" }}
-                              alt=""
+                              className={styles.avatar}
+                              alt="avatar"
                             />
                           </Col>
-                          <Col className="my-auto">
-                            <div className="p-0 m-0">
+                          <Col className={styles.center}>
+                            <div className={styles.authorName}>
                               {article?.author.username}
                             </div>
-                            <p className="p-0 m-0">
+                            <p className={styles.date}>
                               {article?.createdAt
                                 ? new Date(
-                                    article?.createdAt
+                                  article?.createdAt
                                   ).toLocaleDateString("en-US", {
                                     month: "long",
                                     day: "numeric",
@@ -74,7 +74,7 @@ const Home = () => {
                           </Col>
                         </Row>
                       </Col>
-                      <Col className="my-auto px-0 d-flex gap-3">
+                      <Col className={styles.favorites}>
                         <button className="btn btn-outline-primary">
                           💙{article?.favoritesCount}
                         </button>
@@ -82,14 +82,15 @@ const Home = () => {
                     </Row>
                   </Row>
 
+                <Link to={`../articles/${article.slug}`} className={styles.text}>
                   <Row>
                     <div className="">
-                      <h3>{article.title}</h3>
+                      <h3 className={styles.articleTitle}>{article.title}</h3>
                       <p>{article.description}</p>
                     </div>
                   </Row>
-                </Row>
-              </Link>
+                </Link>
+              </Row>
             </div>
           ))}
 

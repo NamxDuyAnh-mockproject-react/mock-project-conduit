@@ -1,9 +1,42 @@
 .avatar{
-    width: 20%;
+    max-height: 50px;
     border-radius: 50%;
 }
-.header-article{
+.headerArticle{
     display: flex;
     flex-direction: row;
-
+    margin-bottom: 3%;
+}
+.text{
+    text-decoration: none;
+    color: grey;
+}
+.authorName{
+    color: #5CB85C;
+}
+.authorName:hover{
+    color: #3d8b3d;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.date{
+    font-size: 0.9rem;
+    color: #bbb;
+    margin-bottom: 0;
+}
+.articleTitle{
+    color: #0e0e0e;
+    font-size: 1.5rem;
+}
+.favorites{
+    display: flex;
+    justify-content: end;
+    gap: 3;
+    align-items: center;
+}
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
