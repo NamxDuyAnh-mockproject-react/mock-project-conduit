@@ -32,3 +32,17 @@ export function* checkCurrentUser() {
     yield put(loginFail(error.message));
   }
 }
+export function* registerUserSaga(action) {
+  try {
+    yield put(login());
+
+    const response = yield call(authService.fetchRegisterUser, action.payload);
+    if (response.error) {
+      yield put(loginFail(response.error));
+    } else {
+      yield put(loginSuccess(response.user));
+    }
+  } catch (error) {
+    yield put(loginFail(error.message));
+  }
+}

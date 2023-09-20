@@ -5,7 +5,7 @@ import {Button} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import {createUser} from '../../Store/actions/auth.action';
-import { userRegistered } from '../../Store/slices/register.slice';
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const Register = () => {
@@ -18,7 +18,7 @@ const Register = () => {
     useEffect(() => {
         const token = JSON.parse(localStorage.getItem("token"));
         if (token) {
-            dispatch(userRegistered({ user: { token } }));
+            dispatch(loginSuccess({ user: { token } }));
         }
     }, [dispatch]);
 
