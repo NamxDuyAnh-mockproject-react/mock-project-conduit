@@ -17,7 +17,6 @@ const Home = () => {
       dispatch(loginSuccess({ user: { token } })); // Cập nhật trạng thái đăng nhập từ local storage
     }
   }, [dispatch]);
-
   useEffect(() => {
     dispatch(fetchAllArticles());
   }, [dispatch]);
