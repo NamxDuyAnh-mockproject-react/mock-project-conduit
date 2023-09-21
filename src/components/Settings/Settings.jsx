@@ -1,9 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { Container, Typography, TextField, TextareaAutosize, Button, Card, CardContent, Grid, Divider } from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux';
-import {logout, updateUser} from '../../Store/slices/auth.slice';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import {
+  Container,
+  Typography,
+  TextField,
+  TextareaAutosize,
+  Button,
+  Card,
+  CardContent,
+  Grid,
+  Divider,
+} from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../Store/slices/auth.slice";
+import { updateUser } from "../../Store/actions/auth.action";
+import { useNavigate } from "react-router-dom";
 function SettingsPage() {
+
     const { user } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -27,108 +39,131 @@ function SettingsPage() {
       );
     
 
-    const handleInput = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => {
-            return { ...prev, [name]: value };
-        });
-    };
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
-        dispatch(updateUser(formData))
-    }
+  const [formData, setFormData] = useState({
+    image: user?.image || "",
+    username: user?.username || "",
+    email: user?.email || "",
+    bio: user?.bio || "",
+    password: "",
+  });
+  useEffect(
+    () =>
+      setFormData({
+        image: user?.image || "",
+        username: user?.username || "",
+        email: user?.email || "",
+        bio: user?.bio || "",
+        password: "",
+      }),
+    []
+  );
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
 
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        dispatch(logout());
-        navigate('/home')
-    }
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateUser(formData));
+  };
 
-    return (
-        <Container maxWidth="md" sx={{ mt: 3 }}>
-            <Card>
-                <CardContent>
-                    <Typography variant="h4" align="center" gutterBottom>
-                        Your Settings
-                    </Typography>
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    dispatch(logout());
+    navigate("/home");
+  };
 
-                    <form onSubmit={handleFormSubmit}>
-                        <Grid container spacing={2}>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="URL of profile picture"
-                                    variant="outlined"
-                                    name="image"
-                                    value={formData.image}
-                                    onChange={handleInput}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Username"
-                                    variant="outlined"
-                                    name="username"
-                                    value={formData.username}
-                                    onChange={handleInput}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextareaAutosize
-                                    minRows={5}
-                                    maxRows={10}
-                                    aria-label="Bio"
-                                    placeholder="Short bio about you"
-                                    name="bio"
-                                    value={formData.bio}
-                                    onChange={handleInput}
-                                    style={{ width: '100%', padding: '8px', border: '1px solid #ccc' }}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="Email"
-                                    variant="outlined"
-                                    type="email"
-                                    value={formData.email}
-                                    disabled 
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    fullWidth
-                                    label="New Password"
-                                    variant="outlined"
-                                    type="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleInput}
-                                />
-                            </Grid>
-                        </Grid>
+  return (
+    <Container maxWidth="md" sx={{ mt: 3 }}>
+      <Card>
+        <CardContent>
+          <Typography variant="h4" align="center" gutterBottom>
+            Your Settings
+          </Typography>
 
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            sx={{ mt: 3 }}
-                        >
-                            Update Settings
-                        </Button>
-                    </form>
+          <form onSubmit={handleFormSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="URL of profile picture"
+                  variant="outlined"
+                  name="image"
+                  value={formData.image}
+                  onChange={handleInput}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Username"
+                  variant="outlined"
+                  name="username"
+                  value={formData.username}
+                  onChange={handleInput}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextareaAutosize
+                  minRows={5}
+                  maxRows={10}
+                  aria-label="Bio"
+                  placeholder="Short bio about you"
+                  name="bio"
+                  value={formData.bio}
+                  onChange={handleInput}
+                  style={{
+                    width: "100%",
+                    padding: "8px",
+                    border: "1px solid #ccc",
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  variant="outlined"
+                  type="email"
+                  value={formData.email}
+                  disabled
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="New Password"
+                  variant="outlined"
+                  type="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInput}
+                />
+              </Grid>
+            </Grid>
 
-                    <Divider style={{ margin: '16px 0' }} />
+            <Button
+              variant="contained"
+              color="primary"
+              type="submit"
+              sx={{ mt: 3 }}
+            >
+              Update Settings
+            </Button>
+          </form>
 
-                    <Button variant="outlined" color="error" onClick={handleLogout}>
-                        Or click here to logout.
-                    </Button>
-                </CardContent>
-            </Card>
-        </Container>
-    );
+          <Divider style={{ margin: "16px 0" }} />
+
+          <Button variant="outlined" color="error" onClick={handleLogout}>
+            Or click here to logout.
+          </Button>
+        </CardContent>
+      </Card>
+    </Container>
+  );
 }
 
 export default SettingsPage;

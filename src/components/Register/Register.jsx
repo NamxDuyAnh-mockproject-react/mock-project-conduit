@@ -22,11 +22,11 @@ const Register = () => {
     const[formData, setFormData] = useState({});
     const defaultTheme = createTheme();
 
-    useEffect(() => {
-        if (user) {
-          navigate("/home");
-        }
-      }, [user, navigate]);
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user, navigate]);
 
       useEffect(() => {
         if (error) {
@@ -34,10 +34,10 @@ const Register = () => {
         }
       }, [error]);
 
-    const handleChange = (e) =>{
-        const{name, value} = e.target;
-        setFormData({...formData, [name]: value});
-    }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
     const handleSubmit = (e) => {
         e.preventDefault();

@@ -48,6 +48,7 @@ export function* registerUserSaga(action) {
   }
 }
 export function* updateUserSaga(action) {
+  console.log(action.payload)
   const response = yield call(authService.updateUser, action.payload);
   yield put(updateUser(response.user));
 }

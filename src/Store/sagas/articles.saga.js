@@ -8,14 +8,14 @@ import {
 import articlesService from "../../http/services/articles.service";
 
 export function* fetchArticlesSaga(action) {
-  console.log(action);
+
   const articles = yield call(articlesService.fetchAllArticles,action.payload);
 
   yield put(setArticlesData(articles));
 }
 
 export function* createArticleSaga(action) {
-  console.log(action);
+
   yield call(articlesService.createArticles, action.payload);
 }
 
