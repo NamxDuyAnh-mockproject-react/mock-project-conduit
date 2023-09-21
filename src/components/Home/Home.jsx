@@ -45,7 +45,7 @@ const Home = () => {
           <Col md={12}>
           {articles.map((article) => (
             <div key={article.slug}>
-                <Row className="article-preview border-bottom p-4">
+                <Row className="article-preview border-bottom p-3">
                   <Row className={styles.headerArticle}>
                     <Row >
                       <Col xs={12} md={4}>
@@ -82,15 +82,26 @@ const Home = () => {
                       </Col>
                     </Row>
                   </Row>
-                <Link to={`../articles/${article.slug}`} className={styles.text}>
                   <Row>
-                    <div className="">
-                      <h3 className={styles.articleTitle}>{article.title}</h3>
-                      <p>{article.description}</p>
-
+                    <div>
+                      <Link to={`../articles/${article.slug}`} className={styles.text}>
+                            <h3 className={styles.articleTitle}>{article.title}</h3>
+                            <p>{article.description}</p>
+                              
+                      </Link>
+                      <div className={styles.footerArticle}>
+                        <Link to={`../articles/${article.slug}`} className={styles.readMore}>
+                          <span>Read more...</span>  
+                        </Link>
+                        <ul>
+                          {article.tagList.map((tag, index) => (
+                            <li key={index} className={styles.tagList}>{tag}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      
                     </div>
                   </Row>
-                </Link>
               </Row>
             </div>
           ))}
