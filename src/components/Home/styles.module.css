@@ -45,3 +45,29 @@
     flex-direction: row;
 
 }
+
+.footerArticle{
+    display: flex;
+    justify-content: space-between;
+    max-height: 20%;
+}
+
+.readMore{
+    font-size: 0.8em;
+    text-decoration: none;
+    color: #808080;
+}
+.tagList{
+    border-radius: 30px 30px 30px 30px;
+    text-decoration: none;
+    border: 1px solid #909090;
+    background-color: #ffffff;
+    color: #909090 !important;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    list-style: none;
+    white-space: nowrap;
+    margin-right: 4px;
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}

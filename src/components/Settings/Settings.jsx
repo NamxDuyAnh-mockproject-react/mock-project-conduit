@@ -8,12 +8,23 @@ function SettingsPage() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
-        image: user.image||"",
-        username: user.username||"",
-        email: user.email||"",
-        bio: user.bio||"",
-        password: '',
-    });
+        image: user?.image||"",
+        username: user?.username||"",
+        email: user?.email||"",
+        bio: user?.bio||"",
+        password: "",
+      });
+      useEffect(
+        () =>
+          setFormData({
+            image: user?.image||"",
+            username: user?.username||"",
+            email: user?.email||"",
+            bio: user?.bio||"",
+            password: "",
+          }),
+        [user]
+      );
     
 
     const handleInput = (e) => {
