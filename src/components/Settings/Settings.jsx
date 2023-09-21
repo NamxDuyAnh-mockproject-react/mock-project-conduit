@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, TextField, TextareaAutosize, Button, Card, CardContent, Grid, Divider } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout, updateUser } from '../../Store/actions/auth.action';
+import {logout, updateUser} from '../../Store/slices/auth.slice';
 import { useNavigate } from 'react-router-dom';
 function SettingsPage() {
     const { user } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
-        image: user.image,
-        username: user.username,
-        email: user.email,
-        bio: user.bio,
+        image: user.image||"",
+        username: user.username||"",
+        email: user.email||"",
+        bio: user.bio||"",
         password: '',
     });
     

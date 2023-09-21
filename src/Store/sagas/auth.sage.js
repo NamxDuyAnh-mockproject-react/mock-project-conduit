@@ -1,5 +1,10 @@
 import { call, put } from "redux-saga/effects";
-import { loginSuccess, loginFail, login } from "../slices/auth.slice";
+import {
+  loginSuccess,
+  loginFail,
+  login,
+  updateUser,
+} from "../slices/auth.slice";
 import authService from "../../http/services/auth.service";
 
 export function* checkLoginSaga(action) {
@@ -43,6 +48,6 @@ export function* registerUserSaga(action) {
   }
 }
 export function* updateUserSaga(action) {
-  console.log(action);
-  yield call(authService.updateUser, action.payload);
+  const response = yield call(authService.updateUser, action.payload);
+  yield put(updateUser(response.user));
 }

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllArticles } from "../../Store/actions/articles.action";
 import styles from "./styles.module.css"
 import Tag from "../Tag/Tag";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ const Home = () => {
                       </Col>
                       <Col className={styles.favorites}>
                         <button className="btn btn-outline-success">
-                          💙{article?.favoritesCount}
+                          <span><FavoriteIcon/></span>{article?.favoritesCount}
                         </button>
                       </Col>
                     </Row>
@@ -86,6 +87,7 @@ const Home = () => {
                     <div className="">
                       <h3 className={styles.articleTitle}>{article.title}</h3>
                       <p>{article.description}</p>
+
                     </div>
                   </Row>
                 </Link>
