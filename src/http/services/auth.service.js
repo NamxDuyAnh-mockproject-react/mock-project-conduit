@@ -41,6 +41,7 @@ class authService {
   getCurrentUser = async () => {
     try {
       const response = await conduitAxiosCredentials.get("user");
+      console.log(response)
       return response.data;
     } catch (error) {
       return {
@@ -49,9 +50,10 @@ class authService {
     }
   };
 
-  updateUser = async () => {
+  updateUser = async (formData) => {
+    const data = { user: formData };
     try {
-      const response = await conduitAxiosCredentials.post("user");
+      const response = await conduitAxiosCredentials.put("user", data);
       return response.data;
     } catch (error) {
       return {

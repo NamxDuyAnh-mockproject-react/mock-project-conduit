@@ -6,7 +6,7 @@ class ArticlesService {
       const res = await conduitAxios.get(
         `/articles?offset=${offset}&limit=${articlesPerPage}`
       );
-      console.log(res);
+
       return res.data;
     } catch (error) {
       return {
@@ -49,7 +49,7 @@ class ArticlesService {
         `/articles/${slug.slug}/comments`,
         config
       );
-      console.log(res);
+
       return res;
     } catch (error) {
       console.log(error);
@@ -76,7 +76,6 @@ class ArticlesService {
       };
 
       const res = await conduitAxios.get(`/articles/${slug}/comments`, config);
-      console.log(res.data);
 
       return res.data;
     } catch (error) {
