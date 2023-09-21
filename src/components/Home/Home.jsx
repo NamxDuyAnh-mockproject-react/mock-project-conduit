@@ -3,6 +3,7 @@ import { Col, Container, Nav, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllArticles } from "../../Store/actions/articles.action";
+import styles from "./styles.module.css"
 import Tag from "../Tag/Tag";
 
 const Home = () => {
@@ -30,40 +31,39 @@ const Home = () => {
   return (
     <Container>
       <Row>
-        <Col md={9}>
-          <Nav variant="tabs" defaultActiveKey="/home">
-            <Nav.Item>
-              <Nav.Link href="/home">Your Feed</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-1">Global Feed</Nav.Link>
-            </Nav.Item>
-          </Nav>
-        </Col>
-        <Col md={9}>
+        <Row className={styles.layout}>
+          <Col md={9} className="mt-3">
+            <Nav variant="tabs" defaultActiveKey="/home">
+              <Nav.Item>
+                <Nav.Link href="/link-1">Your Feed</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="/home">Global Feed</Nav.Link>
+              </Nav.Item>
+            </Nav>
+          <Col md={12}>
           {articles.map((article) => (
             <div key={article.slug}>
-              <Link to={`../articles/${article.slug}`}>
-                <Row className="article-preview border-bottom p-5">
-                  <Row>
-                    <Row>
+                <Row className="article-preview border-bottom p-4">
+                  <Row className={styles.headerArticle}>
+                    <Row >
                       <Col xs={12} md={4}>
-                        <Row className="d-flex gap-3">
+                        <Row className="d-flex gap-2">
                           <Col xs={2} className="my-auto">
                             <img
                               src={article?.author.image}
-                              style={{ maxHeight: "50px" }}
-                              alt=""
+                              className={styles.avatar}
+                              alt="avatar"
                             />
                           </Col>
-                          <Col className="my-auto">
-                            <div className="p-0 m-0">
+                          <Col className={styles.center}>
+                            <div className={styles.authorName}>
                               {article?.author.username}
                             </div>
-                            <p className="p-0 m-0">
+                            <p className={styles.date}>
                               {article?.createdAt
                                 ? new Date(
-                                    article?.createdAt
+                                  article?.createdAt
                                   ).toLocaleDateString("en-US", {
                                     month: "long",
                                     day: "numeric",
@@ -74,60 +74,60 @@ const Home = () => {
                           </Col>
                         </Row>
                       </Col>
-                      <Col className="my-auto px-0 d-flex gap-3">
-                        <button className="btn btn-outline-primary">
+                      <Col className={styles.favorites}>
+                        <button className="btn btn-outline-success">
                           💙{article?.favoritesCount}
                         </button>
                       </Col>
                     </Row>
                   </Row>
-
+                <Link to={`../articles/${article.slug}`} className={styles.text}>
                   <Row>
                     <div className="">
-                      <h3>{article.title}</h3>
+                      <h3 className={styles.articleTitle}>{article.title}</h3>
                       <p>{article.description}</p>
                     </div>
                   </Row>
-                </Row>
-              </Link>
+                </Link>
+              </Row>
             </div>
           ))}
-
-          
-            <Col md={9}>
-              <ul className="pagination">
-                <li
-                  className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                >
-                  <button className="page-link">Previous</button>
-                </li>
-                {/* Render page numbers */}
-                {Array.from({ length: totalPages }, (_, index) => (
-                  <li
-                    key={index + 1}
-                    className={`page-item ${
-                      currentPage === index + 1 ? "active" : ""
-                    }`}
-                    onClick={() => setCurrentPage(index + 1)}
-                  >
-                    <button className="page-link">{index + 1}</button>
-                  </li>
-                ))}
-                <li
-                  className={`page-item ${
-                    currentPage === totalPages ? "disabled" : ""
-                  }`}
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                >
-                  <button className="page-link">Next</button>
-                </li>
-              </ul>
-            </Col>
-          
+          </Col>
+          </Col>
+          <Tag />
+        </Row>
+        
+        <Col md={9}>
+          <ul className="pagination">
+            <li
+              className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              <button className="page-link">Previous</button>
+            </li>
+            {/* Render page numbers */}
+            {Array.from({ length: totalPages }, (_, index) => (
+              <li
+                key={index + 1}
+                className={`page-item ${
+                  currentPage === index + 1 ? "active" : ""
+                }`}
+                onClick={() => setCurrentPage(index + 1)}
+              >
+                <button className="page-link">{index + 1}</button>
+              </li>
+            ))}
+            <li
+              className={`page-item ${
+                currentPage === totalPages ? "disabled" : ""
+              }`}
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              <button className="page-link">Next</button>
+            </li>
+          </ul>
         </Col>
-
-        <Tag />
+        
       </Row>
     </Container>
   );
