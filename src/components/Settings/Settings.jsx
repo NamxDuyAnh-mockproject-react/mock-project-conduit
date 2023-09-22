@@ -59,7 +59,7 @@ function SettingsPage() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 3 }}>
+    <Container maxWidth="md" sx={{ mt: 5 }}>
       <Card>
         <CardContent>
           <Typography variant="h4" align="center" gutterBottom>
