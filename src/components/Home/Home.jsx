@@ -9,6 +9,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const Home = () => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const { articles, articlesCount } = useSelector(
     (state) => state.articles.allArticlesData
   );
@@ -35,12 +36,20 @@ const Home = () => {
         <Row className={styles.layout}>
           <Col md={9} className="mt-3">
             <Nav variant="tabs" defaultActiveKey="/home">
-              <Nav.Item>
-                <Nav.Link href="/link-1">Your Feed</Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="/home">Global Feed</Nav.Link>
-              </Nav.Item>
+              {isLoggedIn ?(
+                <>
+                  <Nav.Item>
+                    <Nav.Link href="/link-1">Your Feed</Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link eventKey="/home">Global Feed</Nav.Link>
+                  </Nav.Item>
+                </>
+              ):(
+                  <Nav.Item>
+                    <Nav.Link eventKey="/home">Global Feed</Nav.Link>
+                  </Nav.Item>
+              )}              
             </Nav>
           <Col md={12}>
           {articles.map((article) => (
