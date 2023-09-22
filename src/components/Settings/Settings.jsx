@@ -16,6 +16,7 @@ import { updateUser } from "../../Store/actions/auth.action";
 import { useNavigate } from "react-router-dom";
 function SettingsPage() {
 
+
     const { user } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function SettingsPage() {
         [user]
       );
     
+
   const handleInput = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => {

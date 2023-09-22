@@ -6,7 +6,7 @@ const articlesSlice = createSlice({
     allArticlesData: {},
     detailArticle: {},
     allCommentsData: [],
-    tab:"all"
+    tab:""
   },
   reducers: {
     setArticlesData(state, action) {
