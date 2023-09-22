@@ -38,26 +38,6 @@ function SettingsPage() {
         [user]
       );
     
-
-
-  const [formData, setFormData] = useState({
-    image: user?.image || "",
-    username: user?.username || "",
-    email: user?.email || "",
-    bio: user?.bio || "",
-    password: "",
-  });
-  useEffect(
-    () =>
-      setFormData({
-        image: user?.image || "",
-        username: user?.username || "",
-        email: user?.email || "",
-        bio: user?.bio || "",
-        password: "",
-      }),
-    []
-  );
   const handleInput = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => {
