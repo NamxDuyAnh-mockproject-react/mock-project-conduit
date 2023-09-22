@@ -3,9 +3,10 @@ import { createSlice } from "@reduxjs/toolkit";
 const articlesSlice = createSlice({
   name: "articles",
   initialState: {
-    allArticlesData: [],
+    allArticlesData: {},
     detailArticle: {},
     allCommentsData: [],
+    tab:"all"
   },
   reducers: {
     setArticlesData(state, action) {
@@ -17,10 +18,14 @@ const articlesSlice = createSlice({
     setCommentsData(state, action) {
       state.allCommentsData = action.payload;
     },
+    setTabs(state, action) {
+      state.tab = action.payload;
+      
+    },
   },
 });
 
-export const { setArticlesData, setDetailArticle, setCommentsData } =
+export const { setArticlesData, setDetailArticle, setCommentsData,setTabs } =
   articlesSlice.actions;
 
 export default articlesSlice.reducer;

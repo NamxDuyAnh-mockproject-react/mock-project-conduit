@@ -8,14 +8,20 @@ import {
 import articlesService from "../../http/services/articles.service";
 
 export function* fetchArticlesSaga(action) {
-
-  const articles = yield call(articlesService.fetchAllArticles,action.payload);
-
+  const articles = yield call(articlesService.fetchAllArticles, action.payload);
+  console.log(articles);
   yield put(setArticlesData(articles));
 }
 
-export function* createArticleSaga(action) {
+export function* fetchArticlesFolowSaga(action) {
+  const articles = yield call(
+    articlesService.fetchArticlesFolow,
+    action.payload
+  );
 
+  yield put(setArticlesData(articles));
+}
+export function* createArticleSaga(action) {
   yield call(articlesService.createArticles, action.payload);
 }
 
@@ -29,9 +35,8 @@ export function* fetchDetailArticlesSaga(action) {
 
 export function* fetchCommentsSaga(action) {
   const response = yield call(articlesService.fetchAllComment, action.payload);
-  
+
   yield put(setCommentsData(response.comments));
- 
 }
 
 export function* addCommentsSaga(action) {

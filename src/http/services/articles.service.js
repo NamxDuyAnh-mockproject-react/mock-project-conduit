@@ -14,6 +14,19 @@ class ArticlesService {
       };
     }
   };
+  fetchArticlesFolow = async ({ offset, articlesPerPage }) => {
+    try {
+      const res = await conduitAxiosCredentials.get(
+        `/articles/feed?offset=${offset}&limit=${articlesPerPage}`
+      );
+
+      return res.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
   createArticles = async ({ articles }) => {
     try {
       const config = { article: articles };
