@@ -7,6 +7,7 @@ import TagDetail from "../components/Tag/TagDetail";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
 import CreateArticle from "../components/CreateArticle/CreateArticle";
 import Settings from "../components/Settings/Settings"
+import Profile from "../components/Profile/Profile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
         path: "settings",
         element: <Settings />,
       },
+      {
+        path: "profile",
+        element: <Profile />,
+      }
     ],
   },
 ]);

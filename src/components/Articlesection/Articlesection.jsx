@@ -8,6 +8,7 @@ import {
   fetchAllArticles,
   fetchArticlesFolow,
 } from "../../Store/actions/articles.action";
+import { current } from "@reduxjs/toolkit";
 function Articlesection(props) {
   const { articles, articlesCount } = useSelector(
     (state) => state.articles.allArticlesData
@@ -32,7 +33,7 @@ function Articlesection(props) {
       default:
         return;
     }
-  }, [tab]);
+  }, [tab, currentPage]);
   if (!articles) {
     return <p>Loading articles...</p>;
   }
