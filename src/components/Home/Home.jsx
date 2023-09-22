@@ -10,6 +10,7 @@ import { setTabs } from "../../Store/slices/articles.slice";
 import { useEffect } from "react";
 const Home = () => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const handleTabChange = (tab) => {
     dispatch(setTabs(tab));
   };
@@ -22,23 +23,35 @@ const Home = () => {
         <Row className={styles.layout}>
           <Col md={9} className="mt-3">
             <Nav variant="tabs" defaultActiveKey="all">
-              <Nav.Item>
-                <Nav.Link
-                  eventKey="follow"
-                  onClick={() => handleTabChange("follow")}
-                >
-                  Your Feed
-                </Nav.Link>
-              </Nav.Item>
-              <Nav.Item>
-                <Nav.Link eventKey="all" onClick={() => handleTabChange("all")}>
-                  Global Feed
-                </Nav.Link>
-              </Nav.Item>
+            {isLoggedIn ?
+             (
+              <>
+                <Nav.Item>
+                  <Nav.Link
+                    eventKey="follow"
+                    onClick={() => handleTabChange("follow")}>
+                    Your Feed
+                  </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="all" onClick={() => handleTabChange("all")}>
+                    Global Feed
+                  </Nav.Link>
+                </Nav.Item>
+              </>
+             ):(
+             <>
+                <Nav.Item>
+                  <Nav.Link eventKey="all" onClick={() => handleTabChange("all")}>
+                    Global Feed
+                  </Nav.Link>
+                </Nav.Item>
+             </>
+             )
+            }
             </Nav>
             <Articlesection />
           </Col>
-
           <Tag />
         </Row>
       </Row>
