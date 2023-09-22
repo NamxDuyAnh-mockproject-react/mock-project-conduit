@@ -1,16 +1,12 @@
-import React from "react";
-import { Container } from "react-bootstrap";
-import { Form } from "react-bootstrap";
-import Button from "react-bootstrap/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { loginSuccess, loginFail } from "../../Store/slices/auth.slice";
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { useDispatch } from "react-redux";
 import { createArticles } from "../../Store/actions/articles.action";
-import styles from "./styles.module.css"
+import styles from "./styles.module.css";
 
 function CreateArticle(props) {
-  const [validated, setValidated] = useState(false);
-  const dispatch = useDispatch();
   const [input, setInput] = useState({
     title: "",
     description: "",
@@ -18,6 +14,8 @@ function CreateArticle(props) {
     tagList: [],
   });
   const [tag, setTag] = useState("");
+  const [errors, setErrors] = useState({});
+  const dispatch = useDispatch();
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -25,86 +23,97 @@ function CreateArticle(props) {
       return { ...prev, [name]: value };
     });
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.stopPropagation();
-    }
-    const config = { articles: input };
 
-    dispatch(createArticles(config));
-
-    setValidated(true);
-  };
   const handleAddTag = () => {
     setInput((prev) => {
       return { ...prev, tagList: [...prev.tagList, tag] };
     });
     setTag("");
   };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!input.title) {
+      newErrors.title = "Please choose a title.";
+    }
+    if (!input.description) {
+      newErrors.description = "Please choose a description.";
+    }
+    if (!input.body) {
+      newErrors.body = "Please choose a content.";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (validateForm()) {
+      const config = { articles: input };
+      dispatch(createArticles(config));
+    }
+  };
+
   return (
     <Container>
-      <Form noValidate validated={validated} className={styles.formCreateArticle}>
-        <Form.Group className="mb-3">
-          <Form.Label>Article Title</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            value={input.title}
-            name="title"
-            onChange={(e) => handleInput(e)}
-          />
-          <Form.Control.Feedback type="invalid">
-            Please choose a title.
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>What's this article about?</Form.Label>
-          <Form.Control
-            required
-            type="text"
-            value={input.description}
-            name="description"
-            onChange={(e) => handleInput(e)}
-          />
-          <Form.Control.Feedback type="invalid">
-            Please choose a description.
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Write your article (in mark down)</Form.Label>
-          <Form.Control
-            required
-            as="textarea"
-            rows={3}
-            value={input.body}
-            name="body"
-            onChange={(e) => handleInput(e)}
-          />
-          <Form.Control.Feedback type="invalid">
-            Please choose a content.
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Enter Tags</Form.Label>
-          <Form.Control
-            type="text"
-            value={tag}
-            name="tagList"
-            onChange={(e) => setTag(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleAddTag();
-              }
-            }}
-            placeholder="Write your Tag then press enter to add"
-          />
-        </Form.Group>
-        <Form.Group className={styles.btnPublish}>
-          <Button onClick={(e) => handleSubmit(e)}  variant="success">Publish Article</Button>
-        </Form.Group>
-      </Form>
+      <form noValidate className={styles.formCreateArticle} onSubmit={handleSubmit}>
+        <TextField
+          required
+          fullWidth
+          label="Article Title"
+          type="text"
+          className={styles.input}
+          value={input.title}
+          name="title"
+          onChange={(e) => handleInput(e)}
+          error={!!errors.title}
+          helperText={errors.title}
+        />
+        <TextField
+          required
+          fullWidth
+          label="What's this article about?"
+          type="text"
+          className={styles.input}
+          value={input.description}
+          name="description"
+          onChange={(e) => handleInput(e)}
+          error={!!errors.description}
+          helperText={errors.description}
+        />
+        <TextField
+          required
+          fullWidth
+          label="Write your article (in mark down)"
+          multiline
+          className={styles.input}
+          rows={3}
+          value={input.body}
+          name="body"
+          onChange={(e) => handleInput(e)}
+          error={!!errors.body}
+          helperText={errors.body}
+        />
+        <TextField
+          type="text"
+          label="Enter tags"
+          value={tag}
+          name="tagList"
+          onChange={(e) => setTag(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleAddTag();
+            }
+          }}
+          fullWidth
+          placeholder="Write your Tag then press enter to add"
+        />
+        <div className={styles.btnPublish}>
+          <Button type="submit" variant="contained" color="success">
+            Publish Article
+          </Button>
+        </div>
+      </form>
     </Container>
   );
 }
