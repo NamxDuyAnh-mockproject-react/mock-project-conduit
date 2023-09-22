@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginSuccess, loginFail } from "../../Store/slices/auth.slice";
 import { useEffect, useState } from "react";
 import { createArticles } from "../../Store/actions/articles.action";
+import styles from "./styles.module.css"
+
 function CreateArticle(props) {
   const [validated, setValidated] = useState(false);
   const dispatch = useDispatch();
@@ -43,7 +45,7 @@ function CreateArticle(props) {
   };
   return (
     <Container>
-      <Form noValidate validated={validated}>
+      <Form noValidate validated={validated} className={styles.formCreateArticle}>
         <Form.Group className="mb-3">
           <Form.Label>Article Title</Form.Label>
           <Form.Control
@@ -99,8 +101,9 @@ function CreateArticle(props) {
             placeholder="Write your Tag then press enter to add"
           />
         </Form.Group>
-        <p>{JSON.stringify(input.tagList)}</p>
-        <Button onClick={(e) => handleSubmit(e)}>Publish Article</Button>
+        <Form.Group className={styles.btnPublish}>
+          <Button onClick={(e) => handleSubmit(e)}  variant="success">Publish Article</Button>
+        </Form.Group>
       </Form>
     </Container>
   );

@@ -1,0 +1,9 @@
+.formCreateArticle{
+    width: 70%;
+    margin: auto;
+    padding: 5%;
+}
+.btnPublish{
+    display: flex;
+    flex-direction: row-reverse;
+}

@@ -31,6 +31,7 @@ const Login = () => {
   useEffect(() => {
     // Kiểm tra xem loginSuccess đã được kích hoạt sau khi đăng nhập thành công
     if (user) {
+     
       navigate("/home");
     }
   }, [user, navigate]);
