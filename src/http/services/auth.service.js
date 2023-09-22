@@ -53,7 +53,9 @@ class authService {
   updateUser = async (formData) => {
     const data = { user: formData };
     try {
+
       const response = await conduitAxiosCredentials.put("user", data);
+
       return response.data;
     } catch (error) {
       return {
