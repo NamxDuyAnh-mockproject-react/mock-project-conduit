@@ -8,34 +8,33 @@ import {
 import { createUser } from "../actions/auth.action";
 
 import {
-  fetchArticlesSaga,
   createArticleSaga,
   fetchDetailArticlesSaga,
   fetchCommentsSaga,
-  addCommentsSaga,fetchArticlesFolowSaga
+  addCommentsSaga,
+  fetchArticlesByTypeSaga,
 } from "./articles.saga";
-import { all, takeEvery } from "redux-saga/effects";
+import { all, takeEvery,takeLatest } from "redux-saga/effects";
 import {
-  fetchAllArticles,
   createArticles,
   fetchDetailArticles,
   fetchAllComments,
-  addComments,fetchArticlesFolow
+  addComments,
+  fetchArticlesByType,
 } from "../actions/articles.action";
 import { fetchTagSaga } from "./tag.saga";
 import { fetchAllTag } from "../actions/tag.actions";
 export function* rootSaga() {
   yield all([
-    takeEvery(fetchAllArticles, fetchArticlesSaga),
+    takeEvery(fetchUser, checkLoginSaga),
+    takeEvery(getCurrentUser, checkCurrentUser),
+    takeEvery(updateUser, updateUserSaga),
+    takeEvery(createUser, registerUserSaga),
     takeEvery(createArticles, createArticleSaga),
     takeEvery(fetchAllTag, fetchTagSaga),
     takeEvery(fetchDetailArticles, fetchDetailArticlesSaga),
-    takeEvery(fetchUser, checkLoginSaga),
-    takeEvery(createUser, registerUserSaga),
     takeEvery(fetchAllComments, fetchCommentsSaga),
     takeEvery(addComments, addCommentsSaga),
-    takeEvery(getCurrentUser, checkCurrentUser),
-    takeEvery(updateUser, updateUserSaga),
-    takeEvery(fetchArticlesFolow,fetchArticlesFolowSaga)
+    takeLatest(fetchArticlesByType, fetchArticlesByTypeSaga),
   ]);
 }

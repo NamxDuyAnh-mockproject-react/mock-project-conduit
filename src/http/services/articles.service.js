@@ -2,6 +2,7 @@ import { conduitAxios, conduitAxiosCredentials } from "../axios-instance";
 
 class ArticlesService {
   fetchAllArticles = async ({ offset, articlesPerPage }) => {
+    console.log(offset)
     try {
       const res = await conduitAxios.get(
         `/articles?offset=${offset}&limit=${articlesPerPage}`
@@ -14,7 +15,8 @@ class ArticlesService {
       };
     }
   };
-  fetchArticlesFolow = async ({ offset, articlesPerPage }) => {
+  fetchArticlesFollow = async ({ offset, articlesPerPage }) => {
+    console.log(offset)
     try {
       const res = await conduitAxiosCredentials.get(
         `/articles/feed?offset=${offset}&limit=${articlesPerPage}`
@@ -89,6 +91,34 @@ class ArticlesService {
       };
 
       const res = await conduitAxios.get(`/articles/${slug}/comments`, config);
+
+      return res.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
+  fetchMyArticles = async ({ offset, articlesPerPage, user }) => {
+    console.log(offset)
+    try {
+      const res = await conduitAxiosCredentials.get(
+        `/articles?author=${user}&offset=${offset}&limit=${articlesPerPage}`
+      );
+
+      return res.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
+  fetchFavoritedArticles = async ({ offset, articlesPerPage, user }) => {
+    console.log(offset)
+    try {
+      const res = await conduitAxiosCredentials.get(
+        `/articles?favorited=${user}&offset=${offset}&limit=${articlesPerPage}`
+      );
 
       return res.data;
     } catch (error) {

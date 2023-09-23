@@ -5,7 +5,6 @@ import { Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDetailArticles } from "../../Store/actions/articles.action";
-import { loginSuccess, loginFail } from "../../Store/slices/auth.slice";
 import Comment from "../Comment/Comment";
 function ArticleDetail(props) {
   const slug = useParams();
