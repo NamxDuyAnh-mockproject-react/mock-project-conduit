@@ -6,7 +6,7 @@ const articlesSlice = createSlice({
     allArticlesData: {},
     detailArticle: {},
     allCommentsData: [],
-    tab:""
+    tab: "",
   },
   reducers: {
     setArticlesData(state, action) {
@@ -20,12 +20,11 @@ const articlesSlice = createSlice({
     },
     setTabs(state, action) {
       state.tab = action.payload;
-      
     },
   },
 });
 
-export const { setArticlesData, setDetailArticle, setCommentsData,setTabs } =
+export const { setArticlesData, setDetailArticle, setCommentsData, setTabs } =
   articlesSlice.actions;
 
 export default articlesSlice.reducer;
