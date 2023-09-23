@@ -5,7 +5,6 @@ import Navbar from "react-bootstrap/Navbar";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import styles from "./styles.module.css"
-import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ArticleIcon from '@mui/icons-material/Article';
 

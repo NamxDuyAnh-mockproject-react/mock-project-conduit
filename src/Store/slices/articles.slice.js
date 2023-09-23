@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const articlesSlice = createSlice({
   name: "articles",
   initialState: {
-    allArticlesData: {},
+    allArticlesData: {  },
     detailArticle: {},
     allCommentsData: [],
     tab: "",
