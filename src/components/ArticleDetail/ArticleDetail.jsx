@@ -9,6 +9,12 @@ import {
   fetchDetailArticles,
 } from "../../Store/actions/articles.action";
 import Comment from "../Comment/Comment";
+import styles from "./styles.module.css"
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import EditIcon from '@mui/icons-material/Edit';
+
 function ArticleDetail(props) {
   const slug = useParams();
   const dispatch = useDispatch();
@@ -36,56 +42,67 @@ function ArticleDetail(props) {
               <Row>
                 <Col className="" xs={12}>
                   <Row>
-                    <Col>
-                      <Row>
-                        <Col className="p-0 m-0" xs={2}>
-                          <img
-                            src={article?.author.image}
-                            style={{ maxHeight: "50px" }}
-                            alt=""
-                          />
-                        </Col>
-                        <Col className="p-0 m-0">
-                          <Link className="p-0 m-0">
-                            {article?.author.username}
-                          </Link>
-                          <p className="p-0 m-0">
-                            {article?.createdAt
-                              ? new Date(article?.createdAt).toLocaleDateString(
-                                  "en-US",
-                                  {
-                                    month: "long",
-                                    day: "numeric",
-                                    year: "numeric",
-                                  }
-                                )
-                              : ""}
-                          </p>
-                        </Col>
-                      </Row>
+
+                    <Col >
+                    <Row className="d-flex">
+                      <Col xs={1} className="my-auto">
+                        <img
+                          src={article?.author.image}
+                          className={styles.avatar}
+                          alt="avatar"
+                        />
+                      </Col>
+                      <Col className={styles.authorDateName}>
+                        <div className={styles.authorName}>
+                          {article?.author.username}
+                        </div>
+                        <p className={styles.date}>
+                          {article?.createdAt
+                            ? new Date(article?.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  month: "long",
+                                  day: "numeric",
+                                  year: "numeric",
+                                }
+                              )
+                            : ""}
+                        </p>
+                      </Col>
+                    </Row>
+
                     </Col>
                     {isEdited ? (
                       <Col className="  my-auto px-0 d-flex gap-3">
                         <button
                           onClick={handleEdit}
                           className="btn btn-outline-secondary"
+                          style={{width: "250px"}}
                         >
-                          ✏️ Edit Article
+                          <span><EditIcon fontSize="small" className={styles.spanIcon}/></span>
+                          Edit Article
                         </button>
                         <button
                           onClick={handleDelete}
                           className="btn btn-outline-primary"
+                          style={{width: "250px"}}
                         >
-                          🗑️ Delete Article
+
+                          <span><DeleteIcon fontSize="small" className={styles.spanIcon}/></span>
+                          Delete Article ({article?.favoritesCount})
+
                         </button>
                       </Col>
                     ) : (
                       <Col className="  my-auto px-0 d-flex gap-3">
-                        <button className="btn btn-outline-secondary">
-                          ➕ Follow
+                        <button className="btn btn-outline-secondary mx-auto my-auto"
+                        style={{width: "150px"}}>
+                          <span><AddIcon fontSize="small" className={styles.spanIcon}/></span>Follow
                         </button>
-                        <button className="btn btn-outline-primary">
-                          💙 Favorited article ({article?.favoritesCount})
+                        <button className="btn btn-outline-primary" 
+                        style={{width: "250px"}}>
+                          <span><FavoriteIcon fontSize="small" className={styles.spanIcon}/></span>
+                          Favorited article ({article?.favoritesCount})
                         </button>
                       </Col>
                     )}
@@ -99,13 +116,11 @@ function ArticleDetail(props) {
               <Row>
                 <p>{article?.body}</p>
                 <Row>
-                  {article?.tagList.map((tag) => {
-                    return (
-                      <Col key={tag} xs={1}>
-                        {tag}
-                      </Col>
-                    );
-                  })}
+                  <div className={styles.tagList}>
+                    {article?.tagList.map((tag, index) => (
+                      <span key={index} className={styles.tags}>{tag}</span>
+                    ))}
+                  </div>
                 </Row>
               </Row>
             </Col>
@@ -113,50 +128,60 @@ function ArticleDetail(props) {
           <Row>
             <Col className=" d-flex py-5 justify-content-center mx-auto" xs={8}>
               <Row>
-                <Col>
-                  <Row>
-                    <Col xs={2} className="my-auto ">
-                      <img
-                        src={article?.author.image}
-                        style={{ maxHeight: "50px" }}
-                        alt=""
-                      />
-                    </Col>
-                    <Col className=" my-auto">
-                      <Link className="p-0 m-0">
-                        {article?.author.username}
-                      </Link>
-                      <p className="p-0 m-0">
-                        {article?.createdAt
-                          ? new Date(article?.createdAt).toLocaleDateString(
-                              "en-US",
-                              {
-                                month: "long",
-                                day: "numeric",
-                                year: "numeric",
-                              }
-                            )
-                          : ""}
-                      </p>
-                    </Col>
-                  </Row>
+
+                <Col xs={12} md={4}>
+                <Row className="d-flex">
+                      <Col xs={1} className="my-auto">
+                        <img
+                          src={article?.author.image}
+                          className={styles.avatar}
+                          alt="avatar"
+                        />
+                      </Col>
+                      <Col className={styles.authorDateName}>
+                        <div className={styles.authorName2}>
+                          {article?.author.username}
+                        </div>
+                        <p className={styles.date}>
+                          {article?.createdAt
+                            ? new Date(article?.createdAt).toLocaleDateString(
+                                "en-US",
+                                {
+                                  month: "long",
+                                  day: "numeric",
+                                  year: "numeric",
+                                }
+                              )
+                            : ""}
+                        </p>
+                      </Col>
+                    </Row>
+
                 </Col>
                 {isEdited ? (
                   <Col className="  my-auto px-0 d-flex gap-3">
-                    <button className="btn btn-outline-secondary">
-                      ✏️ Edit Article
+                    <button className="btn btn-outline-secondary"
+                    style={{width: "250px"}}>
+                      <span><EditIcon fontSize="small" className={styles.spanIcon}/></span>
+                      Edit Article
                     </button>
-                    <button className="btn btn-outline-primary">
-                      🗑️ Delete Article
+
+                    <button className="btn btn-outline-primary"
+                    style={{width: "250px"}}>
+                      <span><DeleteIcon fontSize="small" className={styles.spanIcon}/></span>
+                      Delete Article ({article?.favoritesCount})
+
                     </button>
                   </Col>
                 ) : (
                   <Col className="  my-auto px-0 d-flex gap-3">
                     <button className="btn btn-outline-secondary">
-                      ➕ Follow
+                    <span><AddIcon fontSize="small" className={styles.spanIcon}/></span>
+                    Follow
                     </button>
                     <button className="btn btn-outline-primary">
-                      💙 Favorited article ({article?.favoritesCount})
+                    <span><FavoriteIcon fontSize="small" className={styles.spanIcon}/></span>
+                    Favorited article ({article?.favoritesCount})
                     </button>
                   </Col>
                 )}

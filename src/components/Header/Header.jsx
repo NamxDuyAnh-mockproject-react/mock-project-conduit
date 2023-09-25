@@ -19,14 +19,14 @@ const Header = () => {
         <Container className="">
           <Navbar.Brand href="/">Conduit</Navbar.Brand>
           <Nav className={styles.navLink}>
-            <Link to="/home" className={styles.linkItem}>Home</Link>
+            <Link to="/" className={styles.linkItem}>Home</Link>
             {isLoggedIn ? (
               <>
                   <NavLink to="/new-article" className={styles.linkItem}>
-                    <span><ArticleIcon fontSize="small"/></span>
+                    <span><ArticleIcon className={styles.icon} fontSize="small"/></span>
                     New Article</NavLink>
                   <NavLink to="/settings" className={styles.linkItem}>
-                    <span><SettingsIcon fontSize="small"/></span>
+                    <span><SettingsIcon fontSize="small" className={styles.icon}/></span>
                     Settings</NavLink>
                   <NavLink to="/profile" className={styles.linkItem}>
                     <img src={user.image} alt="" />
@@ -43,6 +43,9 @@ const Header = () => {
         </Container>
       </Navbar>
       <Outlet />
+      <footer className={styles.footer}>
+        <div>Fork on Github</div>
+      </footer>
     </>
   );
 };
