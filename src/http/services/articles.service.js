@@ -2,7 +2,7 @@ import { conduitAxios, conduitAxiosCredentials } from "../axios-instance";
 
 class ArticlesService {
   fetchAllArticles = async ({ offset, articlesPerPage }) => {
-    console.log(offset)
+    console.log(offset);
     try {
       const res = await conduitAxios.get(
         `/articles?offset=${offset}&limit=${articlesPerPage}`
@@ -16,7 +16,7 @@ class ArticlesService {
     }
   };
   fetchArticlesFollow = async ({ offset, articlesPerPage }) => {
-    console.log(offset)
+    console.log(offset);
     try {
       const res = await conduitAxiosCredentials.get(
         `/articles/feed?offset=${offset}&limit=${articlesPerPage}`
@@ -100,7 +100,7 @@ class ArticlesService {
     }
   };
   fetchMyArticles = async ({ offset, articlesPerPage, user }) => {
-    console.log(offset)
+    console.log(offset);
     try {
       const res = await conduitAxiosCredentials.get(
         `/articles?author=${user}&offset=${offset}&limit=${articlesPerPage}`
@@ -114,12 +114,24 @@ class ArticlesService {
     }
   };
   fetchFavoritedArticles = async ({ offset, articlesPerPage, user }) => {
-    console.log(offset)
+    console.log(offset);
     try {
       const res = await conduitAxiosCredentials.get(
         `/articles?favorited=${user}&offset=${offset}&limit=${articlesPerPage}`
       );
 
+      return res.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
+  deleteArticles = async ({ slug }) => {
+    console.log(slug);
+    try {
+      const res = await conduitAxiosCredentials.delete(`/articles/${slug}`);
+      console.log(res);
       return res.data;
     } catch (error) {
       return {
