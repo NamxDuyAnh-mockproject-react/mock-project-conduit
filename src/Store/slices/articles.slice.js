@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { redirect } from "react-router-dom";
 
 const articlesSlice = createSlice({
   name: "articles",
@@ -8,6 +9,7 @@ const articlesSlice = createSlice({
     allCommentsData: [],
     tab: "",
     createArticlesData: {},
+    redirectUrl: "",
   },
   reducers: {
     setArticlesData(state, action) {
@@ -22,13 +24,26 @@ const articlesSlice = createSlice({
     setTabs(state, action) {
       state.tab = action.payload;
     },
-    setCreateArticles(state,action){
+    setCreateArticles(state, action) {
       state.createArticlesData = action.payload;
-    }
+    },
+    setRedirect(state, action) {
+      state.redirectUrl = action.payload;
+    },
+    clearRedirect(state) {
+      state.redirectUrl = null;
+    },
   },
 });
 
-export const { setArticlesData, setDetailArticle, setCommentsData, setTabs,setCreateArticles } =
-  articlesSlice.actions;
+export const {
+  setArticlesData,
+  setDetailArticle,
+  setCommentsData,
+  setTabs,
+  setCreateArticles,
+  setRedirect,
+  clearRedirect,
+} = articlesSlice.actions;
 
 export default articlesSlice.reducer;
