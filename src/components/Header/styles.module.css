@@ -9,7 +9,8 @@
 }
 
 img{
-    max-height: 25px;
+    max-width: 30px;
+    max-height: 30px;
     border-radius: 50%;
     margin-right: 3px;
 }

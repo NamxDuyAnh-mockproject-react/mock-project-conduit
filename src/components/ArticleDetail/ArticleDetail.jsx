@@ -89,8 +89,7 @@ function ArticleDetail(props) {
                         >
 
                           <span><DeleteIcon fontSize="small" className={styles.spanIcon}/></span>
-                          Delete Article ({article?.favoritesCount})
-
+                          Delete Article
                         </button>
                       </Col>
                     ) : (
@@ -169,8 +168,7 @@ function ArticleDetail(props) {
                     <button className="btn btn-outline-primary"
                     style={{width: "250px"}}>
                       <span><DeleteIcon fontSize="small" className={styles.spanIcon}/></span>
-                      Delete Article ({article?.favoritesCount})
-
+                      Delete Article
                     </button>
                   </Col>
                 ) : (
