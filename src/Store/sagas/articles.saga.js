@@ -5,14 +5,16 @@ import {
   setDetailArticle,
   setCommentsData,
   setCreateArticles,
+  setRedirect,
 } from "../slices/articles.slice";
 import articlesService from "../../http/services/articles.service";
 
 export function* createArticleSaga(action) {
   const response = yield call(articlesService.createArticles, action.payload);
-  console.log(response);
+  const url = `../articles/${response.article.slug}`;
+
   yield put(setCreateArticles(response));
-  // yield put(push)
+  yield put(setRedirect(url));
 }
 
 export function* fetchDetailArticlesSaga(action) {

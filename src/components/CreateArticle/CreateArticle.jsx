@@ -9,12 +9,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { createArticles } from "../../Store/actions/articles.action";
 import styles from "./styles.module.css";
 import { useNavigate } from "react-router-dom";
+import { clearRedirect } from "../../Store/slices/articles.slice";
 function CreateArticle(props) {
   const navigate = useNavigate();
   const { error } = useSelector((state) => state.articles.createArticlesData);
-  const { article } = useSelector(
-    (state) => state.articles.createArticlesData
-  );
+  const redirectUrl  = useSelector((state) => state.articles.redirectUrl);
   const [input, setInput] = useState({
     title: "",
     description: "",
@@ -50,11 +49,12 @@ function CreateArticle(props) {
   };
 
   useEffect(() => {
-    if (article) {
-      console.log(article.slug)
-      navigate(`../articles/${article.slug}`);
+    if (redirectUrl) {
+      console.log(redirectUrl)
+      navigate(redirectUrl);
+      dispatch(clearRedirect());
     }
-  }, [article,navigate]);
+  }, [redirectUrl]);
   useEffect(() => {
     if (error) {
       toast.error("Title must be unique");
