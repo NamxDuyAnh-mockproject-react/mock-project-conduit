@@ -1,39 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Nav, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import styles from "../Home/styles.module.css";
-import {
-  fetchAllArticles,
-  fetchArticlesFolow,
-} from "../../Store/actions/articles.action";
-import { current } from "@reduxjs/toolkit";
+import { fetchArticlesByType } from "../../Store/actions/articles.action";
 function Articlesection(props) {
-  const { articles, articlesCount } = useSelector(
-    (state) => state.articles.allArticlesData
+  const articles = useSelector(
+    (state) => state.articles.allArticlesData?.articles
+  );
+  const articlesCount = useSelector(
+    (state) => state.articles.allArticlesData?.articlesCount
   );
   const tab = useSelector((state) => state.articles.tab);
-
+  const user = useSelector((state) => state.auth.user?.username);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 10;
   const totalPages = Math.ceil(articlesCount / articlesPerPage);
+  let offset = (currentPage - 1) * articlesPerPage;
   const dispatch = useDispatch();
+
   useEffect(() => {
-    const offset = (currentPage - 1) * articlesPerPage;
+    dispatch(fetchArticlesByType({ type: tab, offset, articlesPerPage, user }));
+  }, [tab, currentPage, dispatch, articlesPerPage, user]);
 
-    switch (tab) {
-      case "all":
-        dispatch(fetchAllArticles({ offset, articlesPerPage }));
-        return;
-      case "follow":
-        dispatch(fetchArticlesFolow({ offset, articlesPerPage }));
-        return;
-
-      default:
-        return;
-    }
-  }, [tab, currentPage]);
   if (!articles) {
     return <p>Loading articles...</p>;
   }
@@ -41,6 +31,7 @@ function Articlesection(props) {
   if (articles.length === 0) {
     return <p>No articles found.</p>;
   }
+
   return (
     <>
       <Col md={12}>
@@ -99,41 +90,44 @@ function Articlesection(props) {
           </div>
         ))}
       </Col>
-
-      <Col md={9}>
-        <ul className="pagination" style={{    
-          marginBottom: "100px",
-          display: "flex",
-          flexWrap: "wrap",
-          marginTop: "30px"}}>
-          <li
-            className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-            onClick={() => setCurrentPage(currentPage - 1)}
-          >
-            <button className="page-link">Previous</button>
-          </li>
-          {/* Render page numbers */}
-          {Array.from({ length: totalPages }, (_, index) => (
+      {totalPages > 1 ? (
+        <Col md={9}>
+          <ul className="pagination" style={{    
+            marginBottom: "100px",
+            display: "flex",
+            flexWrap: "wrap",
+            marginTop: "30px"}}>
             <li
-              key={index + 1}
-              className={`page-item ${
-                currentPage === index + 1 ? "active" : ""
-              }`}
-              onClick={() => setCurrentPage(index + 1)}
+              className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+              onClick={() => setCurrentPage(currentPage - 1)}
             >
-              <button className="page-link">{index + 1}</button>
+              <button className="page-link">Previous</button>
             </li>
-          ))}
-          <li
-            className={`page-item ${
-              currentPage === totalPages ? "disabled" : ""
-            }`}
-            onClick={() => setCurrentPage(currentPage + 1)}
-          >
-            <button className="page-link">Next</button>
-          </li>
-        </ul>
-      </Col>
+            {/* Render page numbers */}
+            {Array.from({ length: totalPages }, (_, index) => (
+              <li
+                key={index + 1}
+                className={`page-item ${
+                  currentPage === index + 1 ? "active" : ""
+                }`}
+                onClick={() => setCurrentPage(index + 1)}
+              >
+                <button className="page-link">{index + 1}</button>
+              </li>
+            ))}
+            <li
+              className={`page-item ${
+                currentPage === totalPages ? "disabled" : ""
+              }`}
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              <button className="page-link">Next</button>
+            </li>
+          </ul>
+        </Col>
+      ) : (
+        ""
+      )}
     </>
   );
 }

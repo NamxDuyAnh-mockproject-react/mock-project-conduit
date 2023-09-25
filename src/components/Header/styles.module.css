@@ -15,6 +15,10 @@ img{
 }
 span{
     margin-right: 3px;
+    
+}
+.icon{
+    margin-bottom: 5px;
 }
 .footer{
     position: fixed;

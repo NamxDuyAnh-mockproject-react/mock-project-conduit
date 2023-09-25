@@ -5,7 +5,6 @@ import Navbar from "react-bootstrap/Navbar";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import styles from "./styles.module.css"
-import { AccessAlarm, ThreeDRotation } from '@mui/icons-material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ArticleIcon from '@mui/icons-material/Article';
 
@@ -24,10 +23,10 @@ const Header = () => {
             {isLoggedIn ? (
               <>
                   <NavLink to="/new-article" className={styles.linkItem}>
-                    <span><ArticleIcon fontSize="small"/></span>
+                    <span><ArticleIcon className={styles.icon} fontSize="small"/></span>
                     New Article</NavLink>
                   <NavLink to="/settings" className={styles.linkItem}>
-                    <span><SettingsIcon fontSize="small"/></span>
+                    <span><SettingsIcon fontSize="small" className={styles.icon}/></span>
                     Settings</NavLink>
                   <NavLink to="/profile" className={styles.linkItem}>
                     <img src={user.image} alt="" />

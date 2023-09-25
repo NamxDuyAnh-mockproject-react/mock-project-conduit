@@ -4,25 +4,15 @@ import {
   setArticlesData,
   setDetailArticle,
   setCommentsData,
+  setCreateArticles,
 } from "../slices/articles.slice";
 import articlesService from "../../http/services/articles.service";
 
-export function* fetchArticlesSaga(action) {
-  const articles = yield call(articlesService.fetchAllArticles, action.payload);
-  console.log(articles);
-  yield put(setArticlesData(articles));
-}
-
-export function* fetchArticlesFolowSaga(action) {
-  const articles = yield call(
-    articlesService.fetchArticlesFolow,
-    action.payload
-  );
-
-  yield put(setArticlesData(articles));
-}
 export function* createArticleSaga(action) {
-  yield call(articlesService.createArticles, action.payload);
+  const response = yield call(articlesService.createArticles, action.payload);
+  console.log(response);
+  yield put(setCreateArticles(response));
+  // yield put(push)
 }
 
 export function* fetchDetailArticlesSaga(action) {
@@ -42,4 +32,26 @@ export function* fetchCommentsSaga(action) {
 export function* addCommentsSaga(action) {
   yield call(articlesService.addNewComment, action.payload);
   yield put(fetchAllComments(action.payload.slug));
+}
+
+export function* fetchArticlesByTypeSaga(action) {
+  let type = action.payload.type;
+  console.log(type);
+  let response;
+
+  if (type === "all") {
+    console.log("a");
+    response = yield call(articlesService.fetchAllArticles, action.payload);
+  } else if (type === "follow") {
+    response = yield call(articlesService.fetchArticlesFollow, action.payload);
+  } else if (type === "MyArticles") {
+    response = yield call(articlesService.fetchMyArticles, action.payload);
+  } else if (type === "Favorited") {
+    response = yield call(
+      articlesService.fetchFavoritedArticles,
+      action.payload
+    );
+  }
+
+  yield put(setArticlesData(response));
 }
