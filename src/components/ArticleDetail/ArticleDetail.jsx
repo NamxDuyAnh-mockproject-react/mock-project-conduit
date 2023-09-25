@@ -2,9 +2,12 @@ import React from "react";
 import { useEffect } from "react";
 import { Col, Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDetailArticles } from "../../Store/actions/articles.action";
+import {
+  deleteArticles,
+  fetchDetailArticles,
+} from "../../Store/actions/articles.action";
 import Comment from "../Comment/Comment";
 import styles from "./styles.module.css"
 import AddIcon from '@mui/icons-material/Add';
@@ -20,11 +23,15 @@ function ArticleDetail(props) {
   const { article } = useSelector((state) => state.articles.detailArticle);
   const author = article?.author?.username;
   const isEdited = user?.username === author;
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchDetailArticles(slug));
   }, []);
   const handleEdit = () => {};
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    dispatch(deleteArticles(slug));
+    navigate("/home");
+  };
   return (
     <div>
       <Container fluid>
@@ -33,8 +40,9 @@ function ArticleDetail(props) {
             <Col xs={9} className="mx-auto p-5">
               <h2 className="text-uppercase fs-1 fw-bold">{article?.title}</h2>
               <Row>
-                <Col className="d-flex py-5" xs={12}>
+                <Col className="" xs={12}>
                   <Row>
+
                     <Col >
                     <Row className="d-flex">
                       <Col xs={1} className="my-auto">
@@ -62,6 +70,7 @@ function ArticleDetail(props) {
                         </p>
                       </Col>
                     </Row>
+
                     </Col>
                     {isEdited ? (
                       <Col className="  my-auto px-0 d-flex gap-3">
@@ -78,6 +87,7 @@ function ArticleDetail(props) {
                           className="btn btn-outline-primary"
                           style={{width: "250px"}}
                         >
+
                           <span><DeleteIcon fontSize="small" className={styles.spanIcon}/></span>
                           Delete Article
                         </button>
@@ -115,8 +125,9 @@ function ArticleDetail(props) {
             </Col>
           </Row>
           <Row>
-            <Col className="d-flex p-5 justify-content-center mx-auto" xs={8}>
+            <Col className=" d-flex py-5 justify-content-center mx-auto" xs={8}>
               <Row>
+
                 <Col xs={12} md={4}>
                 <Row className="d-flex">
                       <Col xs={1} className="my-auto">
@@ -144,6 +155,7 @@ function ArticleDetail(props) {
                         </p>
                       </Col>
                     </Row>
+
                 </Col>
                 {isEdited ? (
                   <Col className="  my-auto px-0 d-flex gap-3">
@@ -152,6 +164,7 @@ function ArticleDetail(props) {
                       <span><EditIcon fontSize="small" className={styles.spanIcon}/></span>
                       Edit Article
                     </button>
+
                     <button className="btn btn-outline-primary"
                     style={{width: "250px"}}>
                       <span><DeleteIcon fontSize="small" className={styles.spanIcon}/></span>

@@ -12,7 +12,7 @@ import {
   fetchDetailArticlesSaga,
   fetchCommentsSaga,
   addCommentsSaga,
-  fetchArticlesByTypeSaga,
+  fetchArticlesByTypeSaga,deleteArticlesSaga
 } from "./articles.saga";
 import { all, takeEvery,takeLatest } from "redux-saga/effects";
 import {
@@ -20,7 +20,7 @@ import {
   fetchDetailArticles,
   fetchAllComments,
   addComments,
-  fetchArticlesByType,
+  fetchArticlesByType,deleteArticles
 } from "../actions/articles.action";
 import { fetchTagSaga } from "./tag.saga";
 import { fetchAllTag } from "../actions/tag.actions";
@@ -36,5 +36,6 @@ export function* rootSaga() {
     takeEvery(fetchAllComments, fetchCommentsSaga),
     takeEvery(addComments, addCommentsSaga),
     takeLatest(fetchArticlesByType, fetchArticlesByTypeSaga),
+    takeEvery(deleteArticles, deleteArticlesSaga),
   ]);
 }
