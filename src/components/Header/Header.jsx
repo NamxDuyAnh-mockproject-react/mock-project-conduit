@@ -20,7 +20,7 @@ const Header = () => {
         <Container className="">
           <Navbar.Brand href="/">Conduit</Navbar.Brand>
           <Nav className={styles.navLink}>
-            <Link to="/home" className={styles.linkItem}>Home</Link>
+            <Link to="/" className={styles.linkItem}>Home</Link>
             {isLoggedIn ? (
               <>
                   <NavLink to="/new-article" className={styles.linkItem}>
@@ -44,6 +44,9 @@ const Header = () => {
         </Container>
       </Navbar>
       <Outlet />
+      <footer className={styles.footer}>
+        <div>Fork on Github</div>
+      </footer>
     </>
   );
 };

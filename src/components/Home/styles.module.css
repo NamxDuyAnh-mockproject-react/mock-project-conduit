@@ -2,7 +2,7 @@
     max-height: 50px;
     border-radius: 50%;
 }
-.headerArticle{
+.authorInfo{
     display: flex;
     flex-direction: row;
     margin-bottom: 3%;
@@ -34,11 +34,11 @@
     gap: 3;
     align-items: center;
 }
-.center{
+.authorDateName{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    margin-left: 10px;
+    font-size: 0.9em;
 }
 .layout{
     display: flex;

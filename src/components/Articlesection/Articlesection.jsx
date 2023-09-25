@@ -47,18 +47,18 @@ function Articlesection(props) {
         {articles.map((article) => (
           <div key={article.slug}>
             <Row className="article-preview border-bottom p-4">
-              <Row className={styles.headerArticle}>
+              <Row className={styles.authorInfo}>
                 <Row>
-                  <Col xs={12} md={4}>
-                    <Row className="d-flex gap-2">
-                      <Col xs={2} className="my-auto">
+                  <Col sm={6} md={6}>
+                    <Row className="d-flex">
+                      <Col xs={1} className="my-auto">
                         <img
                           src={article?.author.image}
                           className={styles.avatar}
                           alt="avatar"
                         />
                       </Col>
-                      <Col className={styles.center}>
+                      <Col className={styles.authorDateName}>
                         <div className={styles.authorName}>
                           {article?.author.username}
                         </div>
@@ -77,7 +77,7 @@ function Articlesection(props) {
                       </Col>
                     </Row>
                   </Col>
-                  <Col className={styles.favorites}>
+                  <Col md={6} sm={6} className={styles.favorites}>
                     <button className="btn btn-outline-success">
                       <span>
                         <FavoriteIcon />
@@ -101,7 +101,11 @@ function Articlesection(props) {
       </Col>
 
       <Col md={9}>
-        <ul className="pagination">
+        <ul className="pagination" style={{    
+          marginBottom: "100px",
+          display: "flex",
+          flexWrap: "wrap",
+          marginTop: "30px"}}>
           <li
             className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
             onClick={() => setCurrentPage(currentPage - 1)}
