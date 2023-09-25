@@ -2,9 +2,12 @@ import React from "react";
 import { useEffect } from "react";
 import { Col, Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchDetailArticles } from "../../Store/actions/articles.action";
+import {
+  deleteArticles,
+  fetchDetailArticles,
+} from "../../Store/actions/articles.action";
 import Comment from "../Comment/Comment";
 function ArticleDetail(props) {
   const slug = useParams();
@@ -14,11 +17,15 @@ function ArticleDetail(props) {
   const { article } = useSelector((state) => state.articles.detailArticle);
   const author = article?.author?.username;
   const isEdited = user?.username === author;
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchDetailArticles(slug));
   }, []);
   const handleEdit = () => {};
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    dispatch(deleteArticles(slug));
+    navigate("/home");
+  };
   return (
     <div>
       <Container fluid>
@@ -27,18 +34,18 @@ function ArticleDetail(props) {
             <Col xs={9} className="mx-auto p-5">
               <h2 className="text-uppercase fs-1 fw-bold">{article?.title}</h2>
               <Row>
-                <Col className="d-flex py-5" xs={12}>
+                <Col className="" xs={12}>
                   <Row>
-                    <Col xs={4}>
-                      <Row className="d-flex gap-3">
-                        <Col xs={2} className="my-auto ">
+                    <Col>
+                      <Row>
+                        <Col className="p-0 m-0" xs={2}>
                           <img
                             src={article?.author.image}
                             style={{ maxHeight: "50px" }}
                             alt=""
                           />
                         </Col>
-                        <Col className=" my-auto">
+                        <Col className="p-0 m-0">
                           <Link className="p-0 m-0">
                             {article?.author.username}
                           </Link>
@@ -69,7 +76,7 @@ function ArticleDetail(props) {
                           onClick={handleDelete}
                           className="btn btn-outline-primary"
                         >
-                          🗑️ Delete Article ({article?.favoritesCount})
+                          🗑️ Delete Article
                         </button>
                       </Col>
                     ) : (
@@ -104,10 +111,10 @@ function ArticleDetail(props) {
             </Col>
           </Row>
           <Row>
-            <Col className="d-flex p-5 justify-content-center mx-auto" xs={8}>
+            <Col className=" d-flex py-5 justify-content-center mx-auto" xs={8}>
               <Row>
-                <Col xs={12} md={4}>
-                  <Row className="d-flex gap-3">
+                <Col>
+                  <Row>
                     <Col xs={2} className="my-auto ">
                       <img
                         src={article?.author.image}
@@ -140,7 +147,7 @@ function ArticleDetail(props) {
                       ✏️ Edit Article
                     </button>
                     <button className="btn btn-outline-primary">
-                      🗑️ Delete Article ({article?.favoritesCount})
+                      🗑️ Delete Article
                     </button>
                   </Col>
                 ) : (

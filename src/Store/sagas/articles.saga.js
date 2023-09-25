@@ -57,3 +57,12 @@ export function* fetchArticlesByTypeSaga(action) {
 
   yield put(setArticlesData(response));
 }
+
+
+export function* deleteArticlesSaga(action) {
+  const article = yield call(
+    articlesService.deleteArticles,
+    action.payload
+  );
+  yield put(setDetailArticle(article));
+}
