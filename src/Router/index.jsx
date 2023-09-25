@@ -6,15 +6,20 @@ import Register from "../components/Register/Register";
 import TagDetail from "../components/Tag/TagDetail";
 import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
 import CreateArticle from "../components/CreateArticle/CreateArticle";
-import Settings from "../components/Settings/Settings"
+import Settings from "../components/Settings/Settings";
 import Profile from "../components/Profile/Profile";
+import { Navigate } from "react-router-dom";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Header />,
     children: [
       {
-        path: "",
+        index: true,
+        element: <Navigate to="/home" replace />,
+      },
+      {
+        path: "home",
         element: <Home />,
       },
       {
@@ -44,7 +49,7 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
-      }
+      },
     ],
   },
 ]);

@@ -78,14 +78,20 @@ function Articlesection(props) {
                   </Col>
                 </Row>
               </Row>
+              <Row>
+              <div className={styles.footerArticle}>
               <Link to={`../articles/${article.slug}`} className={styles.text}>
-                <Row>
-                  <div className="">
-                    <h3 className={styles.articleTitle}>{article.title}</h3>
-                    <p>{article.description}</p>
-                  </div>
-                </Row>
+                <h3 className={styles.articleTitle}>{article.title}</h3>
+                <p>{article.description}</p>
+                <span className={styles.readMore}>Read more...</span>
+                <div className={styles.tagList}>
+                  {article?.tagList.map((tag, index) => (
+                    <span key={index} className={styles.tags}>{tag}</span>
+                  ))}
+                </div>
               </Link>
+            </div>
+              </Row>
             </Row>
           </div>
         ))}
