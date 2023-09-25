@@ -12,10 +12,13 @@ function ArticleDetail(props) {
   const user = useSelector((state) => state.auth.user);
   console.log(user);
   const { article } = useSelector((state) => state.articles.detailArticle);
+  const author = article?.author?.username;
+  const isEdited = user?.username === author;
   useEffect(() => {
     dispatch(fetchDetailArticles(slug));
   }, []);
-
+  const handleEdit = () => {};
+  const handleDelete = () => {};
   return (
     <div>
       <Container fluid>
@@ -54,14 +57,31 @@ function ArticleDetail(props) {
                         </Col>
                       </Row>
                     </Col>
-                    <Col className="  my-auto px-0 d-flex gap-3">
-                      <button className="btn btn-outline-secondary">
-                        ➕ Follow {article?.author.username}
-                      </button>
-                      <button className="btn btn-outline-primary">
-                        💙 Favorited article ({article?.favoritesCount})
-                      </button>
-                    </Col>
+                    {isEdited ? (
+                      <Col className="  my-auto px-0 d-flex gap-3">
+                        <button
+                          onClick={handleEdit}
+                          className="btn btn-outline-secondary"
+                        >
+                          ✏️ Edit Article
+                        </button>
+                        <button
+                          onClick={handleDelete}
+                          className="btn btn-outline-primary"
+                        >
+                          🗑️ Delete Article ({article?.favoritesCount})
+                        </button>
+                      </Col>
+                    ) : (
+                      <Col className="  my-auto px-0 d-flex gap-3">
+                        <button className="btn btn-outline-secondary">
+                          ➕ Follow
+                        </button>
+                        <button className="btn btn-outline-primary">
+                          💙 Favorited article ({article?.favoritesCount})
+                        </button>
+                      </Col>
+                    )}
                   </Row>
                 </Col>
               </Row>
@@ -114,14 +134,25 @@ function ArticleDetail(props) {
                     </Col>
                   </Row>
                 </Col>
-                <Col className="  my-auto px-0 d-flex gap-3">
-                  <button className="btn btn-outline-secondary">
-                    ➕ Follow {article?.author.username}
-                  </button>
-                  <button className="btn btn-outline-primary">
-                    💙 Favorited article ({article?.favoritesCount})
-                  </button>
-                </Col>
+                {isEdited ? (
+                  <Col className="  my-auto px-0 d-flex gap-3">
+                    <button className="btn btn-outline-secondary">
+                      ✏️ Edit Article
+                    </button>
+                    <button className="btn btn-outline-primary">
+                      🗑️ Delete Article ({article?.favoritesCount})
+                    </button>
+                  </Col>
+                ) : (
+                  <Col className="  my-auto px-0 d-flex gap-3">
+                    <button className="btn btn-outline-secondary">
+                      ➕ Follow
+                    </button>
+                    <button className="btn btn-outline-primary">
+                      💙 Favorited article ({article?.favoritesCount})
+                    </button>
+                  </Col>
+                )}
               </Row>
             </Col>
           </Row>
