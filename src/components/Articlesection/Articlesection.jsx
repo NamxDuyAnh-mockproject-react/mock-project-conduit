@@ -71,7 +71,7 @@ function Articlesection(props) {
                   <Col md={6} sm={6} className={styles.favorites}>
                     <button className="btn btn-outline-success">
                       <span>
-                        <FavoriteIcon />
+                        <FavoriteIcon fontSize="small" style={{marginBottom: "3px"}} />
                       </span>
                       {article?.favoritesCount}
                     </button>
