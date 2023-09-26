@@ -29,7 +29,7 @@ const Header = () => {
                     <span><SettingsIcon fontSize="small" className={styles.icon}/></span>
                     Settings</NavLink>
                   <NavLink to="/profile" className={styles.linkItem}>
-                    <img src={user.image} alt="" />
+                    <img src={user.image} alt=""avatar className={styles.avatar} />
                     {user.username}
                     </NavLink>
               </>

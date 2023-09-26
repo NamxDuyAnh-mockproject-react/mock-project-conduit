@@ -10,20 +10,26 @@ import {
 } from "../../Store/slices/articles.slice";
 import { useEffect } from "react";
 const Home = () => {
+  const dispatch = useDispatch();
+  const tab = useSelector((state) => state.articles.tab);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  
   useEffect(() => {
     dispatch(setTabs("all"));
   }, []);
-  const tab = useSelector((state) => state.articles.tab);
-  const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   const handleTabChange = (tab) => {
     dispatch(setTabs(tab));
   };
+
   useEffect(() => {
     if (tab !== "tag") {
       dispatch(setCurrentTag(""));
     }
   }, [tab]);
+
+  
+
   const currentTag = useSelector((state) => state.articles.currentTag);
   const currentTab = useSelector((state) => state.articles.tab);
   return (

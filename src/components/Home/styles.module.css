@@ -1,5 +1,5 @@
 .avatar{
-    max-height: 50px;
+    max-height: 35px;
     border-radius: 50%;
 }
 .authorInfo{
@@ -46,11 +46,7 @@
 
 }
 
-.footerArticle{
-    display: flex;
-    justify-content: space-between;
-    max-height: 20%;
-}
+
 
 .readMore{
     font-size: 0.8em;

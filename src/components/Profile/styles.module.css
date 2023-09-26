@@ -1,5 +1,6 @@
 .userImg{
     max-height: 100px;
+    border-radius: 50%;
 }
 .icon{
     margin-bottom: 5px;

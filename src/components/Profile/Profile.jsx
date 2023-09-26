@@ -22,6 +22,7 @@ const Profile = () => {
     <>
       <Row className={styles.userInfro}>
         <Container>
+          <Row>
           <Col className="col-xs-12 col-md-10 offset-md-1">
             <img className={styles.userImg} src={user?.image} />
             <h3>{user?.username}</h3>
@@ -34,6 +35,8 @@ const Profile = () => {
               <span><SettingsIcon fontSize="small" className={styles.icon}/></span> Edit Profile Settings
             </Link>
           </Col>
+          </Row>
+          
         </Container>
         
       </Row>
