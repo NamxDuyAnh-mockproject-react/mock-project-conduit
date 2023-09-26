@@ -55,7 +55,7 @@ const Home = () => {
                       eventKey="tag"
                       onClick={() => handleTabChange("tag")}
                     >
-                      {currentTag}
+                      {currentTag ? `#${currentTag}` : null}
                     </Nav.Link>
                   </Nav.Item>
                 </>
@@ -74,7 +74,7 @@ const Home = () => {
                       eventKey="tag"
                       onClick={() => handleTabChange("tag")}
                     >
-                      {currentTag}
+                      {currentTag ? `#${currentTag}` : null}
                     </Nav.Link>
                   </Nav.Item>
                 </>
