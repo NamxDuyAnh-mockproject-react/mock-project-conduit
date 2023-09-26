@@ -127,6 +127,20 @@ class ArticlesService {
       };
     }
   };
+  fetchTagArticles = async ({ offset, articlesPerPage, tag }) => {
+    console.log(tag);
+    try {
+      const res = await conduitAxiosCredentials.get(
+        `/articles?offset=${offset}&limit=${articlesPerPage}&tag=${tag}`
+      );
+
+      return res.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
   deleteArticles = async ({ slug }) => {
     console.log(slug);
     try {

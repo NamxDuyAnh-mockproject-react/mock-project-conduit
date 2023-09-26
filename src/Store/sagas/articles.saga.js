@@ -38,11 +38,10 @@ export function* addCommentsSaga(action) {
 
 export function* fetchArticlesByTypeSaga(action) {
   let type = action.payload.type;
-  console.log(type);
+  console.log(action);
   let response;
 
   if (type === "all") {
-    console.log("a");
     response = yield call(articlesService.fetchAllArticles, action.payload);
   } else if (type === "follow") {
     response = yield call(articlesService.fetchArticlesFollow, action.payload);
@@ -53,16 +52,14 @@ export function* fetchArticlesByTypeSaga(action) {
       articlesService.fetchFavoritedArticles,
       action.payload
     );
+  } else if (type === "tag") {
+    response = yield call(articlesService.fetchTagArticles, action.payload);
   }
 
   yield put(setArticlesData(response));
 }
 
-
 export function* deleteArticlesSaga(action) {
-  const article = yield call(
-    articlesService.deleteArticles,
-    action.payload
-  );
+  const article = yield call(articlesService.deleteArticles, action.payload);
   yield put(setDetailArticle(article));
 }
