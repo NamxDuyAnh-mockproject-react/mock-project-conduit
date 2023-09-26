@@ -13,6 +13,7 @@ function Articlesection(props) {
     (state) => state.articles.allArticlesData?.articlesCount
   );
   const tab = useSelector((state) => state.articles.tab);
+  const tag = useSelector((state) => state.articles.currentTag);
   const user = useSelector((state) => state.auth.user?.username);
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 10;
@@ -21,8 +22,8 @@ function Articlesection(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchArticlesByType({ type: tab, offset, articlesPerPage, user }));
-  }, [tab, currentPage, dispatch, articlesPerPage, user]);
+    dispatch(fetchArticlesByType({ type: tab, offset, articlesPerPage, user ,tag}));
+  }, [tab, currentPage, dispatch, articlesPerPage, user,tag]);
 
   if (!articles) {
     return <p>Loading articles...</p>;

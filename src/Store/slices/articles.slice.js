@@ -9,7 +9,7 @@ const articlesSlice = createSlice({
     allCommentsData: [],
     tab: "",
     createArticlesData: {},
-    redirectUrl: "",
+    redirectUrl: "",currentTag:""
   },
   reducers: {
     setArticlesData(state, action) {
@@ -32,7 +32,9 @@ const articlesSlice = createSlice({
     },
     clearRedirect(state) {
       state.redirectUrl = null;
-    },
+    },setCurrentTag(state, action) {
+      state.currentTag = action.payload;
+    }
   },
 });
 
@@ -43,7 +45,7 @@ export const {
   setTabs,
   setCreateArticles,
   setRedirect,
-  clearRedirect,
+  clearRedirect,setCurrentTag
 } = articlesSlice.actions;
 
 export default articlesSlice.reducer;

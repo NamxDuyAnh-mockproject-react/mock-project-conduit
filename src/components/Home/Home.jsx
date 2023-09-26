@@ -3,18 +3,29 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../Home/styles.module.css";
 import Tag from "../Tag/Tag";
 import Articlesection from "../Articlesection/Articlesection";
-import { setTabs, setArticlesData } from "../../Store/slices/articles.slice";
+import {
+  setTabs,
+  setArticlesData,
+  setCurrentTag,
+} from "../../Store/slices/articles.slice";
 import { useEffect } from "react";
 const Home = () => {
   useEffect(() => {
     dispatch(setTabs("all"));
   }, []);
+  const tab = useSelector((state) => state.articles.tab);
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const handleTabChange = (tab) => {
     dispatch(setTabs(tab));
   };
-
+  useEffect(() => {
+    if (tab !== "tag") {
+      dispatch(setCurrentTag(""));
+    }
+  }, [tab]);
+  const currentTag = useSelector((state) => state.articles.currentTag);
+  const currentTab = useSelector((state) => state.articles.tab);
   return (
     <Container>
       <Row>
@@ -39,6 +50,14 @@ const Home = () => {
                       Global Feed
                     </Nav.Link>
                   </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link
+                      eventKey="tag"
+                      onClick={() => handleTabChange("tag")}
+                    >
+                      {currentTag}
+                    </Nav.Link>
+                  </Nav.Item>
                 </>
               ) : (
                 <>
@@ -48,6 +67,14 @@ const Home = () => {
                       onClick={() => handleTabChange("all")}
                     >
                       Global Feed
+                    </Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link
+                      eventKey="tag"
+                      onClick={() => handleTabChange("tag")}
+                    >
+                      {currentTag}
                     </Nav.Link>
                   </Nav.Item>
                 </>
