@@ -8,6 +8,7 @@ export const fetchAllComments = createAction("FETCH_ALL_COMMENTS");
 export const fetchMyArticles = createAction("FETCH_MY_ARTICLES");
 export const fetchArticlesByType = createAction("FETCH_ARTICLES_BY_TYPE");
 
-
 export const deleteArticles = createAction("DELETE_ARTICLES");
+export const favoritedArticles = createAction("FAVORITED_ARTICLES");
+export const unfavoritedArticles = createAction("UNFAVORITED_ARTICLES");
 

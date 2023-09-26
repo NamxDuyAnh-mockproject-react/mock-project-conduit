@@ -153,5 +153,29 @@ class ArticlesService {
       };
     }
   };
+  favoritedArticles = async ({ slug }) => {
+    console.log(slug);
+    try {
+      const res = await conduitAxiosCredentials.post(`/articles/${slug}/favorite`);
+      console.log(res);
+      return res.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
+  unFavoritedArticles = async ({ slug }) => {
+    console.log(slug);
+    try {
+      const res = await conduitAxiosCredentials.delete(`/articles/${slug}/favorite`);
+      console.log(res);
+      return res.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
 }
 export default new ArticlesService();

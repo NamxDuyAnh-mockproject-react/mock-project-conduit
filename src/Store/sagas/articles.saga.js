@@ -63,3 +63,12 @@ export function* deleteArticlesSaga(action) {
   const article = yield call(articlesService.deleteArticles, action.payload);
   yield put(setDetailArticle(article));
 }
+export function* favoritedArticlesSaga(action) {
+  const article = yield call(articlesService.favoritedArticles, action.payload);
+}
+export function* unFavoritedArticlesSaga(action) {
+  const article = yield call(
+    articlesService.unFavoritedArticles,
+    action.payload
+  );
+}

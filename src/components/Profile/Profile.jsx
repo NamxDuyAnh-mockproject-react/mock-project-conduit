@@ -9,7 +9,6 @@ const Profile = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const handleTabChange = (tab) => {
-    
     dispatch(setTabs(tab));
   };
   useEffect(() => {
