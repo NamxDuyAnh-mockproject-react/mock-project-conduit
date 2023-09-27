@@ -25,12 +25,10 @@ function Comment(props) {
     setInput("");
   };
   useEffect(() => {
-   
     dispatch(fetchAllComments(slug));
   }, []);
   return (
     <div>
-      
       <Row>
         <Col xs={8} md={6} className="mx-auto">
           <Form>
@@ -75,7 +73,6 @@ function Comment(props) {
           </Form>
         </Col>
       </Row>
-      
     </div>
   );
 }

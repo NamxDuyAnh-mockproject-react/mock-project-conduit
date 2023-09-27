@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { redirect } from "react-router-dom";
-
+import produce from "immer";
 const articlesSlice = createSlice({
   name: "articles",
   initialState: {
@@ -9,7 +9,8 @@ const articlesSlice = createSlice({
     allCommentsData: [],
     tab: "",
     createArticlesData: {},
-    redirectUrl: "",currentTag:""
+    redirectUrl: "",
+    currentTag: "",
   },
   reducers: {
     setArticlesData(state, action) {
@@ -32,9 +33,28 @@ const articlesSlice = createSlice({
     },
     clearRedirect(state) {
       state.redirectUrl = null;
-    },setCurrentTag(state, action) {
+    },
+    setCurrentTag(state, action) {
       state.currentTag = action.payload;
-    }
+    },
+    toggleArticleFavorite(state, action) {
+      const { slug, favorited } = action.payload;
+
+      if (Array.isArray(state.allArticlesData.articles)) {
+        const articleIndex = state.allArticlesData.articles.findIndex((article) => article.slug === slug);
+
+        if (articleIndex !== -1) {
+          produce(state, (draftState) => {
+            draftState.allArticlesData.articles[articleIndex] = {
+              ...draftState.allArticlesData.articles[articleIndex],
+              favorited: favorited,
+            };
+          }
+          );
+        }
+        
+      }
+    },
   },
 });
 
@@ -45,7 +65,9 @@ export const {
   setTabs,
   setCreateArticles,
   setRedirect,
-  clearRedirect,setCurrentTag
+  clearRedirect,
+  setCurrentTag,
+  toggleArticleFavorite,
 } = articlesSlice.actions;
 
 export default articlesSlice.reducer;

@@ -1,6 +1,5 @@
 import React from "react";
 import { Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { fetchAllTag } from "../../Store/actions/tag.actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -9,13 +8,12 @@ import { setCurrentTag } from "../../Store/slices/articles.slice";
 function Tag(props) {
   const dispatch = useDispatch();
   const tags = useSelector((state) => state.tag.allTagData);
-  
+
   useEffect(() => {
     dispatch(fetchAllTag());
   }, [dispatch]);
   const handleTagchange = (tag) => {
     dispatch(setCurrentTag(tag));
-    console.log(tag)
   };
   return (
     <Col md={3} className="mt-4">

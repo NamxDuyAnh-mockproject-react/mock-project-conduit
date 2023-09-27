@@ -25,7 +25,7 @@ const Home = () => {
     }
   }, [tab]);
   const currentTag = useSelector((state) => state.articles.currentTag);
- 
+
   return (
     <Container>
       <Row>

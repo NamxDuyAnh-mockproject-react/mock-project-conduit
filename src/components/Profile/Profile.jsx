@@ -4,7 +4,7 @@ import Image from "react-bootstrap/Image";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Articlesection from "../Articlesection/Articlesection";
-import { setTabs,setArticlesData } from "../../Store/slices/articles.slice";
+import { setTabs, setArticlesData } from "../../Store/slices/articles.slice";
 const Profile = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
@@ -24,7 +24,7 @@ const Profile = () => {
 
           <Link
             className="btn btn-sm btn-outline-secondary action-btn"
-            to="../settings"
+            to="/settings"
           >
             <i className="ion-gear-a"></i> Edit Profile Settings
           </Link>
@@ -42,7 +42,10 @@ const Profile = () => {
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="Favorited" onClick={() => handleTabChange("Favorited")}>
+              <Nav.Link
+                eventKey="Favorited"
+                onClick={() => handleTabChange("Favorited")}
+              >
                 Favorited Article
               </Nav.Link>
             </Nav.Item>
