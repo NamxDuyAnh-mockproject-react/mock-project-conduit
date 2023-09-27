@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import styles from "../Home/styles.module.css";
 import { fetchArticlesByType } from "../../Store/actions/articles.action";
+import Like from "../Like and Follow/Like";
 function Articlesection(props) {
   const articles = useSelector(
     (state) => state.articles.allArticlesData?.articles
@@ -22,8 +23,10 @@ function Articlesection(props) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchArticlesByType({ type: tab, offset, articlesPerPage, user ,tag}));
-  }, [tab, currentPage, dispatch, articlesPerPage, user,tag]);
+    dispatch(
+      fetchArticlesByType({ type: tab, offset, articlesPerPage, user, tag })
+    );
+  }, [tab, currentPage, dispatch, articlesPerPage, user, tag]);
 
   if (!articles) {
     return <p>Loading articles...</p>;
@@ -70,31 +73,32 @@ function Articlesection(props) {
                     </Row>
                   </Col>
                   <Col md={6} sm={6} className={styles.favorites}>
-                    <button className="btn btn-outline-success">
-                      <span>
-                        <FavoriteIcon fontSize="small" style={{marginBottom: "3px"}} />
-                      </span>
-                      {article?.favoritesCount}
-                    </button>
+
+                    <Like article={article}></Like>
+
                   </Col>
                 </Row>
               </Row>
               <Row>
-              <div>
-              <Link to={`../articles/${article.slug}`} className={styles.text}>
-                <h3 className={styles.articleTitle}>{article.title}</h3>
-                <p>{article.description}</p>
-              </Link>
-              <Link to={`../articles/${article.slug}`} className={styles.text}>
-                <span className={styles.readMore}>Read more...</span>
-              </Link>
-        
-                <div className={styles.tagList}>
-                  {article?.tagList.map((tag, index) => (
-                    <span key={index} className={styles.tags}>{tag}</span>
-                  ))}
+
+                <div className={styles.footerArticle}>
+                  <Link
+                    to={`../articles/${article.slug}`}
+                    className={styles.text}
+                  >
+                    <h3 className={styles.articleTitle}>{article.title}</h3>
+                    <p>{article.description}</p>
+                    <span className={styles.readMore}>Read more...</span>
+                    <div className={styles.tagList}>
+                      {article?.tagList.map((tag, index) => (
+                        <span key={index} className={styles.tags}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </Link>
                 </div>
-            </div>
+
               </Row>
             </Row>
           </div>
@@ -102,11 +106,15 @@ function Articlesection(props) {
       </Col>
       {totalPages > 1 ? (
         <Col md={9}>
-          <ul className="pagination" style={{    
-            marginBottom: "100px",
-            display: "flex",
-            flexWrap: "wrap",
-            marginTop: "30px"}}>
+          <ul
+            className="pagination"
+            style={{
+              marginBottom: "100px",
+              display: "flex",
+              flexWrap: "wrap",
+              marginTop: "30px",
+            }}
+          >
             <li
               className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
               onClick={() => setCurrentPage(currentPage - 1)}

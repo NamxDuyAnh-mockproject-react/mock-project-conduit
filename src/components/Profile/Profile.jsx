@@ -4,15 +4,16 @@ import Image from "react-bootstrap/Image";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Articlesection from "../Articlesection/Articlesection";
+
 import { setTabs,setArticlesData } from "../../Store/slices/articles.slice";
 import SettingsIcon from '@mui/icons-material/Settings';
 import styles from "./styles.module.css"
+
 
 const Profile = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const handleTabChange = (tab) => {
-    
     dispatch(setTabs(tab));
   };
   useEffect(() => {
@@ -39,6 +40,7 @@ const Profile = () => {
           
         </Container>
         
+
       </Row>
       <Row className="justify-content-center">
         <Col xs={8}>
@@ -52,7 +54,10 @@ const Profile = () => {
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="Favorited" onClick={() => handleTabChange("Favorited")}>
+              <Nav.Link
+                eventKey="Favorited"
+                onClick={() => handleTabChange("Favorited")}
+              >
                 Favorited Article
               </Nav.Link>
             </Nav.Item>

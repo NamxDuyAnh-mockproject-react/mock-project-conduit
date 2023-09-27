@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../components/Home/Home";
 import Login from "../components/Login/Login";
 import Header from "../components/Header/Header";
 import Register from "../components/Register/Register";
@@ -20,7 +19,12 @@ const router = createBrowserRouter([
       },
       {
         path: "home",
-        element: <Home />,
+        lazy: async () => {
+          const Home = await import("../components/Home/Home");
+          return {
+            Component: Home.default,
+          };
+        },
       },
       {
         path: "articles/:slug",

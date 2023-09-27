@@ -73,10 +73,7 @@ class ArticlesService {
   fetchAllComment = async ({ slug }) => {
     try {
       let token;
-      if (
-        typeof localStorage !== "undefined" &&
-        localStorage.getItem("token")
-      ) {
+      if (localStorage.getItem("token")) {
         try {
           token = JSON.parse(localStorage.getItem("token"));
         } catch (error) {
@@ -145,6 +142,34 @@ class ArticlesService {
     console.log(slug);
     try {
       const res = await conduitAxiosCredentials.delete(`/articles/${slug}`);
+      console.log(res);
+      return res.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
+  favoritedArticles = async ({ slug }) => {
+    console.log(slug);
+    try {
+      const res = await conduitAxiosCredentials.post(
+        `/articles/${slug}/favorite`
+      );
+      console.log(res);
+      return res.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
+  unFavoritedArticles = async ({ slug }) => {
+    console.log(slug);
+    try {
+      const res = await conduitAxiosCredentials.delete(
+        `/articles/${slug}/favorite`
+      );
       console.log(res);
       return res.data;
     } catch (error) {
