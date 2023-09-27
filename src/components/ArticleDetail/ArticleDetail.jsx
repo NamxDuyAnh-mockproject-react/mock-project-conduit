@@ -16,18 +16,21 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import EditIcon from "@mui/icons-material/Edit";
 
 function ArticleDetail(props) {
-  const slug = useParams();
+  const {slug} = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
+
   const { article } = useSelector((state) => state.articles.detailArticle);
   const author = article?.author?.username;
   const isEdited = user?.username === author;
   const navigate = useNavigate();
   useEffect(() => {
+    
     dispatch(fetchDetailArticles(slug));
   }, []);
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    navigate(`/new-article/${slug}`)
+  };
   const handleDelete = () => {
     dispatch(deleteArticles(slug));
     navigate("/home");
@@ -182,6 +185,7 @@ function ArticleDetail(props) {
                     <button
                       className="btn btn-outline-secondary"
                       style={{ width: "250px" }}
+                      onClick={handleEdit}
                     >
                       <span>
                         <EditIcon

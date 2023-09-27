@@ -1,36 +1,91 @@
-import React, { useState, useEffect } from "react";
-import Container from "@mui/material/Container";
-import TextField from "@mui/material/TextField";
-import { Card, CardContent, Typography, Grid } from "@mui/material";
-import Button from "@mui/material/Button";
-import ClearIcon from "@mui/icons-material/Clear";
-import { ToastContainer, toast } from "react-toastify";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createArticles } from "../../Store/actions/articles.action";
-import styles from "./styles.module.css";
-import { useNavigate } from "react-router-dom";
+import {
+  createArticles,
+  fetchDetailArticles,
+  updateArticle,
+} from "../../Store/actions/articles.action";
 import { clearRedirect } from "../../Store/slices/articles.slice";
-function CreateArticle(props) {
+import {
+  Card,
+  CardContent,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+  Button,
+} from "@mui/material";
+import styles from "./styles.module.css";
+import ClearIcon from "@mui/icons-material/Clear";
+function CreateArticle() {
+  const { slug } = useParams();
   const navigate = useNavigate();
-  const { error } = useSelector((state) => state.articles.createArticlesData);
-  const redirectUrl  = useSelector((state) => state.articles.redirectUrl);
+  const dispatch = useDispatch();
+  const [tag, setTag] = useState("");
+  const { article } = useSelector((state) => state.articles.detailArticle);
+  const { error, redirectUrl } = useSelector((state) => state.articles);
+
   const [input, setInput] = useState({
     title: "",
     description: "",
     body: "",
     tagList: [],
   });
-  const [tag, setTag] = useState("");
-  const [errors, setErrors] = useState({});
-  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (slug) {
+      dispatch(fetchDetailArticles(slug));
+    }
+  }, [dispatch, slug]);
+
+  useEffect(() => {
+    if (article) {
+      setInput({
+        title: article.title,
+        description: article.description,
+        body: article.body,
+        tagList: article.tagList,
+      });
+    }
+  }, [article]);
+
+  useEffect(() => {
+    if (redirectUrl) {
+      navigate(redirectUrl);
+      dispatch(clearRedirect());
+    }
+  }, [redirectUrl, navigate, dispatch]);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
-    setInput((prev) => {
-      return { ...prev, [name]: value };
-    });
+    setInput((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (slug) {
+      const updatedArticle = {
+        ...article,
+        title: input.title,
+        description: input.description,
+        body: input.body,
+        tagList: input.tagList,
+      };
+      dispatch(updateArticle(updatedArticle));
+    } else {
+      const newArticle = {
+        title: input.title,
+        description: input.description,
+        body: input.body,
+        tagList: input.tagList,
+      };
+      dispatch(createArticles(newArticle));
+    }
+  };
   const handleAddTag = (event) => {
     event.preventDefault();
     if (tag.trim().length == 0) return;
@@ -39,7 +94,6 @@ function CreateArticle(props) {
     });
     setTag("");
   };
-
   const handleRemoveTag = (indexToRemove) => {
     setInput((prev) => {
       const updatedTagList = [...prev.tagList];
@@ -47,55 +101,14 @@ function CreateArticle(props) {
       return { ...prev, tagList: updatedTagList };
     });
   };
-
-  useEffect(() => {
-    if (redirectUrl) {
-      console.log(redirectUrl)
-      navigate(redirectUrl);
-      dispatch(clearRedirect());
-    }
-  }, [redirectUrl]);
-  useEffect(() => {
-    if (error) {
-      toast.error("Title must be unique");
-    }
-  }, [error]);
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!input.title) {
-      newErrors.title = "Please choose a title.";
-    }
-    if (!input.description) {
-      newErrors.description = "Please choose a description.";
-    }
-    if (!input.body) {
-      newErrors.body = "Please choose a content.";
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validateForm()) {
-      const config = { articles: input };
-      dispatch(createArticles(config));
-    }
-  };
-
   return (
     <Container>
-      <Card sx={{ mt: 5 }}>
+      <Card>
         <CardContent>
-          <Typography variant="h4" align="center" gutterBottom sx={{ mb: 5 }}>
-            Create article
+          <Typography variant="h4" align="center" gutterBottom>
+            {slug ? "Edit Article" : "Create Article"}
           </Typography>
-          <form
-            noValidate
-            className={styles.formCreateArticle}
-            onSubmit={handleSubmit}
-          >
+          <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -103,38 +116,35 @@ function CreateArticle(props) {
                   fullWidth
                   label="Article Title"
                   type="text"
-                  className={styles.input}
                   value={input.title}
                   name="title"
-                  onChange={(e) => handleInput(e)}
-                  error={!!errors.title}
-                  helperText={errors.title}
+                  onChange={handleInput}
                 />
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   label="What's this article about?"
                   type="text"
-                  className={styles.input}
                   value={input.description}
                   name="description"
-                  onChange={(e) => handleInput(e)}
-                  error={!!errors.description}
-                  helperText={errors.description}
+                  onChange={handleInput}
                 />
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  label="Write your article (in mark down)"
+                  label="Write your article (in markdown)"
                   multiline
-                  className={styles.input}
-                  rows={3}
+                  rows={10}
                   value={input.body}
                   name="body"
-                  onChange={(e) => handleInput(e)}
-                  error={!!errors.body}
-                  helperText={errors.body}
+                  onChange={handleInput}
                 />
+              </Grid>
+              <Grid item xs={12}>
                 <TextField
                   type="text"
                   label="Enter tags"
@@ -143,13 +153,12 @@ function CreateArticle(props) {
                   onChange={(e) => setTag(e.target.value)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      handleAddTag(event);
+                      handleAddTag(e);
                     }
                   }}
                   fullWidth
                   placeholder="Write your Tag then press enter to add"
                 />
-                {/* <p>{JSON.stringify(input.tagList)}</p> */}
                 {input.tagList.map((tag, index) => (
                   <p key={index} className={styles.tagList}>
                     <span
@@ -162,17 +171,16 @@ function CreateArticle(props) {
                     {tag}
                   </p>
                 ))}
-                <div className={styles.btnPublish}>
-                  <Button type="submit" variant="contained" color="success">
-                    Publish Article
-                  </Button>
-                </div>
+              </Grid>
+              <Grid item xs={12}>
+                <Button type="submit" variant="contained" color="primary">
+                  {slug ? "Update Article" : "Create Article"}
+                </Button>
               </Grid>
             </Grid>
           </form>
         </CardContent>
       </Card>
-      <ToastContainer />
     </Container>
   );
 }

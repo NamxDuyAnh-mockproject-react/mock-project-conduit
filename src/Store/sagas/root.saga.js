@@ -15,7 +15,7 @@ import {
   fetchArticlesByTypeSaga,
   deleteArticlesSaga,
   favoritedArticlesSaga,
-  unFavoritedArticlesSaga,
+  unFavoritedArticlesSaga,updateArticleSaga
 } from "./articles.saga";
 import { all, takeEvery, takeLatest } from "redux-saga/effects";
 import {
@@ -26,7 +26,7 @@ import {
   fetchArticlesByType,
   deleteArticles,
   favoritedArticles,
-  unfavoritedArticles,
+  unfavoritedArticles,updateArticle
 } from "../actions/articles.action";
 import { fetchTagSaga } from "./tag.saga";
 import { fetchAllTag } from "../actions/tag.actions";
@@ -45,5 +45,6 @@ export function* rootSaga() {
     takeEvery(deleteArticles, deleteArticlesSaga),
     takeEvery(favoritedArticles, favoritedArticlesSaga),
     takeEvery(unfavoritedArticles, unFavoritedArticlesSaga),
+    takeEvery(updateArticle, updateArticleSaga),
   ]);
 }
