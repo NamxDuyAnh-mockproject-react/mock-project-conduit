@@ -31,7 +31,7 @@ const Profile = () => {
 
             <Link
               className="btn btn-sm btn-outline-secondary action-btn"
-              to="../settings" style={{float:"right"}}
+              to="../settings"
             >
               <span><SettingsIcon fontSize="small" className={styles.icon}/></span> Edit Profile Settings
             </Link>
@@ -42,29 +42,32 @@ const Profile = () => {
         
 
       </Row>
-      <Row className="justify-content-center">
-        <Col xs={8}>
-          <Nav variant="tabs" defaultActiveKey="MyArticles">
-            <Nav.Item>
-              <Nav.Link
-                eventKey="MyArticles"
-                onClick={() => handleTabChange("MyArticles")}
-              >
-                My article
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link
-                eventKey="Favorited"
-                onClick={() => handleTabChange("Favorited")}
-              >
-                Favorited Article
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
-          <Articlesection />
-        </Col>
-      </Row>
+      <Container>
+        <Row className="justify-content-center">
+          <Col md={9} className="mt-3">
+            <Nav variant="tabs" defaultActiveKey="MyArticles">
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="MyArticles"
+                  onClick={() => handleTabChange("MyArticles")}
+                >
+                  My article
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link
+                  eventKey="Favorited"
+                  onClick={() => handleTabChange("Favorited")}
+                >
+                  Favorited Article
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+            <Articlesection />
+          </Col>
+        </Row>
+      </Container>
+      
     </>
   );
 };

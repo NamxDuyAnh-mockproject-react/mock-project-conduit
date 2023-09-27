@@ -41,7 +41,9 @@ const articlesSlice = createSlice({
       const { slug, favorited } = action.payload;
 
       if (Array.isArray(state.allArticlesData.articles)) {
-        const articleIndex = state.allArticlesData.articles.findIndex((article) => article.slug === slug);
+        const articleIndex = state.allArticlesData.articles.findIndex(
+          (article) => article.slug === slug
+        );
 
         if (articleIndex !== -1) {
           produce(state, (draftState) => {
@@ -49,10 +51,8 @@ const articlesSlice = createSlice({
               ...draftState.allArticlesData.articles[articleIndex],
               favorited: favorited,
             };
-          }
-          );
+          });
         }
-        
       }
     },
   },

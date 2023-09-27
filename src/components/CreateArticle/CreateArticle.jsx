@@ -102,8 +102,10 @@ function CreateArticle() {
     });
   };
   return (
-    <Container>
-      <Card>
+
+    <Container className={styles.createArticleContainer}>
+      <Card sx={{ mt: 5 }}>
+
         <CardContent>
           <Typography variant="h4" align="center" gutterBottom>
             {slug ? "Edit Article" : "Create Article"}

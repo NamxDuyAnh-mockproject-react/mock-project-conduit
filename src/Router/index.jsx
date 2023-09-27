@@ -1,17 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
-import Login from "../components/Login/Login";
-import Header from "../components/Header/Header";
-import Register from "../components/Register/Register";
-import TagDetail from "../components/Tag/TagDetail";
-import ArticleDetail from "../components/ArticleDetail/ArticleDetail";
-import CreateArticle from "../components/CreateArticle/CreateArticle";
-import Settings from "../components/Settings/Settings";
-import Profile from "../components/Profile/Profile";
+import {React} from "react";
+
 import { Navigate } from "react-router-dom";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Header />,
+    lazy: async () => {
+      const Header = await import("../components/Header/Header");
+      return{
+        Component: Header.default,
+      }
+    },
     children: [
       {
         index: true,
@@ -28,36 +27,79 @@ const router = createBrowserRouter([
       },
       {
         path: "articles/:slug",
-        element: <ArticleDetail />,
+        lazy: async () => {
+          const ArticleDetail = await import("../components/ArticleDetail/ArticleDetail");
+          return {
+            Component: ArticleDetail.default,
+          };
+        },
       },
+
       {
         path: "login",
-        element: <Login />,
+        lazy: async () => {
+          const Login = await import("../components/Login/Login");
+          return {
+            Component: Login.default,
+          };
+        },
       },
+
       {
         path: "register",
-        element: <Register />,
+        lazy: async () => {
+          const Register = await import("../components/Register/Register");
+          return {
+            Component: Register.default,
+          };
+        },
       },
+
       {
-        path: "/tag",
-        element: <TagDetail />,
+        path: "tag",
+        lazy: async () => {
+          const TagDetail = await import("../components/Tag/TagDetail");
+          return {
+            Component: TagDetail.default,
+          };
+        },
       },
+
       {
         path: "new-article",
-        element: <CreateArticle />,
+        lazy: async () => {
+          const CreateArticle = await import("../components/CreateArticle/CreateArticle");
+          return {
+            Component: CreateArticle.default,
+          };
+        },
       },
+
       {
         path: "settings",
-        element: <Settings />,
+        lazy: async () => {
+          const Settings = await import("../components/Settings/Settings");
+          return {
+            Component: Settings.default,
+          };
+        },
       },
+
       {
         path: "profile",
-        element: <Profile />,
+        lazy: async () => {
+          const Profile = await import("../components/Profile/Profile");
+          return {
+            Component: Profile.default,
+          };
+        },
       },
+
       {
         path: "new-article/:slug",
         element: <CreateArticle />,
       },
+
     ],
   },
 ]);

@@ -6,6 +6,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import styles from "../Home/styles.module.css";
 import { fetchArticlesByType } from "../../Store/actions/articles.action";
 import Like from "../Like and Follow/Like";
+import { toggleArticleFavorite } from "../../Store/slices/articles.slice";
+
 function Articlesection(props) {
   const articles = useSelector(
     (state) => state.articles.allArticlesData?.articles
@@ -21,24 +23,32 @@ function Articlesection(props) {
   const totalPages = Math.ceil(articlesCount / articlesPerPage);
   let offset = (currentPage - 1) * articlesPerPage;
   const dispatch = useDispatch();
-
+  const [isFavorited, setIsFavorited] = useState(false);
+  
   useEffect(() => {
     dispatch(
       fetchArticlesByType({ type: tab, offset, articlesPerPage, user, tag })
-    );
-  }, [tab, currentPage, dispatch, articlesPerPage, user, tag]);
-
-  if (!articles) {
-    return <p>Loading articles...</p>;
-  }
-
+      );
+    }, [tab, currentPage, dispatch, articlesPerPage, user, tag]);
+    
+    if (!articles) {
+      return <p>Loading articles...</p>;
+    }
+    
   if (articles.length === 0) {
     return <p>No articles found.</p>;
   }
-
+  
+  const handleLikeClick = (article) => {
+    dispatch(toggleArticleFavorite({ slug: article.slug, favorited: !isFavorited }));
+    
+    setIsFavorited(!isFavorited);
+  };
+  
   return (
     <>
-      <Col md={12}>
+    <Container className={styles.articleSectionContainer}>
+    <Col md={12}>
         {articles.map((article) => (
           <div key={article.slug}>
             <Row className="article-preview border-bottom p-4">
@@ -72,33 +82,45 @@ function Articlesection(props) {
                       </Col>
                     </Row>
                   </Col>
-                  <Col md={6} sm={6} className={styles.favorites}>
+                  <Col md={6} sm={4} className={styles.favorites}>
 
-                    <Like article={article}></Like>
+                    <Like
+                    onClick={handleLikeClick}
+                    className={`favoriteButton : ${isFavorited ? 'favorited' : '' }`}
+                    article={article}></Like>
 
                   </Col>
                 </Row>
               </Row>
               <Row>
 
-                <div className={styles.footerArticle}>
+                <div className={styles.contentArticle}>
                   <Link
                     to={`../articles/${article.slug}`}
                     className={styles.text}
                   >
                     <h3 className={styles.articleTitle}>{article.title}</h3>
-                    <p>{article.description}</p>
-                    <span className={styles.readMore}>Read more...</span>
-                    <div className={styles.tagList}>
-                      {article?.tagList.map((tag, index) => (
-                        <span key={index} className={styles.tags}>
-                          {tag}
-                        </span>
-                      ))}
+                    <p className={styles.articleDescription}>{article.description}</p>
+                    <div className={styles.articleFooter}>
+                      <span className={styles.readMore}>Read more...</span>
+                      <div className={styles.tagList}>
+                        {article?.tagList.map((tag, index) => (
+                          <span key={index} className={styles.tags}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
-                  </Link>
-                </div>
+                    </Link>
+                    {/* <Col md={6} sm={12} className={styles.favorites2}>
+                    <Like
+                    onClick={handleLikeClick}
+                    className={`favoriteButton : ${isFavorited ? 'favorited' : '' }`}
+                    article={article}></Like>
 
+                  </Col>      */}
+                </div>
+                     
               </Row>
             </Row>
           </div>
@@ -107,14 +129,7 @@ function Articlesection(props) {
       {totalPages > 1 ? (
         <Col md={9}>
           <ul
-            className="pagination"
-            style={{
-              marginBottom: "100px",
-              display: "flex",
-              flexWrap: "wrap",
-              marginTop: "30px",
-            }}
-          >
+            className={`pagination ${styles.pagin}`}>
             <li
               className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
               onClick={() => setCurrentPage(currentPage - 1)}
@@ -146,6 +161,8 @@ function Articlesection(props) {
       ) : (
         ""
       )}
+    </Container>
+
     </>
   );
 }

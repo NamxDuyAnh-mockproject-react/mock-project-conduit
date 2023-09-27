@@ -16,8 +16,8 @@ function Tag(props) {
     dispatch(setCurrentTag(tag));
   };
   return (
-    <Col md={3} className="mt-4">
-      <h5>Tags</h5>
+    <Col md={3} sm = {12} className={`${styles.tagsComponent} tagsComponent`}>
+      <h5 className={styles.popularTags}>Tags</h5>
       <div className={styles.tagWrapper}>
         {tags?.map((tag) => {
           return (

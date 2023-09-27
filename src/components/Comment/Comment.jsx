@@ -12,6 +12,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import { Card } from "react-bootstrap";
 import DeleteIcon from '@mui/icons-material/Delete';
+import styles from "./styles.module.css"
 
 function Comment(props) {
   const slug = useParams();
@@ -43,7 +44,7 @@ function Comment(props) {
               />
               <Row className="p-3 d-flex align-item-center  card-footer" style={{width: "100%", marginLeft:"0px"}}>
                 <Col>
-                  <img src={user.image} alt="" />
+                  <img src={user.image} alt="" className={styles.avatar}/>
                 </Col>
                 <Col className="d-flex justify-content-end">
                   <Button
@@ -88,9 +89,9 @@ function Comment(props) {
                       <Card.Text className="p-3 mb-0">{comment.body}</Card.Text>
                       <Row className="p-3 d-flex align-item-center bg-light card-footer" style={{width: "100%", marginLeft:"0px"}}>
                         <Col>
-                          <Link style={{fontSize:"0.8em", color:"#5CB85C", textDecoration: "none"}}>
-                            <img src={user.image} alt="avatar" />
-                            {user.username}
+                          <Link className={styles.footerComment} to="/profile">
+                            <img src={user.image} alt="avatar" className={styles.avatar} />
+                            <span className={styles.userNameComment}>{user.username}</span>
                             
                           </Link>
                           <p>
