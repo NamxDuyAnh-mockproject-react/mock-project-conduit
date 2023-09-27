@@ -1,47 +1,98 @@
 import React from "react";
+import { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import { Container } from "react-bootstrap";
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useSelector } from "react-redux";
-import styles from "./styles.module.css"
-import SettingsIcon from '@mui/icons-material/Settings';
-import ArticleIcon from '@mui/icons-material/Article';
+import styles from "./styles.module.css";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ArticleIcon from "@mui/icons-material/Article";
+import HomeIcon from '@mui/icons-material/Home';
 
 const Header = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
- 
   const user = useSelector((state) => state.auth.user);
-  
+
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+
+  const handleOffcanvasClose = () => {
+    setShowOffcanvas(false);
+  };
+
+  const handleNavLinkClick = () => {
+    handleOffcanvasClose();
+  };
+
   return (
     <>
-      <Navbar  data-bs-theme="light">
-        <Container className="">
+        <Navbar expand="md"  className="bg-body-tertiary mb-3">
+          <Container>
           <Navbar.Brand href="/">Conduit</Navbar.Brand>
-          <Nav className={styles.navLink}>
-            <Link to="/" className={styles.linkItem}>Home</Link>
-            {isLoggedIn ? (
-              <>
-                  <NavLink to="/new-article" className={styles.linkItem}>
-                    <span><ArticleIcon className={styles.icon} fontSize="small"/></span>
-                    New Article</NavLink>
-                  <NavLink to="/settings" className={styles.linkItem}>
-                    <span><SettingsIcon fontSize="small" className={styles.icon}/></span>
-                    Settings</NavLink>
-                  <NavLink to="/profile" className={styles.linkItem}>
-                    <img src={user.image} alt=""avatar className={styles.avatar} />
-                    {user.username}
-                    </NavLink>
-              </>
-            ) : (
-              <>
-                <NavLink to="/login" className={styles.linkItem}>Sign in</NavLink>
-                <NavLink to="/register" className={styles.linkItem}>Sign up</NavLink>
-              </>
-            )}
-          </Nav>
-        </Container>
-      </Navbar>
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} 
+            onClick={() => setShowOffcanvas(!showOffcanvas)}
+            />
+            <Navbar.Offcanvas
+              className={styles.navItemRight}
+              id={`offcanvasNavbar-expand-md`}
+              aria-labelledby={`offcanvasNavbarLabel-expand-md`}
+              show={showOffcanvas}
+              onHide={handleOffcanvasClose}
+              placement="end"
+            >
+              <Offcanvas.Header className={styles.btnCloseMenu} closeButton>
+
+              </Offcanvas.Header>
+              <Offcanvas.Body>
+              <Nav className="ml-auto">
+                <NavLink to="/" className={`${styles.linkItem} my-auto`}
+                onClick={handleNavLinkClick}>
+                  <span><HomeIcon className={styles.icon} fontSize="small"/></span>
+                  Home
+                </NavLink>
+                {isLoggedIn ? (
+                      <>
+
+                        <NavLink to="/new-article" className={`${styles.linkItem} my-auto`} 
+                        onClick={handleNavLinkClick}>
+                          <span>
+                            <ArticleIcon className={styles.icon} fontSize="small" />
+                          </span>
+                          New Article
+                        </NavLink>
+                        <NavLink to="/settings" className={`${styles.linkItem} my-auto`} 
+                        onClick={handleNavLinkClick}>
+                          <span>
+                            <SettingsIcon fontSize="small" className={styles.icon} />
+                          </span>
+                          Settings
+                        </NavLink>
+                        <NavLink to="/profile" className={`${styles.linkItem} my-auto`}
+                        onClick={handleNavLinkClick}>
+                          <img src={user.image} alt="avatar" className={styles.avatar}/>
+                          {user.username}
+                        </NavLink>
+
+                      </>
+                    ) : (
+                      <>
+                        <NavLink to="/login" className={`${styles.linkItem} my-auto`}
+                        onClick={handleNavLinkClick}>
+                          Sign in
+                        </NavLink>
+                        <NavLink to="/register" className={`${styles.linkItem} my-auto`}
+                        onClick={handleNavLinkClick}>
+                          Sign up
+                        </NavLink>
+                      </>
+                )}
+              </Nav>
+              </Offcanvas.Body>
+            </Navbar.Offcanvas>
+          </Container>
+        </Navbar>
+
       <Outlet />
       <footer className={styles.footer}>
         <div>Fork on Github</div>

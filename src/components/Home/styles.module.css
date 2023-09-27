@@ -43,10 +43,25 @@
 .layout{
     display: flex;
     flex-direction: row;
+}
+@media (max-width: 768px) {
+    .layout{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .tagsComponent{
+        margin-top: 0px;
+        padding: 20px;
+    }
 
 }
 
-
+.favoriteButton{
+    background-color: white;
+}
+.favoriteButton.favorited{
+    background-color: #5CB85C;
+}
 
 .readMore{
     font-size: 0.8em;

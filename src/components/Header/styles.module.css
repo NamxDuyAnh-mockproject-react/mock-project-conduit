@@ -2,12 +2,33 @@
     font-weight: 600;
 }
 
+.navLink{
+    display: flex;
+    justify-content: flex-end;
+}
+.navItemRight{
+    display: flex;
+    flex-direction: row-reverse;
+}
 .linkItem{
     text-decoration: none;
+    padding: 5px;
     margin: 0 10px;
     color: #1e1e1e;
 }
+@media (max-width: 768px) {
+    .linkItem{
+        padding: 10px;
+    }
+    .navItemRight{
+        display: block;
 
+    }
+    .btnCloseMenu{
+        display: flex;
+        flex-direction: row-reverse;
+    }
+}
 .avatar{
     max-width: 30px;
     max-height: 30px;

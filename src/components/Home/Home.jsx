@@ -31,7 +31,7 @@ const Home = () => {
   
 
   const currentTag = useSelector((state) => state.articles.currentTag);
-  const currentTab = useSelector((state) => state.articles.tab);
+
   return (
     <Container>
       <Row>
