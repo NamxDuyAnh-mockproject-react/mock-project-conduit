@@ -18,6 +18,7 @@ export function* createArticleSaga(action) {
 }
 
 export function* fetchDetailArticlesSaga(action) {
+  
   const article = yield call(
     articlesService.fetchDetailArticles,
     action.payload
@@ -38,7 +39,7 @@ export function* addCommentsSaga(action) {
 
 export function* fetchArticlesByTypeSaga(action) {
   let type = action.payload.type;
-  console.log(action);
+ 
   let response;
 
   if (type === "all") {
@@ -71,4 +72,13 @@ export function* unFavoritedArticlesSaga(action) {
     articlesService.unFavoritedArticles,
     action.payload
   );
+}
+export function* updateArticleSaga(action) {
+  
+  const response = yield call(articlesService.updateArticle, action.payload);
+  console.log(response);
+  const url = `../articles/${response.article?.slug}`;
+
+  
+  yield put(setRedirect(url));
 }
