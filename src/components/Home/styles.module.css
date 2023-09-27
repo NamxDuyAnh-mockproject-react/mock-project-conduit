@@ -1,5 +1,5 @@
 .avatar{
-    max-height: 50px;
+    max-height: 35px;
     border-radius: 50%;
 }
 .authorInfo{
@@ -20,7 +20,7 @@
     cursor: pointer;
 }
 .date{
-    font-size: 0.9rem;
+    font-size: 0.8em;
     color: #bbb;
     margin-bottom: 0;
 }
@@ -46,11 +46,7 @@
 
 }
 
-.footerArticle{
-    display: flex;
-    justify-content: space-between;
-    max-height: 20%;
-}
+
 
 .readMore{
     font-size: 0.8em;
