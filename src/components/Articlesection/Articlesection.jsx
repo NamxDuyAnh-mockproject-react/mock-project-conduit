@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Col, Container, Nav, Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+
 import styles from "../Home/styles.module.css";
 import { fetchArticlesByType } from "../../Store/actions/articles.action";
 import Like from "../Like and Follow/Like";
@@ -23,94 +23,83 @@ function Articlesection(props) {
   const totalPages = Math.ceil(articlesCount / articlesPerPage);
   let offset = (currentPage - 1) * articlesPerPage;
   const dispatch = useDispatch();
-  const [isFavorited, setIsFavorited] = useState(false);
-  
+
   useEffect(() => {
     dispatch(
       fetchArticlesByType({ type: tab, offset, articlesPerPage, user, tag })
-      );
-    }, [tab, currentPage, dispatch, articlesPerPage, user, tag]);
-    
-    if (!articles) {
-      return <p>Loading articles...</p>;
-    }
-    
+    );
+  }, [tab, currentPage, dispatch, articlesPerPage, user, tag]);
+
+  if (!articles) {
+    return <p>Loading articles...</p>;
+  }
+
   if (articles.length === 0) {
     return <p>No articles found.</p>;
   }
-  
-  const handleLikeClick = (article) => {
-    dispatch(toggleArticleFavorite({ slug: article.slug, favorited: !isFavorited }));
-    
-    setIsFavorited(!isFavorited);
-  };
-  
+
   return (
     <>
-    <Container className={styles.articleSectionContainer}>
-    <Col md={12}>
-        {articles.map((article) => (
-          <div key={article.slug}>
-            <Row className="article-preview border-bottom p-4">
-              <Row className={styles.authorInfo}>
-                <Row>
-                  <Col sm={6} md={6}>
-                    <Row className="d-flex">
-                      <Col xs={1} className="my-auto">
-                        <img
-                          src={article?.author.image}
-                          className={styles.avatar}
-                          alt="avatar"
-                        />
-                      </Col>
-                      <Col className={styles.authorDateName}>
-                        <div className={styles.authorName}>
-                          {article?.author.username}
-                        </div>
-                        <p className={styles.date}>
-                          {article?.createdAt
-                            ? new Date(article?.createdAt).toLocaleDateString(
-                                "en-US",
-                                {
-                                  month: "long",
-                                  day: "numeric",
-                                  year: "numeric",
-                                }
-                              )
-                            : ""}
-                        </p>
-                      </Col>
-                    </Row>
-                  </Col>
-                  <Col md={6} sm={4} className={styles.favorites}>
-
-                    <Like
-                    onClick={handleLikeClick}
-                    className={`favoriteButton : ${isFavorited ? 'favorited' : '' }`}
-                    article={article}></Like>
-
-                  </Col>
+      <Container className={styles.articleSectionContainer}>
+        <Col md={12}>
+          {articles.map((article) => (
+            <div key={article.slug}>
+              <Row className="article-preview border-bottom p-4">
+                <Row className={styles.authorInfo}>
+                  <Row>
+                    <Col sm={6} md={6}>
+                      <Row className="d-flex">
+                        <Col xs={1} className="my-auto">
+                          <img
+                            src={article?.author.image}
+                            className={styles.avatar}
+                            alt="avatar"
+                          />
+                        </Col>
+                        <Col className={styles.authorDateName}>
+                          <div className={styles.authorName}>
+                            {article?.author.username}
+                          </div>
+                          <p className={styles.date}>
+                            {article?.createdAt
+                              ? new Date(article?.createdAt).toLocaleDateString(
+                                  "en-US",
+                                  {
+                                    month: "long",
+                                    day: "numeric",
+                                    year: "numeric",
+                                  }
+                                )
+                              : ""}
+                          </p>
+                        </Col>
+                      </Row>
+                    </Col>
+                    <Col md={6} sm={4} className={styles.favorites}>
+                      <Like article={article}></Like>
+                    </Col>
+                  </Row>
                 </Row>
-              </Row>
-              <Row>
-
-                <div className={styles.contentArticle}>
-                  <Link
-                    to={`../articles/${article.slug}`}
-                    className={styles.text}
-                  >
-                    <h3 className={styles.articleTitle}>{article.title}</h3>
-                    <p className={styles.articleDescription}>{article.description}</p>
-                    <div className={styles.articleFooter}>
-                      <span className={styles.readMore}>Read more...</span>
-                      <div className={styles.tagList}>
-                        {article?.tagList.map((tag, index) => (
-                          <span key={index} className={styles.tags}>
-                            {tag}
-                          </span>
-                        ))}
+                <Row>
+                  <div className={styles.contentArticle}>
+                    <Link
+                      to={`../articles/${article.slug}`}
+                      className={styles.text}
+                    >
+                      <h3 className={styles.articleTitle}>{article.title}</h3>
+                      <p className={styles.articleDescription}>
+                        {article.description}
+                      </p>
+                      <div className={styles.articleFooter}>
+                        <span className={styles.readMore}>Read more...</span>
+                        <div className={styles.tagList}>
+                          {article?.tagList.map((tag, index) => (
+                            <span key={index} className={styles.tags}>
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
                     </Link>
                     {/* <Col md={6} sm={12} className={styles.favorites2}>
                     <Like
@@ -119,50 +108,47 @@ function Articlesection(props) {
                     article={article}></Like>
 
                   </Col>      */}
-                </div>
-                     
+                  </div>
+                </Row>
               </Row>
-            </Row>
-          </div>
-        ))}
-      </Col>
-      {totalPages > 1 ? (
-        <Col md={9}>
-          <ul
-            className={`pagination ${styles.pagin}`}>
-            <li
-              className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
-              onClick={() => setCurrentPage(currentPage - 1)}
-            >
-              <button className="page-link">Previous</button>
-            </li>
-            {/* Render page numbers */}
-            {Array.from({ length: totalPages }, (_, index) => (
-              <li
-                key={index + 1}
-                className={`page-item ${
-                  currentPage === index + 1 ? "active" : ""
-                }`}
-                onClick={() => setCurrentPage(index + 1)}
-              >
-                <button className="page-link">{index + 1}</button>
-              </li>
-            ))}
-            <li
-              className={`page-item ${
-                currentPage === totalPages ? "disabled" : ""
-              }`}
-              onClick={() => setCurrentPage(currentPage + 1)}
-            >
-              <button className="page-link">Next</button>
-            </li>
-          </ul>
+            </div>
+          ))}
         </Col>
-      ) : (
-        ""
-      )}
-    </Container>
-
+        {totalPages > 1 ? (
+          <Col md={9}>
+            <ul className={`pagination ${styles.pagin}`}>
+              <li
+                className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
+                onClick={() => setCurrentPage(currentPage - 1)}
+              >
+                <button className="page-link">Previous</button>
+              </li>
+              {/* Render page numbers */}
+              {Array.from({ length: totalPages }, (_, index) => (
+                <li
+                  key={index + 1}
+                  className={`page-item ${
+                    currentPage === index + 1 ? "active" : ""
+                  }`}
+                  onClick={() => setCurrentPage(index + 1)}
+                >
+                  <button className="page-link">{index + 1}</button>
+                </li>
+              ))}
+              <li
+                className={`page-item ${
+                  currentPage === totalPages ? "disabled" : ""
+                }`}
+                onClick={() => setCurrentPage(currentPage + 1)}
+              >
+                <button className="page-link">Next</button>
+              </li>
+            </ul>
+          </Col>
+        ) : (
+          ""
+        )}
+      </Container>
     </>
   );
 }

@@ -4,7 +4,7 @@ class ArticlesService {
   fetchAllArticles = async ({ offset, articlesPerPage }) => {
     
     try {
-      const res = await conduitAxios.get(
+      const res = await conduitAxiosCredentials.get(
         `/articles?offset=${offset}&limit=${articlesPerPage}`
       );
 

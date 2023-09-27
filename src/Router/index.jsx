@@ -97,7 +97,12 @@ const router = createBrowserRouter([
 
       {
         path: "new-article/:slug",
-        element: <CreateArticle />,
+        lazy: async () => {
+          const CreateArticle = await import("../components/ArticleDetail/ArticleDetail");
+          return {
+            Component: CreateArticle.default,
+          };
+        },
       },
 
     ],
