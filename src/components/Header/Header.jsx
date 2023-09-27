@@ -27,7 +27,7 @@ const Header = () => {
 
   return (
     <>
-        <Navbar expand="md"  className="bg-body-tertiary mb-3">
+        <Navbar expand="md"  className="bg-body-tertiary">
           <Container>
           <Navbar.Brand href="/">Conduit</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} 
@@ -94,7 +94,7 @@ const Header = () => {
         </Navbar>
 
       <Outlet />
-      <footer className={styles.footer}>
+      <footer className={`fixed-bottom ${styles.footer}`}>
         <div>Fork on Github</div>
       </footer>
     </>

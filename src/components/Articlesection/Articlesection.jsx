@@ -47,7 +47,8 @@ function Articlesection(props) {
   
   return (
     <>
-      <Col md={12}>
+    <Container className={styles.articleSectionContainer}>
+    <Col md={12}>
         {articles.map((article) => (
           <div key={article.slug}>
             <Row className="article-preview border-bottom p-4">
@@ -81,7 +82,7 @@ function Articlesection(props) {
                       </Col>
                     </Row>
                   </Col>
-                  <Col md={6} sm={6} className={styles.favorites}>
+                  <Col md={6} sm={4} className={styles.favorites}>
 
                     <Like
                     onClick={handleLikeClick}
@@ -99,24 +100,27 @@ function Articlesection(props) {
                     className={styles.text}
                   >
                     <h3 className={styles.articleTitle}>{article.title}</h3>
-                    <p>{article.description}</p>
-                    </Link>
-                    <Link
-                    to={`../articles/${article.slug}`}
-                    className={styles.text}
-                  >
-                    
-                    <span className={styles.readMore}>Read more...</span>
-                    <div className={styles.tagList}>
-                      {article?.tagList.map((tag, index) => (
-                        <span key={index} className={styles.tags}>
-                          {tag}
-                        </span>
-                      ))}
+                    <p className={styles.articleDescription}>{article.description}</p>
+                    <div className={styles.articleFooter}>
+                      <span className={styles.readMore}>Read more...</span>
+                      <div className={styles.tagList}>
+                        {article?.tagList.map((tag, index) => (
+                          <span key={index} className={styles.tags}>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                     </Link>
-                </div>
+                    {/* <Col md={6} sm={12} className={styles.favorites2}>
+                    <Like
+                    onClick={handleLikeClick}
+                    className={`favoriteButton : ${isFavorited ? 'favorited' : '' }`}
+                    article={article}></Like>
 
+                  </Col>      */}
+                </div>
+                     
               </Row>
             </Row>
           </div>
@@ -125,14 +129,7 @@ function Articlesection(props) {
       {totalPages > 1 ? (
         <Col md={9}>
           <ul
-            className="pagination"
-            style={{
-              marginBottom: "100px",
-              display: "flex",
-              flexWrap: "wrap",
-              marginTop: "30px",
-            }}
-          >
+            className={`pagination ${styles.pagin}`}>
             <li
               className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
               onClick={() => setCurrentPage(currentPage - 1)}
@@ -164,6 +161,8 @@ function Articlesection(props) {
       ) : (
         ""
       )}
+    </Container>
+
     </>
   );
 }

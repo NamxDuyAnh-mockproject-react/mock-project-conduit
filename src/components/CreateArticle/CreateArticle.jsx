@@ -85,7 +85,7 @@ function CreateArticle(props) {
   };
 
   return (
-    <Container>
+    <Container className={styles.createArticleContainer}>
       <Card sx={{ mt: 5 }}>
         <CardContent>
           <Typography variant="h4" align="center" gutterBottom sx={{ mb: 5 }}>
