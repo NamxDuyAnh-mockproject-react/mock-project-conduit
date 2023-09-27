@@ -90,13 +90,11 @@ function ArticleDetail(props) {
                           className="btn btn-outline-primary"
                           style={{ width: "250px" }}
                         >
-                          <span>
-                            <DeleteIcon
-                              fontSize="small"
-                              className={styles.spanIcon}
-                            />
-                          </span>
-                          Delete Article ({article?.favoritesCount})
+
+
+                          <span><DeleteIcon fontSize="small" className={styles.spanIcon}/></span>
+                          Delete Article
+
                         </button>
                       </Col>
                     ) : (
@@ -194,17 +192,12 @@ function ArticleDetail(props) {
                       Edit Article
                     </button>
 
-                    <button
-                      className="btn btn-outline-primary"
-                      style={{ width: "250px" }}
-                    >
-                      <span>
-                        <DeleteIcon
-                          fontSize="small"
-                          className={styles.spanIcon}
-                        />
-                      </span>
-                      Delete Article ({article?.favoritesCount})
+
+                    <button className="btn btn-outline-primary"
+                    style={{width: "250px"}}>
+                      <span><DeleteIcon fontSize="small" className={styles.spanIcon}/></span>
+                      Delete Article
+
                     </button>
                   </Col>
                 ) : (

@@ -1,10 +1,15 @@
 import React, { useEffect } from "react";
-import { Col, Nav, Row } from "react-bootstrap";
+import { Col, Nav, Row, Container } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Articlesection from "../Articlesection/Articlesection";
-import { setTabs, setArticlesData } from "../../Store/slices/articles.slice";
+
+import { setTabs,setArticlesData } from "../../Store/slices/articles.slice";
+import SettingsIcon from '@mui/icons-material/Settings';
+import styles from "./styles.module.css"
+
+
 const Profile = () => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
@@ -16,19 +21,26 @@ const Profile = () => {
   }, []);
   return (
     <>
-      <Row>
-        <Col className="col-xs-12 col-md-10 offset-md-1 text-center">
-          <Image className="user-img" src={user?.image} />
-          <h4>{user?.username}</h4>
-          <p>{user?.bio}</p>
+      <Row className={styles.userInfro}>
+        <Container>
+          <Row>
+          <Col className="col-xs-12 col-md-10 offset-md-1">
+            <img className={styles.userImg} src={user?.image} />
+            <h3>{user?.username}</h3>
+            <p className={styles.textBio}>{user?.bio}</p>
 
-          <Link
-            className="btn btn-sm btn-outline-secondary action-btn"
-            to="/settings"
-          >
-            <i className="ion-gear-a"></i> Edit Profile Settings
-          </Link>
-        </Col>
+            <Link
+              className="btn btn-sm btn-outline-secondary action-btn"
+              to="../settings" style={{float:"right"}}
+            >
+              <span><SettingsIcon fontSize="small" className={styles.icon}/></span> Edit Profile Settings
+            </Link>
+          </Col>
+          </Row>
+          
+        </Container>
+        
+
       </Row>
       <Row className="justify-content-center">
         <Col xs={8}>

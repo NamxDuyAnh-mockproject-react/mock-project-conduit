@@ -8,8 +8,9 @@
     color: #1e1e1e;
 }
 
-img{
-    max-height: 25px;
+.avatar{
+    max-width: 30px;
+    max-height: 30px;
     border-radius: 50%;
     margin-right: 3px;
 }

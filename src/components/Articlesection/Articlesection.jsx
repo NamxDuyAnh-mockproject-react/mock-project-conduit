@@ -73,11 +73,14 @@ function Articlesection(props) {
                     </Row>
                   </Col>
                   <Col md={6} sm={6} className={styles.favorites}>
+
                     <Like article={article}></Like>
+
                   </Col>
                 </Row>
               </Row>
               <Row>
+
                 <div className={styles.footerArticle}>
                   <Link
                     to={`../articles/${article.slug}`}
@@ -95,6 +98,7 @@ function Articlesection(props) {
                     </div>
                   </Link>
                 </div>
+
               </Row>
             </Row>
           </div>

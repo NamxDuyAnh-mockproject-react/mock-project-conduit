@@ -15,7 +15,7 @@ const Header = () => {
 
   return (
     <>
-      <Navbar bg="light" data-bs-theme="light">
+      <Navbar  data-bs-theme="light">
         <Container className="">
           <Navbar.Brand href="/">Conduit</Navbar.Brand>
           <Nav className={styles.navLink}>
@@ -24,6 +24,7 @@ const Header = () => {
             </Link>
             {isLoggedIn ? (
               <>
+
                 <NavLink to="/new-article" className={styles.linkItem}>
                   <span>
                     <ArticleIcon className={styles.icon} fontSize="small" />
@@ -40,6 +41,7 @@ const Header = () => {
                   <img src={user.image} alt="" />
                   {user.username}
                 </NavLink>
+
               </>
             ) : (
               <>
