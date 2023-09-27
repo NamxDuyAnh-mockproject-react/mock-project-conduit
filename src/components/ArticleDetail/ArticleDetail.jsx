@@ -16,18 +16,21 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import EditIcon from "@mui/icons-material/Edit";
 
 function ArticleDetail(props) {
-  const slug = useParams();
+  const {slug} = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
+
   const { article } = useSelector((state) => state.articles.detailArticle);
   const author = article?.author?.username;
   const isEdited = user?.username === author;
   const navigate = useNavigate();
   useEffect(() => {
+    
     dispatch(fetchDetailArticles(slug));
   }, []);
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    navigate(`/new-article/${slug}`)
+  };
   const handleDelete = () => {
     dispatch(deleteArticles(slug));
     navigate("/home");
@@ -144,6 +147,7 @@ function ArticleDetail(props) {
                       </div>
                     </Row>
                   </Row>
+
               </Row>
             </Container>
             <Row>
@@ -156,6 +160,7 @@ function ArticleDetail(props) {
                           src={article?.author.image}
                           className={styles.avatar}
                           alt="avatar"
+
                         />
                       </Col>
                       <Col className={styles.authorDateName}>

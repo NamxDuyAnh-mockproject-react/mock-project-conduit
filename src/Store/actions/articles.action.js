@@ -11,4 +11,4 @@ export const fetchArticlesByType = createAction("FETCH_ARTICLES_BY_TYPE");
 export const deleteArticles = createAction("DELETE_ARTICLES");
 export const favoritedArticles = createAction("FAVORITED_ARTICLES");
 export const unfavoritedArticles = createAction("UNFAVORITED_ARTICLES");
-
+export const updateArticle = createAction("UPDATE_ARTICLES");

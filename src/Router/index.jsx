@@ -95,6 +95,11 @@ const router = createBrowserRouter([
         },
       },
 
+      {
+        path: "new-article/:slug",
+        element: <CreateArticle />,
+      },
+
     ],
   },
 ]);
