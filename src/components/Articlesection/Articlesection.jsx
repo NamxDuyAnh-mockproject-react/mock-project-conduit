@@ -132,17 +132,40 @@ function Articlesection(props) {
                 <button className="page-link">Previous</button>
               </li>
               {/* Render page numbers */}
-              {Array.from({ length: totalPages }, (_, index) => (
-                <li
-                  key={index + 1}
-                  className={`page-item ${
-                    currentPage === index + 1 ? "active" : ""
-                  }`}
-                  onClick={() => setCurrentPage(index + 1)}
-                >
-                  <button className="page-link">{index + 1}</button>
-                </li>
-              ))}
+              {Array.from({ length: totalPages }, (_, index) => {
+                if (
+                  index + 1 === 1 ||
+                  index + 1 === currentPage ||
+                  index + 1 === currentPage - 1 ||
+                  index + 1 === currentPage + 1 ||
+                  index + 1 === totalPages
+                ) {
+                  // Render current, adjacent, first, and last page numbers
+                  return (
+                    <li
+                      key={index + 1}
+                      className={`page-item ${
+                        currentPage === index + 1 ? "active" : ""
+                      }`}
+                      onClick={() => setCurrentPage(index + 1)}
+                    >
+                      <button className="page-link">{index + 1}</button>
+                    </li>
+                  );
+                } else if (
+                  (index + 1 === currentPage - 2 && currentPage > 3) ||
+                  (index + 1 === currentPage + 2 &&
+                    currentPage < totalPages - 2)
+                ) {
+                  // Render ellipsis before and after the current page
+                  return (
+                    <li key={index + 1} className="page-item disabled">
+                      <button className="page-link">...</button>
+                    </li>
+                  );
+                }
+                return null;
+              })}
               <li
                 className={`page-item ${
                   currentPage === totalPages ? "disabled" : ""
@@ -153,9 +176,7 @@ function Articlesection(props) {
               </li>
             </ul>
           </Col>
-        ) : (
-          ""
-        )}
+        ) : null}
       </Container>
     </>
   );
