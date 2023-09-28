@@ -82,6 +82,9 @@ const Login = () => {
                 autoComplete="email"
                 autoFocus
                 onChange={handleChange}
+                inputProps={{
+                  maxLength: 50, 
+                }}
               />
               <TextField
                 margin="normal"
