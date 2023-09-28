@@ -9,15 +9,21 @@ import {
   setCurrentTag,
 } from "../../Store/slices/articles.slice";
 import { useEffect } from "react";
+import { useRef } from "react";
 const Home = () => {
   const dispatch = useDispatch();
   const tab = useSelector((state) => state.articles.tab);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  
+  const currentTag = useSelector((state) => state.articles.currentTag);
+  const tagLinkRef = useRef(null);
   useEffect(() => {
     dispatch(setTabs("all"));
   }, []);
-
+  useEffect(() => {
+    if (currentTag && tagLinkRef.current) {
+      tagLinkRef.current.click();
+    } 
+  }, [currentTag]);
   const handleTabChange = (tab) => {
     dispatch(setTabs(tab));
   };
@@ -27,10 +33,6 @@ const Home = () => {
       dispatch(setCurrentTag(""));
     }
   }, [tab]);
-
-  
-
-  const currentTag = useSelector((state) => state.articles.currentTag);
 
   return (
     <Container>
@@ -60,6 +62,7 @@ const Home = () => {
                     <Nav.Link
                       eventKey="tag"
                       onClick={() => handleTabChange("tag")}
+                      ref={tagLinkRef}
                     >
                       {currentTag ? `#${currentTag}` : null}
                     </Nav.Link>
@@ -79,6 +82,8 @@ const Home = () => {
                     <Nav.Link
                       eventKey="tag"
                       onClick={() => handleTabChange("tag")}
+                      ref={tagLinkRef}
+                      
                     >
                       {currentTag ? `#${currentTag}` : null}
                     </Nav.Link>
