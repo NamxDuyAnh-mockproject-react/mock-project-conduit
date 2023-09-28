@@ -49,7 +49,7 @@ function ArticleDetail(props) {
                 <Col className="" xs={12}>
                   <Row className="p-2">
                     <Col className={styles.userInfo} sm={12} md={6}>
-                      <Row className="d-flex">
+                      <Row className="d-flex" onClick={()=>handleProfileClick(article?.author?.username)}>
                         <Col xs={1} className="my-auto">
                           <img
                             src={article?.author.image}
@@ -163,7 +163,7 @@ function ArticleDetail(props) {
 
                       />
                     </Col>
-                    <Col className={styles.authorDateName2}>
+                    <Col className={styles.authorDateName2} onClick={()=>handleProfileClick(article?.author?.username)}>
                       <div className={styles.authorName2}>
                         {article?.author.username}
                       </div>
