@@ -71,6 +71,9 @@ const Register = () => {
                             name="username"
                             autoComplete="username"
                             onChange={handleChange}
+                            inputProps={{
+                                maxLength: 20, 
+                              }}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -82,6 +85,9 @@ const Register = () => {
                             name="email"
                             autoComplete="email"
                             onChange={handleChange}
+                            inputProps={{
+                                maxLength: 50, 
+                              }}
                             />
                         </Grid>
                         <Grid item xs={12}>
