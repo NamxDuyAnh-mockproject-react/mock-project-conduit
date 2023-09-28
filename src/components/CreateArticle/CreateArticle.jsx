@@ -19,6 +19,7 @@ import {
 import styles from "./styles.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
 function CreateArticle() {
+  const {isLoggedIn} =useSelector(state =>state.auth)
   const { slug } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,7 +33,12 @@ function CreateArticle() {
     body: "",
     tagList: [],
   });
-
+useEffect(() => {
+  if(!isLoggedIn){
+    navigate('/register')
+  }
+},[]
+)
   useEffect(() => {
     if (slug) {
       dispatch(fetchDetailArticles(slug));

@@ -123,7 +123,7 @@ function Articlesection(props) {
           ))}
         </Col>
         {totalPages > 1 ? (
-          <Col md={9}>
+          <Col className="d-flex justify-content-center" md={9}>
             <ul className={`pagination ${styles.pagin}`}>
               <li
                 className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
