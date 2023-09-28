@@ -1,10 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { redirect } from "react-router-dom";
-import produce from "immer";
+import { createSlice} from "@reduxjs/toolkit";
+
 const articlesSlice = createSlice({
   name: "articles",
   initialState: {
-    allArticlesData: {},
+    allArticlesData: { articles: [] },
     detailArticle: {},
     allCommentsData: [],
     tab: "",
@@ -40,21 +39,33 @@ const articlesSlice = createSlice({
     toggleArticleFavorite(state, action) {
       const { slug, favorited } = action.payload;
 
-      if (Array.isArray(state.allArticlesData.articles)) {
-        const articleIndex = state.allArticlesData.articles.findIndex(
-          (article) => article.slug === slug
-        );
+      const articleIndex = state.allArticlesData.articles.findIndex(
+        (article) => article.slug === slug
+      );
 
-        if (articleIndex !== -1) {
-          produce(state, (draftState) => {
-            draftState.allArticlesData.articles[articleIndex] = {
-              ...draftState.allArticlesData.articles[articleIndex],
-              favorited: favorited,
-            };
-          });
-        }
+      if (articleIndex !== -1) {
+        return {
+          ...state,
+          allArticlesData: {
+            ...state.allArticlesData,
+            articles: state.allArticlesData.articles.map((article, index) => {
+              if (index === articleIndex) {
+                console.log(favorited)
+                return {
+                  ...article,
+                  favorited: favorited,
+                  favoritesCount: article.favoritesCount + (favorited ? 1 : -1),
+                };
+              }
+              return article;
+            }),
+          },
+        };
       }
+
+      return state;
     },
+
   },
 });
 
