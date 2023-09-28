@@ -29,7 +29,7 @@ class ArticlesService {
       };
     }
   };
-  createArticles = async ({ articles }) => {
+  createArticles = async ( articles ) => {
     try {
       const config = { article: articles };
 
