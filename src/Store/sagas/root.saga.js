@@ -1,9 +1,15 @@
-import { fetchUser, getCurrentUser, updateUser } from "../actions/auth.action";
+import {
+  fetchUser,
+  getCurrentUser,
+  updateUser,
+  getProfile,
+} from "../actions/auth.action";
 import {
   checkCurrentUser,
   checkLoginSaga,
   registerUserSaga,
   updateUserSaga,
+  getProfileSaga,
 } from "../sagas/auth.sage";
 import { createUser } from "../actions/auth.action";
 
@@ -15,7 +21,8 @@ import {
   fetchArticlesByTypeSaga,
   deleteArticlesSaga,
   favoritedArticlesSaga,
-  unFavoritedArticlesSaga,updateArticleSaga
+  unFavoritedArticlesSaga,
+  updateArticleSaga,
 } from "./articles.saga";
 import { all, takeEvery, takeLatest } from "redux-saga/effects";
 import {
@@ -26,7 +33,8 @@ import {
   fetchArticlesByType,
   deleteArticles,
   favoritedArticles,
-  unfavoritedArticles,updateArticle
+  unfavoritedArticles,
+  updateArticle,
 } from "../actions/articles.action";
 import { fetchTagSaga } from "./tag.saga";
 import { fetchAllTag } from "../actions/tag.actions";
@@ -46,5 +54,6 @@ export function* rootSaga() {
     takeEvery(favoritedArticles, favoritedArticlesSaga),
     takeEvery(unfavoritedArticles, unFavoritedArticlesSaga),
     takeEvery(updateArticle, updateArticleSaga),
+    takeEvery(getProfile, getProfileSaga),
   ]);
 }

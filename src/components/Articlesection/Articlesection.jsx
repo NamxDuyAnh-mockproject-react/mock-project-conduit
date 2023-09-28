@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Nav, Row } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "../Home/styles.module.css";
@@ -8,6 +8,8 @@ import { fetchArticlesByType } from "../../Store/actions/articles.action";
 import Like from "../Like and Follow/Like";
 
 function Articlesection(props) {
+  const profile = useSelector((state) => state.auth.profile);
+  const user = profile.username;
   const articles = useSelector(
     (state) => state.articles.allArticlesData?.articles
   );
@@ -16,19 +18,28 @@ function Articlesection(props) {
   );
   const tab = useSelector((state) => state.articles.tab);
   const tag = useSelector((state) => state.articles.currentTag);
-  const user = useSelector((state) => state.auth.user?.username);
+
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 10;
   const totalPages = Math.ceil(articlesCount / articlesPerPage);
   let offset = (currentPage - 1) * articlesPerPage;
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(
-      fetchArticlesByType({ type: tab, offset, articlesPerPage, user, tag })
+      fetchArticlesByType({
+        type: tab,
+        offset,
+        articlesPerPage,
+        user,
+        tag,
+      })
     );
   }, [tab, currentPage, dispatch, articlesPerPage, user, tag]);
 
+  const handleProfileClick = (author) => {
+    navigate(`/profile/${author}`);
+  };
   if (!articles) {
     return <p>Loading articles...</p>;
   }
@@ -56,7 +67,12 @@ function Articlesection(props) {
                           />
                         </Col>
                         <Col className={styles.authorDateName}>
-                          <div className={styles.authorName}>
+                          <div
+                            className={styles.authorName}
+                            onClick={() =>
+                              handleProfileClick(article.author?.username)
+                            }
+                          >
                             {article?.author.username}
                           </div>
                           <p className={styles.date}>

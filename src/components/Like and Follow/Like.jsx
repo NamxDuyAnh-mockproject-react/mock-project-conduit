@@ -10,8 +10,9 @@ import { useNavigate } from "react-router-dom";
 function Like({ article }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  console.log(article)
+
   const handleLike = ({ slug, favorited, favoritesCount }) => {
     if(isLoggedIn===true){
       if (favorited === false) {

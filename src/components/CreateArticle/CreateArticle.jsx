@@ -40,7 +40,7 @@ function CreateArticle() {
   }, [dispatch, slug]);
 
   useEffect(() => {
-    if (article) {
+    if (slug) {
       setInput({
         title: article.title,
         description: article.description,
@@ -48,7 +48,7 @@ function CreateArticle() {
         tagList: article.tagList,
       });
     }
-  }, [article]);
+  }, [slug,article]);
 
   useEffect(() => {
     if (redirectUrl) {
@@ -85,6 +85,12 @@ function CreateArticle() {
       };
       dispatch(createArticles(newArticle));
     }
+    setInput({
+      title: "",
+      description: "",
+      body: "",
+      tagList: [],
+    });
   };
   const handleAddTag = (event) => {
     event.preventDefault();
@@ -102,10 +108,8 @@ function CreateArticle() {
     });
   };
   return (
-
     <Container className={styles.createArticleContainer}>
       <Card sx={{ mt: 5 }}>
-
         <CardContent>
           <Typography variant="h4" align="center" gutterBottom>
             {slug ? "Edit Article" : "Create Article"}

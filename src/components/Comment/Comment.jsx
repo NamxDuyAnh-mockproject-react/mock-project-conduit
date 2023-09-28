@@ -29,7 +29,7 @@ function Comment(props) {
   useEffect(() => {
     dispatch(fetchAllComments(slug));
   }, []);
-  console.log(comments)
+
   return (
     <div>
       <Row>
