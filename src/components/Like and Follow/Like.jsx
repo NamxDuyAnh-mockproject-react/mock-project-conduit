@@ -8,7 +8,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { toggleArticleFavorite } from "../../Store/slices/articles.slice";
 function Like({ article }) {
   const dispatch = useDispatch();
-  console.log(article)
+ 
   const handleLike = ({ slug, favorited, favoritesCount }) => {
     if (favorited === false) {
       dispatch(favoritedArticles({ slug }));

@@ -68,7 +68,7 @@ const Header = () => {
                           </span>
                           Settings
                         </NavLink>
-                        <NavLink to="/profile" className={`${styles.linkItem} my-auto`}
+                        <NavLink to={`/profile/${user.username}`} className={`${styles.linkItem} my-auto`}
                         onClick={handleNavLinkClick}>
                           <img src={user.image} alt="avatar" className={styles.avatar}/>
                           {user.username}
