@@ -25,7 +25,6 @@ function Articlesection(props) {
   let offset = (currentPage - 1) * articlesPerPage;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   useEffect(() => {
     dispatch(
       fetchArticlesByType({
@@ -37,11 +36,10 @@ function Articlesection(props) {
       })
     );
   }, [tab, currentPage, dispatch, articlesPerPage, user, tag]);
-  
+
   const handleProfileClick = (author) => {
     navigate(`/profile/${author}`);
   };
-  
   if (!articles) {
     return <p>Loading articles...</p>;
   }
@@ -49,7 +47,6 @@ function Articlesection(props) {
   if (articles.length === 0) {
     return <p>No articles found.</p>;
   }
-
 
   return (
     <>
@@ -70,11 +67,11 @@ function Articlesection(props) {
                           />
                         </Col>
                         <Col className={styles.authorDateName}>
-                          <div 
+                          <div
                             className={styles.authorName}
                             onClick={() =>
                               handleProfileClick(article.author?.username)
-                          }
+                            }
                           >
                             {article?.author.username}
                           </div>
@@ -104,11 +101,7 @@ function Articlesection(props) {
                       to={`../articles/${article.slug}`}
                       className={styles.text}
                     >
-                      <h3 className={styles.articleTitle}>
-                      {article.title.length > 70
-                      ? article.title.slice(0, 70) + "..."
-                      : article.title}
-                      </h3>
+                      <h3 className={styles.articleTitle}>{article.title}</h3>
                       <p className={styles.articleDescription}>
                         {article.description}
                       </p>

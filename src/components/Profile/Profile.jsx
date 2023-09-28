@@ -32,10 +32,11 @@ const Profile = () => {
           <Row>
           <Col className="col-xs-12 col-md-10 offset-md-1">
             <img className={styles.userImg} src={user?.image} />
-            <h3>{user.username.length > 50
+            {/* <h3>{user.username.length > 50
                     ? user.username.slice(0, 50) + "..."
                     : user.username}
-              </h3>
+              </h3> */}
+              <h3>{user.username}</h3>
             <p className={styles.textBio}>{user?.bio}</p>
 
             <Link
