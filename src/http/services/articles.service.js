@@ -139,7 +139,7 @@ class ArticlesService {
       };
     }
   };
-  deleteArticles = async ({ slug }) => {
+  deleteArticles = async ( slug ) => {
     
     try {
       const res = await conduitAxiosCredentials.delete(`/articles/${slug}`);
