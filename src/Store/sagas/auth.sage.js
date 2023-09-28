@@ -3,7 +3,7 @@ import {
   loginSuccess,
   loginFail,
   login,
-  updateUser,
+  updateUser,getProfile
 } from "../slices/auth.slice";
 import authService from "../../http/services/auth.service";
 
@@ -23,7 +23,7 @@ export function* checkLoginSaga(action) {
 export function* checkCurrentUser() {
   try {
     const data = yield call(authService.getCurrentUser);
-    console.log(data);
+   
     if (data.error) {
       yield put(loginFail(data.error));
     } else {
@@ -48,7 +48,13 @@ export function* registerUserSaga(action) {
   }
 }
 export function* updateUserSaga(action) {
-  console.log(action.payload)
+ 
   const response = yield call(authService.updateUser, action.payload);
   yield put(updateUser(response.user));
+}
+
+export function* getProfileSaga(action) {
+  const response = yield call(authService.getProfile, action.payload);
+  console.log(response)
+  yield put(getProfile(response.profile));
 }

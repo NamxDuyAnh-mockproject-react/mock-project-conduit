@@ -98,7 +98,7 @@ class ArticlesService {
     }
   };
   fetchMyArticles = async ({ offset, articlesPerPage, user }) => {
-    
+    console.log(user)
     try {
       const res = await conduitAxiosCredentials.get(
         `/articles?author=${user}&offset=${offset}&limit=${articlesPerPage}`
