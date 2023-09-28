@@ -131,6 +131,9 @@ useEffect(() => {
                   value={input.title}
                   name="title"
                   onChange={handleInput}
+                  inputProps={{
+                    maxLength: 100, 
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -142,6 +145,9 @@ useEffect(() => {
                   value={input.description}
                   name="description"
                   onChange={handleInput}
+                  inputProps={{
+                    maxLength: 150, 
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -154,6 +160,9 @@ useEffect(() => {
                   value={input.body}
                   name="body"
                   onChange={handleInput}
+                  inputProps={{
+                    maxLength: 500, 
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
