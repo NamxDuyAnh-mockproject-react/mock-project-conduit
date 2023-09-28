@@ -16,7 +16,7 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getProfile(userName));
     dispatch(setTabs("MyArticles"));
-  }, []);
+  }, [userName]);
   const user = useSelector((state) => state.auth.profile);
   const userLogin = useSelector((state) => state.auth.user);
   const isMyProfile = user.username == userLogin.username;
