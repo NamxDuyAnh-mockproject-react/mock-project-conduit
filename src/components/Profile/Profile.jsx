@@ -19,7 +19,7 @@ const Profile = () => {
   }, [userName]);
   const user = useSelector((state) => state.auth.profile);
   const userLogin = useSelector((state) => state.auth.user);
-  const isMyProfile = user.username == userLogin.username;
+  const isMyProfile = user?.username == userLogin?.username;
   const dispatch = useDispatch();
   const handleTabChange = (tab) => {
     dispatch(setTabs(tab));
