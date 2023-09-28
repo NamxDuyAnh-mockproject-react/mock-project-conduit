@@ -101,9 +101,15 @@ function Articlesection(props) {
                       to={`../articles/${article.slug}`}
                       className={styles.text}
                     >
-                      <h3 className={styles.articleTitle}>{article.title}</h3>
+                      <h3>
+                        {article.title.length > 70
+                          ? article.title.slice(0, 60) + "..."
+                          : article.title}
+                      </h3>
                       <p className={styles.articleDescription}>
-                        {article.description}
+                        {article.description.length > 70
+                          ? article.description.slice(0, 60) + "..."
+                          : article.description}
                       </p>
                       <div className={styles.articleFooter}>
                         <span className={styles.readMore}>Read more...</span>
