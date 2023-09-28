@@ -29,6 +29,7 @@ function Comment(props) {
   useEffect(() => {
     dispatch(fetchAllComments(slug));
   }, []);
+  console.log(comments)
   return (
     <div>
       <Row>
@@ -62,29 +63,7 @@ function Comment(props) {
               <Row>
                 {comments?.map((comment) => {
                   return (
-                    // <Card key={comment.id}>
-                    //   <Card.Body>
-                    //     <Card.Text>{comment.body}</Card.Text>
-                    //   </Card.Body>
-                    //   <Card.Footer>
-                    //   <Link to="/profile">
-                    //     <img src={user.image} alt="" />
-                    //     {user.username}
-                    //     </Link>
-                    //     <span>
-                    //     {comments?.createdAt
-                    //         ? new Date(comments?.createdAt).toLocaleDateString(
-                    //             "en-US",
-                    //             {
-                    //               month: "long",
-                    //               day: "numeric",
-                    //               year: "numeric",
-                    //             }
-                    //           )
-                    //         : ""}
-                    //     </span>
-                    //   </Card.Footer>
-                    // </Card>
+                
                     <Form className="card p-0" key={comment.id} style={{width:"96%", marginLeft:"12px", marginTop: "15px"}}>
                       <Card.Text className="p-3 mb-0">{comment.body}</Card.Text>
                       <Row className="p-3 d-flex align-item-center bg-light card-footer" style={{width: "100%", marginLeft:"0px"}}>
@@ -95,8 +74,8 @@ function Comment(props) {
                             
                           </Link>
                           <p>
-                          {comments?.createdAt
-                            ? new Date(comments?.createdAt).toLocaleDateString(
+                          {comment?.createdAt
+                            ? new Date(comment?.createdAt).toLocaleDateString(
                                 "en-US",
                                 {
                                 month: "long",
