@@ -2,7 +2,6 @@ import { conduitAxios, conduitAxiosCredentials } from "../axios-instance";
 
 class ArticlesService {
   fetchAllArticles = async ({ offset, articlesPerPage }) => {
-    
     try {
       const res = await conduitAxiosCredentials.get(
         `/articles?offset=${offset}&limit=${articlesPerPage}`
@@ -16,7 +15,6 @@ class ArticlesService {
     }
   };
   fetchArticlesFollow = async ({ offset, articlesPerPage }) => {
-  
     try {
       const res = await conduitAxiosCredentials.get(
         `/articles/feed?offset=${offset}&limit=${articlesPerPage}`
@@ -29,7 +27,7 @@ class ArticlesService {
       };
     }
   };
-  createArticles = async ({ articles }) => {
+  createArticles = async (articles) => {
     try {
       const config = { article: articles };
 
@@ -41,8 +39,7 @@ class ArticlesService {
       };
     }
   };
-  fetchDetailArticles = async ( slug ) => {
-  
+  fetchDetailArticles = async (slug) => {
     try {
       const res = await conduitAxios.get(`/articles/${slug}`);
 
@@ -98,7 +95,6 @@ class ArticlesService {
     }
   };
   fetchMyArticles = async ({ offset, articlesPerPage, user }) => {
-    
     try {
       const res = await conduitAxiosCredentials.get(
         `/articles?author=${user}&offset=${offset}&limit=${articlesPerPage}`
@@ -112,7 +108,6 @@ class ArticlesService {
     }
   };
   fetchFavoritedArticles = async ({ offset, articlesPerPage, user }) => {
-    
     try {
       const res = await conduitAxiosCredentials.get(
         `/articles?favorited=${user}&offset=${offset}&limit=${articlesPerPage}`
@@ -126,7 +121,6 @@ class ArticlesService {
     }
   };
   fetchTagArticles = async ({ offset, articlesPerPage, tag }) => {
-    
     try {
       const res = await conduitAxiosCredentials.get(
         `/articles?offset=${offset}&limit=${articlesPerPage}&tag=${tag}`
@@ -139,11 +133,11 @@ class ArticlesService {
       };
     }
   };
-  deleteArticles = async ({ slug }) => {
-    
+
+  deleteArticles = async (slug) => {
     try {
       const res = await conduitAxiosCredentials.delete(`/articles/${slug}`);
-      
+
       return res.data;
     } catch (error) {
       return {
@@ -151,13 +145,13 @@ class ArticlesService {
       };
     }
   };
+
   favoritedArticles = async ({ slug }) => {
-    
     try {
       const res = await conduitAxiosCredentials.post(
         `/articles/${slug}/favorite`
       );
-     
+
       return res.data;
     } catch (error) {
       return {
@@ -165,13 +159,13 @@ class ArticlesService {
       };
     }
   };
+
   unFavoritedArticles = async ({ slug }) => {
-    
     try {
       const res = await conduitAxiosCredentials.delete(
         `/articles/${slug}/favorite`
       );
-     
+
       return res.data;
     } catch (error) {
       return {
@@ -184,7 +178,10 @@ class ArticlesService {
     try {
       const config = { article: article };
 
-      const res = await conduitAxiosCredentials.put(`/articles/${article.slug}`, config);
+      const res = await conduitAxiosCredentials.put(
+        `/articles/${article.slug}`,
+        config
+      );
       return res.data;
     } catch (error) {
       return {
@@ -192,6 +189,5 @@ class ArticlesService {
       };
     }
   };
-
 }
 export default new ArticlesService();

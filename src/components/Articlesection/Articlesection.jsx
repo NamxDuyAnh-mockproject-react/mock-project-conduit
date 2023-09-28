@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../Home/styles.module.css";
 import { fetchArticlesByType } from "../../Store/actions/articles.action";
 import Like from "../Like and Follow/Like";
-import { toggleArticleFavorite } from "../../Store/slices/articles.slice";
 
 function Articlesection(props) {
   const articles = useSelector(
@@ -101,13 +100,6 @@ function Articlesection(props) {
                         </div>
                       </div>
                     </Link>
-                    {/* <Col md={6} sm={12} className={styles.favorites2}>
-                    <Like
-                    onClick={handleLikeClick}
-                    className={`favoriteButton : ${isFavorited ? 'favorited' : '' }`}
-                    article={article}></Like>
-
-                  </Col>      */}
                   </div>
                 </Row>
               </Row>

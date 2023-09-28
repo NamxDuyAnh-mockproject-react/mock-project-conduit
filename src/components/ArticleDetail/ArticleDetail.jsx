@@ -41,12 +41,12 @@ function ArticleDetail(props) {
         <Container fluid className="bg-dark text-white">
           <Container>
             <Row >
-              <Col xs={9} className=" p-5">
+              <Col xs={12} className={styles.articlDetaileHeader}>
                 <h2 className="text-uppercase fs-1 fw-bold">{article?.title}</h2>
-                <Row>
+                <Row >
                   <Col className="" xs={12}>
-                    <Row>
-                      <Col sm={6} md={6}>
+                    <Row className="p-2">
+                      <Col className={styles.userInfo} sm={12} md={6}>
                         <Row className="d-flex">
                           <Col xs={1} className="my-auto">
                             <img
@@ -75,11 +75,11 @@ function ArticleDetail(props) {
                         </Row>
                       </Col>
                       {isEdited ? (
-                        <Col className="my-auto px-0 d-flex gap-3">
+                        <Col className={`${styles.buttonGroup} my-auto px-0 d-flex gap-3`}>
                           <button
                             onClick={handleEdit}
-                            className="btn btn-outline-secondary"
-                            style={{ width: "250px" }}
+                            className={`${styles.button} btn btn-outline-success`}
+                            
                           >
                             <span>
                               <EditIcon
@@ -91,18 +91,17 @@ function ArticleDetail(props) {
                           </button>
                           <button
                             onClick={handleDelete}
-                            className="btn btn-outline-primary"
-                            style={{ width: "250px" }}
+                            className={`${styles.button} btn btn-outline-danger`}
                           >
                             <span><DeleteIcon fontSize="small" className={styles.spanIcon}/></span>
                             Delete Article
                           </button>
                         </Col>
                       ) : (
-                        <Col className="my-auto px-0 d-flex gap-3">
+                        <Col className={`${styles.buttonGroupFollow} my-auto px-0 d-flex gap-3 alig`}>
                           <button
-                            className="btn btn-outline-secondary my-auto"
-                            style={{ width: "150px" }}
+                            className={`${styles.buttonFollow} btn btn-outline-secondary`}
+
                           >
                             <span>
                               <AddIcon
@@ -113,8 +112,7 @@ function ArticleDetail(props) {
                             Follow
                           </button>
                           <button
-                            className="btn btn-outline-primary"
-                            style={{ width: "250px" }}
+                            className={`${styles.buttonFavorited} btn btn-outline-primary`}
                           >
                             <span>
                               <FavoriteIcon
@@ -122,7 +120,7 @@ function ArticleDetail(props) {
                                 className={styles.spanIcon}
                               />
                             </span>
-                            Favorited article ({article?.favoritesCount})
+                            Favorited ({article?.favoritesCount})
                           </button>
                         </Col>
                       )}
@@ -133,7 +131,7 @@ function ArticleDetail(props) {
             </Row>
             </Container>
             </Container>
-            <Container xs={9} sm={12} className="p-5">
+            <Container xs={9} sm={12} className={styles.detailArticleContent}>
               <Row>
                   <Row>
                     <p>{article?.body}</p>
@@ -163,7 +161,7 @@ function ArticleDetail(props) {
 
                         />
                       </Col>
-                      <Col className={styles.authorDateName}>
+                      <Col className={styles.authorDateName2}>
                         <div className={styles.authorName2}>
                           {article?.author.username}
                         </div>
@@ -183,10 +181,9 @@ function ArticleDetail(props) {
                     </Row>
                   </Col>
                   {isEdited ? (
-                    <Col className="  my-auto px-0 d-flex gap-3">
+                    <Col className={`${styles.buttonGroup2} my-auto px-0 d-flex gap-3`}>
                       <button
-                        className="btn btn-outline-secondary"
-                        style={{ width: "250px" }}
+                        className={`${styles.button} btn btn-outline-success`}
                       >
                         <span>
                           <EditIcon
@@ -198,29 +195,28 @@ function ArticleDetail(props) {
                       </button>
 
 
-                      <button className="btn btn-outline-primary"
-                      style={{width: "250px"}}>
+                      <button className={`${styles.button} btn btn-outline-danger`}>
                         <span><DeleteIcon fontSize="small" className={styles.spanIcon}/></span>
                         Delete Article
 
                       </button>
                     </Col>
                   ) : (
-                    <Col className="  my-auto px-0 d-flex gap-3">
-                      <button className="btn btn-outline-secondary">
+                    <Col className={`${styles.buttonGroupFollow2} my-auto px-0 d-flex gap-3`}>
+                      <button className={`${styles.buttonFollow} btn btn-outline-secondary`}>
                         <span>
                           <AddIcon fontSize="small" className={styles.spanIcon} />
                         </span>
                         Follow
                       </button>
-                      <button className="btn btn-outline-primary">
+                      <button className={`${styles.buttonFavorited} btn btn-outline-primary`}>
                         <span>
                           <FavoriteIcon
                             fontSize="small"
                             className={styles.spanIcon}
                           />
                         </span>
-                        Favorited article ({article?.favoritesCount})
+                        Favorited ({article?.favoritesCount})
                       </button>
                     </Col>
                   )}

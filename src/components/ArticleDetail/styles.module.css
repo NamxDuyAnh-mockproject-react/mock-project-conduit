@@ -1,5 +1,5 @@
 .articleDetailContainer{
-    margin-bottom: 100px;
+
 }
 .avatar{
     max-height: 35px;
@@ -21,8 +21,16 @@
 .authorDateName{
     display: flex;
     flex-direction: column;
-    margin-left: 10px;
     font-size: 0.9em;
+}
+.authorDateName2{
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9em;
+    margin-left: 20px;
+}
+.button{
+    width: 170px
 }
 .authorName2{
     color: #5CB85C;
@@ -47,4 +55,84 @@
 }
 .spanIcon{
     margin-bottom: 2px;
+}
+
+.articlDetaileHeader{
+    padding: 1.5rem;
+}
+
+
+.detailArticleContent{
+    padding: 1.5rem;
+}
+.buttonGroupFollow{
+    
+}
+.buttonFollow{
+    width: 170px;
+}
+.buttonFavorited{
+    width: 170px;
+}
+@media (max-width: 480px) {
+    .articleDetailContainer{
+        display: flex;
+        flex-direction: column;
+    }
+    .articlDetaileHeader{
+        padding: 1rem;
+    }
+    .button{
+        width: 150px;
+    }
+    .buttonGroupFollow{
+        margin-top: 15px!important;
+        justify-content: center;
+    }
+
+    .buttonGroupFollow2{
+        margin-top: 15px!important;
+    }
+
+    .buttonGroup{
+        margin-top: 15px!important;
+        justify-content: center;
+    }
+    .buttonGroup2{
+        margin-top: 15px!important;
+    }
+    .detailArticleContent{
+        padding: 1.5rem;
+    }
+    .authorDateName{
+        margin-left: 10px;
+    }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+    .buttonGroupFollow{
+        margin-top: 15px!important;
+    }
+    .buttonGroupFollow2{
+        margin-top: 15px!important;
+    }
+    .buttonGroup{
+        margin-top: 15px!important;
+    }
+    .buttonGroup2{
+        margin-top: 15px!important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1280px){
+    .authorDateName{
+        margin-left: 15px;
+    }
+    .buttonGroupFollow{
+        margin-top: 15px!important;
+    }
+
+    .buttonGroup{
+        margin-top: 15px!important;
+    }
 }
