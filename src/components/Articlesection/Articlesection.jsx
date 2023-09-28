@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Col, Container, Nav, Row } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "../Home/styles.module.css";
@@ -8,6 +8,8 @@ import { fetchArticlesByType } from "../../Store/actions/articles.action";
 import Like from "../Like and Follow/Like";
 
 function Articlesection(props) {
+  const profile = useSelector((state) => state.auth.profile);
+  const user = profile.username;
   const articles = useSelector(
     (state) => state.articles.allArticlesData?.articles
   );
@@ -16,19 +18,28 @@ function Articlesection(props) {
   );
   const tab = useSelector((state) => state.articles.tab);
   const tag = useSelector((state) => state.articles.currentTag);
-  const user = useSelector((state) => state.auth.user?.username);
+
   const [currentPage, setCurrentPage] = useState(1);
   const articlesPerPage = 10;
   const totalPages = Math.ceil(articlesCount / articlesPerPage);
   let offset = (currentPage - 1) * articlesPerPage;
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(
-      fetchArticlesByType({ type: tab, offset, articlesPerPage, user, tag })
+      fetchArticlesByType({
+        type: tab,
+        offset,
+        articlesPerPage,
+        user,
+        tag,
+      })
     );
   }, [tab, currentPage, dispatch, articlesPerPage, user, tag]);
 
+  const handleProfileClick = (author) => {
+    navigate(`/profile/${author}`);
+  };
   if (!articles) {
     return <p>Loading articles...</p>;
   }
@@ -56,7 +67,12 @@ function Articlesection(props) {
                           />
                         </Col>
                         <Col className={styles.authorDateName}>
-                          <div className={styles.authorName}>
+                          <div
+                            className={styles.authorName}
+                            onClick={() =>
+                              handleProfileClick(article.author?.username)
+                            }
+                          >
                             {article?.author.username}
                           </div>
                           <p className={styles.date}>
@@ -111,7 +127,7 @@ function Articlesection(props) {
           ))}
         </Col>
         {totalPages > 1 ? (
-          <Col md={9}>
+          <Col className="d-flex justify-content-center" md={9}>
             <ul className={`pagination ${styles.pagin}`}>
               <li
                 className={`page-item ${currentPage === 1 ? "disabled" : ""}`}
@@ -120,17 +136,40 @@ function Articlesection(props) {
                 <button className="page-link">Previous</button>
               </li>
               {/* Render page numbers */}
-              {Array.from({ length: totalPages }, (_, index) => (
-                <li
-                  key={index + 1}
-                  className={`page-item ${
-                    currentPage === index + 1 ? "active" : ""
-                  }`}
-                  onClick={() => setCurrentPage(index + 1)}
-                >
-                  <button className="page-link">{index + 1}</button>
-                </li>
-              ))}
+              {Array.from({ length: totalPages }, (_, index) => {
+                if (
+                  index + 1 === 1 ||
+                  index + 1 === currentPage ||
+                  index + 1 === currentPage - 1 ||
+                  index + 1 === currentPage + 1 ||
+                  index + 1 === totalPages
+                ) {
+                  // Render current, adjacent, first, and last page numbers
+                  return (
+                    <li
+                      key={index + 1}
+                      className={`page-item ${
+                        currentPage === index + 1 ? "active" : ""
+                      }`}
+                      onClick={() => setCurrentPage(index + 1)}
+                    >
+                      <button className="page-link">{index + 1}</button>
+                    </li>
+                  );
+                } else if (
+                  (index + 1 === currentPage - 2 && currentPage > 3) ||
+                  (index + 1 === currentPage + 2 &&
+                    currentPage < totalPages - 2)
+                ) {
+                  // Render ellipsis before and after the current page
+                  return (
+                    <li key={index + 1} className="page-item disabled">
+                      <button className="page-link">...</button>
+                    </li>
+                  );
+                }
+                return null;
+              })}
               <li
                 className={`page-item ${
                   currentPage === totalPages ? "disabled" : ""
@@ -141,9 +180,7 @@ function Articlesection(props) {
               </li>
             </ul>
           </Col>
-        ) : (
-          ""
-        )}
+        ) : null}
       </Container>
     </>
   );

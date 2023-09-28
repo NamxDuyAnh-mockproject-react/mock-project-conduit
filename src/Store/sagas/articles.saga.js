@@ -11,6 +11,7 @@ import articlesService from "../../http/services/articles.service";
 
 export function* createArticleSaga(action) {
   const response = yield call(articlesService.createArticles, action.payload);
+  console.log(response)
   const url = `../articles/${response.article.slug}`;
 
   yield put(setCreateArticles(response));
@@ -41,13 +42,14 @@ export function* fetchArticlesByTypeSaga(action) {
   let type = action.payload.type;
  
   let response;
-
+  console.log(action.payload)
   if (type === "all") {
     response = yield call(articlesService.fetchAllArticles, action.payload);
   } else if (type === "follow") {
     response = yield call(articlesService.fetchArticlesFollow, action.payload);
   } else if (type === "MyArticles") {
     response = yield call(articlesService.fetchMyArticles, action.payload);
+    
   } else if (type === "Favorited") {
     response = yield call(
       articlesService.fetchFavoritedArticles,

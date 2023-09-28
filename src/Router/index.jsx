@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import {React} from "react";
+import { React } from "react";
 
 import { Navigate } from "react-router-dom";
 const router = createBrowserRouter([
@@ -7,9 +7,9 @@ const router = createBrowserRouter([
     path: "/",
     lazy: async () => {
       const Header = await import("../components/Header/Header");
-      return{
+      return {
         Component: Header.default,
-      }
+      };
     },
     children: [
       {
@@ -28,7 +28,9 @@ const router = createBrowserRouter([
       {
         path: "articles/:slug",
         lazy: async () => {
-          const ArticleDetail = await import("../components/ArticleDetail/ArticleDetail");
+          const ArticleDetail = await import(
+            "../components/ArticleDetail/ArticleDetail"
+          );
           return {
             Component: ArticleDetail.default,
           };
@@ -68,7 +70,9 @@ const router = createBrowserRouter([
       {
         path: "new-article",
         lazy: async () => {
-          const CreateArticle = await import("../components/CreateArticle/CreateArticle");
+          const CreateArticle = await import(
+            "../components/CreateArticle/CreateArticle"
+          );
           return {
             Component: CreateArticle.default,
           };
@@ -86,7 +90,7 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "profile",
+        path: "profile/:userName",
         lazy: async () => {
           const Profile = await import("../components/Profile/Profile");
           return {
@@ -98,13 +102,14 @@ const router = createBrowserRouter([
       {
         path: "new-article/:slug",
         lazy: async () => {
-          const CreateArticle = await import("../components/ArticleDetail/ArticleDetail");
+          const CreateArticle = await import(
+            "../components/CreateArticle/CreateArticle"
+          );
           return {
             Component: CreateArticle.default,
           };
         },
       },
-
     ],
   },
 ]);

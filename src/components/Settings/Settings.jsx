@@ -15,30 +15,33 @@ import { logout } from "../../Store/slices/auth.slice";
 import { updateUser } from "../../Store/actions/auth.action";
 import { useNavigate } from "react-router-dom";
 function SettingsPage() {
-
-
-    const { user } = useSelector((state) => state.auth);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const [formData, setFormData] = useState({
-        image: user?.image||"",
-        username: user?.username||"",
-        email: user?.email||"",
-        bio: user?.bio||"",
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/register");
+    }
+  }, []);
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    image: user?.image || "",
+    username: user?.username || "",
+    email: user?.email || "",
+    bio: user?.bio || "",
+    password: "",
+  });
+  useEffect(
+    () =>
+      setFormData({
+        image: user?.image || "",
+        username: user?.username || "",
+        email: user?.email || "",
+        bio: user?.bio || "",
         password: "",
-      });
-      useEffect(
-        () =>
-          setFormData({
-            image: user?.image||"",
-            username: user?.username||"",
-            email: user?.email||"",
-            bio: user?.bio||"",
-            password: "",
-          }),
-        [user]
-      );
-    
+      }),
+    [user]
+  );
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -59,10 +62,10 @@ function SettingsPage() {
   };
 
   return (
-    <Container maxWidth="md" sx={{ mt: 5 }} style={{marginBottom:"100px"}}>
+    <Container maxWidth="md" sx={{ mt: 5 }} style={{ marginBottom: "100px" }}>
       <Card>
         <CardContent>
-          <Typography variant="h4" align="center" gutterBottom sx={{mb: 5}}>
+          <Typography variant="h4" align="center" gutterBottom sx={{ mb: 5 }}>
             Your Settings
           </Typography>
 

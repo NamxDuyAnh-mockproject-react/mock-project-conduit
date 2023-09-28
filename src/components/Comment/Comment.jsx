@@ -29,6 +29,7 @@ function Comment(props) {
   useEffect(() => {
     dispatch(fetchAllComments(slug));
   }, []);
+
   return (
     <div>
       <Row>

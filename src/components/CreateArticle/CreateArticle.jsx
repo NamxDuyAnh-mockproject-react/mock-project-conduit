@@ -19,6 +19,7 @@ import {
 import styles from "./styles.module.css";
 import ClearIcon from "@mui/icons-material/Clear";
 function CreateArticle() {
+  const {isLoggedIn} =useSelector(state =>state.auth)
   const { slug } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,7 +33,12 @@ function CreateArticle() {
     body: "",
     tagList: [],
   });
-
+useEffect(() => {
+  if(!isLoggedIn){
+    navigate('/register')
+  }
+},[]
+)
   useEffect(() => {
     if (slug) {
       dispatch(fetchDetailArticles(slug));
@@ -40,7 +46,7 @@ function CreateArticle() {
   }, [dispatch, slug]);
 
   useEffect(() => {
-    if (article) {
+    if (slug) {
       setInput({
         title: article.title,
         description: article.description,
@@ -48,7 +54,7 @@ function CreateArticle() {
         tagList: article.tagList,
       });
     }
-  }, [article]);
+  }, [slug,article]);
 
   useEffect(() => {
     if (redirectUrl) {
@@ -85,6 +91,12 @@ function CreateArticle() {
       };
       dispatch(createArticles(newArticle));
     }
+    setInput({
+      title: "",
+      description: "",
+      body: "",
+      tagList: [],
+    });
   };
   const handleAddTag = (event) => {
     event.preventDefault();
@@ -102,10 +114,8 @@ function CreateArticle() {
     });
   };
   return (
-
     <Container className={styles.createArticleContainer}>
       <Card sx={{ mt: 5 }}>
-
         <CardContent>
           <Typography variant="h4" align="center" gutterBottom>
             {slug ? "Edit Article" : "Create Article"}
