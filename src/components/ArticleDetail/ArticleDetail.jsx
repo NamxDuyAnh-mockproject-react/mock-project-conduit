@@ -17,6 +17,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import Follow from "../Like and Follow/Follow";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import ReactMarkdown from 'react-markdown';
 function ArticleDetail(props) {
   const { slug } = useParams();
   const dispatch = useDispatch();
@@ -158,7 +159,8 @@ function ArticleDetail(props) {
         <Container xs={9} sm={12} className={styles.detailArticleContent}>
           <Row>
             <Row>
-              <p>{article?.body}</p>
+           
+              <p><ReactMarkdown>{article?.body}</ReactMarkdown></p>
               <Row>
                 <div className={styles.tagList}>
                   {article?.tagList.map((tag, index) => (
