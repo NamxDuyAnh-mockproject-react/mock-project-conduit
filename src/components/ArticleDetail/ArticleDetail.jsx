@@ -17,7 +17,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import Follow from "../Like and Follow/Follow";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from "react-markdown";
 function ArticleDetail(props) {
   const { slug } = useParams();
   const dispatch = useDispatch();
@@ -40,9 +40,9 @@ function ArticleDetail(props) {
   const handleProfileClick = (author) => {
     navigate(`/profile/${author}`);
   };
-  if (!article) {
-    return  <Skeleton count={50}/>;
-  }
+  // if (!article) {
+  //   return  <Skeleton count={50}/>;
+  // }
   return (
     <>
       <div className={styles.articleDetailContainer}>
@@ -51,7 +51,7 @@ function ArticleDetail(props) {
             <Row>
               <Col xs={12} className={styles.articlDetaileHeader}>
                 <h2 className="text-uppercase fs-1 fw-bold">
-                  {article?.title}
+                  {article?.title || <Skeleton />}
                 </h2>
                 <Row>
                   <Col className="" xs={12}>
@@ -71,23 +71,26 @@ function ArticleDetail(props) {
                                 alt="avatar"
                               />
                             ) : (
-                              <Skeleton />
+                              <Skeleton circle />
                             )}
                           </Col>
                           <Col className={styles.authorDateName}>
                             <div className={styles.authorName}>
-                              {article?.author.username}
+                              {article?.author.username || <Skeleton />}
                             </div>
                             <p className={styles.date}>
-                              {article?.createdAt
-                                ? new Date(
-                                    article?.createdAt
-                                  ).toLocaleDateString("en-US", {
+                              {article?.createdAt ? (
+                                new Date(article?.createdAt).toLocaleDateString(
+                                  "en-US",
+                                  {
                                     month: "long",
                                     day: "numeric",
                                     year: "numeric",
-                                  })
-                                : ""}
+                                  }
+                                )
+                              ) : (
+                                <Skeleton />
+                              )}
                             </p>
                           </Col>
                         </Row>
@@ -159,8 +162,13 @@ function ArticleDetail(props) {
         <Container xs={9} sm={12} className={styles.detailArticleContent}>
           <Row>
             <Row>
-           
-              <p><ReactMarkdown>{article?.body}</ReactMarkdown></p>
+              <p>
+                {article?.body ? (
+                  <ReactMarkdown>{article?.body}</ReactMarkdown>
+                ) : (
+                  <Skeleton count={10} />
+                )}
+              </p>
               <Row>
                 <div className={styles.tagList}>
                   {article?.tagList.map((tag, index) => (
