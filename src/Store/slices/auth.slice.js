@@ -6,6 +6,7 @@ const initialState = {
   loading: false,
   isLoggedIn: false,
   profile: {},
+  redirectUrl: "",
 };
 
 const authSlice = createSlice({
@@ -36,9 +37,13 @@ const authSlice = createSlice({
       state.error = action.payload;
     },
     getProfile: (state, action) => {
-      
       state.profile = action.payload;
-
+    },
+    setRedirect(state, action) {
+      state.redirectUrl = action.payload;
+    },
+    clearRedirect(state) {
+      state.redirectUrl = null;
     },
   },
 });
@@ -50,5 +55,7 @@ export const {
   logout,
   updateUser,
   getProfile,
+  setRedirect,
+  clearRedirect,
 } = authSlice.actions;
 export default authSlice.reducer;

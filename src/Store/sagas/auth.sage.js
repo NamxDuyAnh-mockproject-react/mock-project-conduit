@@ -3,7 +3,7 @@ import {
   loginSuccess,
   loginFail,
   login,
-  updateUser,getProfile
+  updateUser,getProfile,setRedirect
 } from "../slices/auth.slice";
 import authService from "../../http/services/auth.service";
 
@@ -50,6 +50,9 @@ export function* registerUserSaga(action) {
 export function* updateUserSaga(action) {
  
   const response = yield call(authService.updateUser, action.payload);
+  const url = `/profile/${response.user?.username}`;
+
+  yield put(setRedirect(url));
   yield put(updateUser(response.user));
 }
 
