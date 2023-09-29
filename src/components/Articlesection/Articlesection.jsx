@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "../Home/styles.module.css";
 import { fetchArticlesByType } from "../../Store/actions/articles.action";
 import Like from "../Like and Follow/Like";
-
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 function Articlesection(props) {
   const profile = useSelector((state) => state.auth.profile);
   const user = profile.username;
@@ -41,7 +42,7 @@ function Articlesection(props) {
     navigate(`/profile/${author}`);
   };
   if (!articles) {
-    return <p>Loading articles...</p>;
+    return  <Skeleton count={50}/>;
   }
 
   if (articles.length === 0) {
@@ -102,11 +103,11 @@ function Articlesection(props) {
                       className={styles.text}
                     >
 
-                      <h3 className={styles.articleTitle}
+                     { <h3 className={styles.articleTitle}
                       >{article.title.length > 70
                         ? article.title.slice(0, 70) + "..."
                         : article.title}
-                      </h3> 
+                      </h3>||<Skeleton count={10}/> }
                       {/* <h3 className={styles.articleTitle}>
                         {article.title}
                         </h3> */}

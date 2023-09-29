@@ -11,8 +11,9 @@ import {
   Divider,
 } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../Store/slices/auth.slice";
+import { logout,clearRedirect } from "../../Store/slices/auth.slice";
 import { updateUser } from "../../Store/actions/auth.action";
+
 import { useNavigate } from "react-router-dom";
 function SettingsPage() {
   const { isLoggedIn } = useSelector((state) => state.auth);
@@ -21,7 +22,8 @@ function SettingsPage() {
       navigate("/register");
     }
   }, []);
-  const { user } = useSelector((state) => state.auth);
+
+  const { user, redirectUrl } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -60,7 +62,12 @@ function SettingsPage() {
     dispatch(logout());
     navigate("/home");
   };
-
+  useEffect(() => {
+    if (redirectUrl) {
+      navigate(redirectUrl);
+      dispatch(clearRedirect());
+    }
+  }, [redirectUrl, navigate, dispatch]);
   return (
     <Container maxWidth="md" sx={{ mt: 5 }} style={{ marginBottom: "100px" }}>
       <Card>
