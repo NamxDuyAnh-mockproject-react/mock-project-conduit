@@ -4,15 +4,22 @@ import { Col, Container } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 function TagDetail(props) {
   const [data, setData] = useState();
+
+ 
   useEffect(() => {
+    if (!data) {
+      return  <Skeleton count={5}/>;
+    }
     const fetchTestData = async () => {
       try {
         const res = await axios.get(
           "https://node-express-conduit.appspot.com/api/articles?tag=tets&limit=20&offset=0"
         );
-        console.log(data);
+        
         setData(res.data.articles);
       } catch (error) {
         console.log(error);
@@ -20,6 +27,7 @@ function TagDetail(props) {
     };
     fetchTestData();
   }, []);
+
   return (
     <Container>
       <Col>
