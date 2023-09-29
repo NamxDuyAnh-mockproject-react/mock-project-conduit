@@ -63,7 +63,7 @@
 
 
 .detailArticleContent{
-    padding: 1.5rem;
+    padding: 2.5rem;
 }
 .buttonGroupFollow{
     
@@ -124,7 +124,7 @@
     }
 }
 
-@media (min-width: 768px) and (max-width: 1280px){
+@media (min-width: 768px) and (max-width: 993px){
     .authorDateName{
         margin-left: 15px;
     }
