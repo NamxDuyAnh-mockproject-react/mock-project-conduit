@@ -42,7 +42,7 @@ export function* fetchArticlesByTypeSaga(action) {
   let type = action.payload.type;
  
   let response;
-  console.log(action.payload)
+  
   if (type === "all") {
     response = yield call(articlesService.fetchAllArticles, action.payload);
   } else if (type === "follow") {
@@ -83,4 +83,9 @@ export function* updateArticleSaga(action) {
 
   
   yield put(setRedirect(url));
+}
+
+export function* deleteCommentsSaga(action) {
+  yield call(articlesService.deleteComment, action.payload);
+  yield put(fetchAllComments(action.payload.slug));
 }

@@ -41,7 +41,7 @@ class authService {
   getCurrentUser = async () => {
     try {
       const response = await conduitAxiosCredentials.get("user");
-      
+
       return response.data;
     } catch (error) {
       return {
@@ -53,7 +53,6 @@ class authService {
   updateUser = async (formData) => {
     const data = { user: formData };
     try {
-
       const response = await conduitAxiosCredentials.put("user", data);
 
       return response.data;
@@ -64,10 +63,37 @@ class authService {
     }
   };
   getProfile = async (username) => {
-   
     try {
-      const response = await conduitAxios.get(`profiles/${username}`);
-      
+      const response = await conduitAxiosCredentials.get(
+        `profiles/${username}`
+      );
+
+      return response.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
+  follow = async (username) => {
+    try {
+      const response = await conduitAxiosCredentials.post(
+        `profiles/${username}/follow`
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      return {
+        error: error,
+      };
+    }
+  };
+  unfollow = async (username) => {
+    try {
+      const response = await conduitAxiosCredentials.delete(
+        `profiles/${username}/follow`
+      );
+     
       return response.data;
     } catch (error) {
       return {

@@ -45,6 +45,9 @@ const authSlice = createSlice({
     clearRedirect(state) {
       state.redirectUrl = null;
     },
+    setFollow(state, action) {
+      return { ...state, following: action.payload };
+    },
   },
 });
 
@@ -56,6 +59,6 @@ export const {
   updateUser,
   getProfile,
   setRedirect,
-  clearRedirect,
+  clearRedirect,setFollow
 } = authSlice.actions;
 export default authSlice.reducer;

@@ -5,7 +5,10 @@ import {
   unfavoritedArticles,
 } from "../../Store/actions/articles.action";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { toggleArticleFavorite } from "../../Store/slices/articles.slice";
+import {
+  toggleArticleFavorite,
+  toggleDetailFavorited,
+} from "../../Store/slices/articles.slice";
 import { useNavigate } from "react-router-dom";
 function Like({ article }) {
   const navigate = useNavigate();
@@ -13,28 +16,26 @@ function Like({ article }) {
 
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-  const handleLike = ({ slug, favorited, favoritesCount }) => {
-    if(isLoggedIn===true){
+  const handleLike = ({ slug, favorited }) => {
+    if (isLoggedIn === true) {
       if (favorited === false) {
         dispatch(favoritedArticles({ slug }));
         dispatch(toggleArticleFavorite({ slug, favorited: !favorited }));
+        dispatch(toggleDetailFavorited({ slug, favorited: !favorited }));
       } else if (favorited === true) {
         dispatch(unfavoritedArticles({ slug }));
         dispatch(toggleArticleFavorite({ slug, favorited: !favorited }));
+        dispatch(toggleDetailFavorited({ slug, favorited: !favorited }));
       }
-    }else{
-      navigate("../login")
+    } else {
+      navigate("../login");
     }
-    
-    
   };
-
+  
   return (
     <button
       onClick={() => handleLike(article)}
-      className={`${
-        article.favorited ? "btn btn-success" : "btn  btn-light"
-      }`}
+      className={`${article?.favorited ? "btn btn-success" : "btn  btn-light"}`}
     >
       <span>
         <FavoriteIcon />
