@@ -17,7 +17,8 @@ import EditIcon from "@mui/icons-material/Edit";
 import Follow from "../Like and Follow/Follow";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import ReactMarkdown from "react-markdown";
+import { getProfile } from "../../Store/actions/auth.action";
+import Like from "../Like and Follow/Like";
 function ArticleDetail(props) {
   const { slug } = useParams();
   const dispatch = useDispatch();
@@ -26,10 +27,16 @@ function ArticleDetail(props) {
   const { article } = useSelector((state) => state.articles.detailArticle);
   const author = article?.author?.username;
   const isEdited = user?.username === author;
+
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchDetailArticles(slug));
-  }, []);
+    if (author) {
+      dispatch(getProfile(author));
+    }
+  }, [author]);
+  const authorToRender = useSelector((state) => state.auth?.profile);
+  
   const handleEdit = () => {
     navigate(`/new-article/${slug}`);
   };
@@ -64,9 +71,9 @@ function ArticleDetail(props) {
                           }
                         >
                           <Col xs={1} className="my-auto">
-                            {article?.author.image ? (
+                            {article?.author?.image ? (
                               <img
-                                src={article?.author.image}
+                                src={article?.author?.image}
                                 className={styles.avatar}
                                 alt="avatar"
                               />
@@ -128,28 +135,12 @@ function ArticleDetail(props) {
                         <Col
                           className={`${styles.buttonGroupFollow} my-auto px-0 d-flex gap-3 alig`}
                         >
-                          <button
+                          <Follow
                             className={`${styles.buttonFollow} btn btn-outline-secondary`}
-                          >
-                            <span>
-                              <AddIcon
-                                fontSize="small"
-                                className={styles.spanIcon}
-                              />
-                            </span>
-                            Follow
-                          </button>
-                          <button
-                            className={`${styles.buttonFavorited} btn btn-outline-primary`}
-                          >
-                            <span>
-                              <FavoriteIcon
-                                fontSize="small"
-                                className={styles.spanIcon}
-                              />
-                            </span>
-                            Favorited ({article?.favoritesCount})
-                          </button>
+                            author={authorToRender}
+                          />
+
+                          <Like article={article} />
                         </Col>
                       )}
                     </Row>
@@ -162,13 +153,7 @@ function ArticleDetail(props) {
         <Container xs={9} sm={12} className={styles.detailArticleContent}>
           <Row>
             <Row>
-              <p>
-                {article?.body ? (
-                  <ReactMarkdown>{article?.body}</ReactMarkdown>
-                ) : (
-                  <Skeleton count={10} />
-                )}
-              </p>
+              <p>{article?.body ? article?.body : <Skeleton count={10} />}</p>
               <Row>
                 <div className={styles.tagList}>
                   {article?.tagList.map((tag, index) => (
@@ -226,6 +211,7 @@ function ArticleDetail(props) {
                   className={`${styles.buttonGroup2} my-auto px-0 d-flex gap-3`}
                 >
                   <button
+                    onClick={handleEdit}
                     className={`${styles.button} btn btn-outline-success`}
                   >
                     <span>
@@ -234,7 +220,10 @@ function ArticleDetail(props) {
                     Edit Article
                   </button>
 
-                  <button className={`${styles.button} btn btn-outline-danger`}>
+                  <button
+                    onClick={handleDelete}
+                    className={`${styles.button} btn btn-outline-danger`}
+                  >
                     <span>
                       <DeleteIcon
                         fontSize="small"
@@ -248,25 +237,11 @@ function ArticleDetail(props) {
                 <Col
                   className={`${styles.buttonGroupFollow2} my-auto px-0 d-flex gap-3`}
                 >
-                  <button
+                  <Follow
                     className={`${styles.buttonFollow} btn btn-outline-secondary`}
-                  >
-                    <span>
-                      <AddIcon fontSize="small" className={styles.spanIcon} />
-                    </span>
-                    Follow
-                  </button>
-                  <button
-                    className={`${styles.buttonFavorited} btn btn-outline-primary`}
-                  >
-                    <span>
-                      <FavoriteIcon
-                        fontSize="small"
-                        className={styles.spanIcon}
-                      />
-                    </span>
-                    Favorited ({article?.favoritesCount})
-                  </button>
+                    author={authorToRender}
+                  />
+                  <Like className={styles.favorites} article={article} />
                 </Col>
               )}
             </Row>

@@ -1,4 +1,4 @@
-import { createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const articlesSlice = createSlice({
   name: "articles",
@@ -50,7 +50,7 @@ const articlesSlice = createSlice({
             ...state.allArticlesData,
             articles: state.allArticlesData.articles.map((article, index) => {
               if (index === articleIndex) {
-                console.log(favorited)
+                console.log(favorited);
                 return {
                   ...article,
                   favorited: favorited,
@@ -65,7 +65,51 @@ const articlesSlice = createSlice({
 
       return state;
     },
+    toggleFollow(state, action) {
+      const { slug, follow } = action.payload;
 
+      const articleIndex = state.allArticlesData.articles.findIndex(
+        (article) => article.slug === slug
+      );
+
+      if (articleIndex !== -1) {
+        return {
+          ...state,
+          allArticlesData: {
+            ...state.allArticlesData,
+            articles: state.allArticlesData.articles.map((article, index) => {
+              if (index === articleIndex) {
+                return {
+                  ...article.author,
+                  following: follow,
+                };
+              }
+              
+              return article;
+            }),
+          },
+        };
+      }
+
+      return state;
+    },
+
+    toggleDetailFavorited(state, action) {
+      const { favorited } = action.payload;
+
+      return {
+        ...state,
+        detailArticle: {
+          ...state.detailArticle,
+          article: {
+            ...state.detailArticle.article,
+            favorited: favorited,
+            favoritesCount:
+              state.detailArticle.article?.favoritesCount + (favorited ? 1 : -1),
+          },
+        },
+      };
+    },
   },
 });
 
@@ -79,6 +123,8 @@ export const {
   clearRedirect,
   setCurrentTag,
   toggleArticleFavorite,
+  toggleFollow,
+  toggleDetailFavorited,
 } = articlesSlice.actions;
 
 export default articlesSlice.reducer;

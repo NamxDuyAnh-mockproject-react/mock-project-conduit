@@ -3,6 +3,8 @@ import {
   getCurrentUser,
   updateUser,
   getProfile,
+  follow,
+  unFollow,
 } from "../actions/auth.action";
 import {
   checkCurrentUser,
@@ -10,6 +12,8 @@ import {
   registerUserSaga,
   updateUserSaga,
   getProfileSaga,
+  followUser,
+  unfollowUser,
 } from "../sagas/auth.sage";
 import { createUser } from "../actions/auth.action";
 
@@ -23,6 +27,7 @@ import {
   favoritedArticlesSaga,
   unFavoritedArticlesSaga,
   updateArticleSaga,
+  deleteCommentsSaga,
 } from "./articles.saga";
 import { all, takeEvery, takeLatest } from "redux-saga/effects";
 import {
@@ -35,6 +40,7 @@ import {
   favoritedArticles,
   unfavoritedArticles,
   updateArticle,
+  deleteComment,
 } from "../actions/articles.action";
 import { fetchTagSaga } from "./tag.saga";
 import { fetchAllTag } from "../actions/tag.actions";
@@ -55,5 +61,8 @@ export function* rootSaga() {
     takeEvery(unfavoritedArticles, unFavoritedArticlesSaga),
     takeEvery(updateArticle, updateArticleSaga),
     takeEvery(getProfile, getProfileSaga),
+    takeEvery(follow, followUser),
+    takeEvery(unFollow, unfollowUser),
+    takeEvery(deleteComment, deleteCommentsSaga),
   ]);
 }
