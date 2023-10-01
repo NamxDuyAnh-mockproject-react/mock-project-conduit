@@ -2,6 +2,10 @@ body{
     font-size: 1em!important;
     
 }
+#root{
+    overflow: hidden;
+}
+
 @media (max-width: 768px) {
 
     .tagsComponent{
