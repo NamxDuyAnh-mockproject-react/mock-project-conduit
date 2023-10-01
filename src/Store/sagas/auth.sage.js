@@ -3,7 +3,9 @@ import {
   loginSuccess,
   loginFail,
   login,
-  updateUser,getProfile,setRedirect
+  updateUser,
+  getProfile,
+  setRedirect,
 } from "../slices/auth.slice";
 import authService from "../../http/services/auth.service";
 
@@ -23,7 +25,7 @@ export function* checkLoginSaga(action) {
 export function* checkCurrentUser() {
   try {
     const data = yield call(authService.getCurrentUser);
-   
+
     if (data.error) {
       yield put(loginFail(data.error));
     } else {
@@ -48,7 +50,6 @@ export function* registerUserSaga(action) {
   }
 }
 export function* updateUserSaga(action) {
- 
   const response = yield call(authService.updateUser, action.payload);
   const url = `/profile/${response.user?.username}`;
 
@@ -58,6 +59,16 @@ export function* updateUserSaga(action) {
 
 export function* getProfileSaga(action) {
   const response = yield call(authService.getProfile, action.payload);
-  console.log(response)
+
+  yield put(getProfile(response.profile));
+}
+
+export function* followUser(action) {
+  const response = yield call(authService.follow, action.payload);
+  yield put(getProfile(response.profile));
+}
+
+export function* unfollowUser(action) {
+  const response = yield call(authService.unfollow, action.payload);
   yield put(getProfile(response.profile));
 }

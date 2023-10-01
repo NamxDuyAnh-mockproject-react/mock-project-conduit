@@ -40,8 +40,9 @@ class ArticlesService {
     }
   };
   fetchDetailArticles = async (slug) => {
+    
     try {
-      const res = await conduitAxios.get(`/articles/${slug}`);
+      const res = await conduitAxiosCredentials.get(`/articles/${slug}`);
 
       return res.data;
     } catch (error) {
@@ -92,6 +93,19 @@ class ArticlesService {
       return {
         error: error,
       };
+    }
+  };
+  deleteComment = async ({ slug, id }) => {
+    try {
+      
+      console.log(slug)
+      const res = await conduitAxiosCredentials.delete(
+        `/articles/${slug.slug}/comments/${id}`
+      );
+
+      return res;
+    } catch (error) {
+      console.log(error);
     }
   };
   fetchMyArticles = async ({ offset, articlesPerPage, user }) => {

@@ -62,7 +62,7 @@ function Articlesection(props) {
                       <Row className="d-flex">
                         <Col xs={1} className="my-auto">
                           <img
-                            src={article?.author.image}
+                            src={article?.author?.image}
                             className={styles.avatar}
                             alt="avatar"
                           />
@@ -74,7 +74,7 @@ function Articlesection(props) {
                               handleProfileClick(article.author?.username)
                             }
                           >
-                            {article?.author.username}
+                            {article?.author?.username}
                           </div>
                           <p className={styles.date}>
                             {article?.createdAt
@@ -104,7 +104,7 @@ function Articlesection(props) {
                     >
 
                      { <h3 className={styles.articleTitle}
-                      >{article.title.length > 70
+                      >{article?.title?.length > 70
                         ? article.title.slice(0, 70) + "..."
                         : article.title}
                       </h3>||<Skeleton count={10}/> }
@@ -113,8 +113,8 @@ function Articlesection(props) {
                         </h3> */}
 
                       <p className={styles.articleDescription}>
-                        {article.description.length > 70
-                          ? article.description.slice(0, 0) + "..."
+                        {article?.description?.length > 70
+                          ? article.description.slice(0, 70) + "..."
                           : article.description}
                       </p>
                       <div className={styles.articleFooter}>
